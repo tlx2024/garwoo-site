@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { href } from '../../lib/url';
+import Icon from '../../components/Icon.astro';
+---
+<Base title="文档" description="格物文档：快速开始、模型配置、内测说明、常见问题和企业部署。" page="docs">
+<main>
+  <div class="wrap hero center" style="padding-bottom:48px">
+    <h1>文档</h1>
+    <p class="lede">从装好到用起来，需要的都在这五篇里。</p>
+  </div>
+  <div class="wrap">
+    
+    <div class="grid g3">
+      <a class="card hover" href={href('/docs/quickstart/')}><div class="ic blue"><Icon name="spark" size={18} /></div><h3>快速开始</h3><p>装好之后第一天怎么用：建项目、放文件、提问、采纳。</p></a>
+      <a class="card hover" href={href('/docs/models/')}><div class="ic blue"><Icon name="cpu" size={18} /></div><h3>模型配置</h3><p>官方 AI，或接 OpenAI 兼容地址、本机 Ollama。</p></a>
+      <a class="card hover" href={href('/docs/trial/')}><div class="ic blue"><Icon name="book" size={18} /></div><h3>内测说明</h3><p>本机资料、账号与积分、出网同意，以及当前的发布状态。</p></a>
+      <a class="card hover" href={href('/docs/faq/')}><div class="ic blue"><Icon name="quote" size={18} /></div><h3>常见问题</h3><p>费用、联网、数据放在哪里。</p></a>
+      <a class="card hover" href={href('/enterprise/')}><div class="ic blue"><Icon name="building" size={18} /></div><h3>企业部署</h3><p>私有化交付的组件、交付物与安装步骤。</p></a>
+      <a class="card hover" href={href('/egress/')}><div class="ic"><Icon name="shield" size={18} /></div><h3>出网清单</h3><p>逐条列出什么会发出去。</p></a>
+    </div>
+  </div>
+  <div class="final">
+    <svg class="mascot"><use href="#garwoo"/></svg>
+    <h2>没找到想看的？</h2>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/how/')}>看工作方式</a><a class="btn btn-lg" href={href('/enterprise/#contact')}>联系我们</a></div>
+  </div>
+</main>
+</Base>

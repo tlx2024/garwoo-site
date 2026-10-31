@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import { RELEASES } from '../data/changelog';
+---
+<Base title="更新日志" description="格物每个发行版本的更新说明：新增、改进、修复和升级注意。目前只有 0.2.0。" page="changelog">
+<style is:global>
+.rel{display:grid;grid-template-columns:180px minmax(0,1fr);gap:32px}
+.rel .v{position:sticky;top:96px;align-self:start}
+.rel .v b{font-size:28px;letter-spacing:-.02em;display:block}
+.rel .v span{font-size:14px;color:var(--muted)}
+.rel .body{padding:32px}
+.rel h3{font-size:14px;color:var(--primary);font-weight:600;margin:28px 0 8px}
+.rel h3:first-child{margin-top:0}
+.rel ul{margin:0;padding-left:18px;line-height:2;color:var(--ink-soft);font-size:15px}
+.rel .note{margin-top:28px;padding:14px 16px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);font-size:14px;color:var(--ink-soft);line-height:1.8}
+@media (max-width:760px){.rel{grid-template-columns:1fr;gap:12px}.rel .v{position:static}.rel .body{padding:20px}}
+</style>
+<main>
+  <div class="wrap hero center" style="padding-bottom:48px">
+    <h1>更新日志</h1>
+    <p class="lede">只列发行版本，只写你能感知到的变化。</p>
+  </div>
+
+  <div class="wrap">
+    
+    {RELEASES.map((r) => (
+      <section class="rel" id={`v${r.version}`}>
+        <div class="v"><b>{r.version}</b><span>{r.date} · {r.platform} · {r.status}</span></div>
+        <article class="card body">
+          {r.sections.map((g) => (
+            <>
+              <h3>{g.title}</h3>
+              <ul>{g.items.map((item) => <li>{item}</li>)}</ul>
+            </>
+          ))}
+          <p class="note">出网行为见<a class="link" href={href('/egress/')} style="display:inline">出网清单</a>。</p>
+        </article>
+      </section>
+    ))}
+  </div>
+
+  <div class="final">
+    <svg class="mascot"><use href="#garwoo"/></svg>
+    <h2>下一版发布时，这里会多一行。</h2>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a></div>
+  </div>
+</main>
+</Base>

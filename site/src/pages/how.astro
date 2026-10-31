@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import Icon from '../components/Icon.astro';
+---
+<Base title="工作方式" description="格物怎么工作：项目是一个文件夹，本体定方向，五层知识库把资料整理成能追问的知识，每一步都有出处和确认。" page="how">
+<style is:global>
+.how-nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+.how-nav a{display:inline-flex;align-items:center;height:32px;padding:0 14px;border:1px solid var(--line);border-radius:999px;font-size:14px;color:var(--ink-soft);background:var(--panel)}
+.how-nav a:hover{border-color:var(--primary);color:var(--primary)}
+.feature .ft .num{font-size:13px;font-weight:600;color:var(--primary)}
+.layers{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.layers li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.layers .n{width:28px;height:28px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:13px;font-weight:600}
+.layers b{display:block;font-size:15px;line-height:1.4}
+.layers span.d{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.tree{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;line-height:2;color:var(--ink-soft);margin:0;white-space:pre}
+.tree .k{color:var(--faint)}
+.rule .n{font-size:13px;font-weight:600;color:var(--primary)}
+.rule h3{margin-top:6px}
+</style>
+<main>
+  <div class="wrap hero center" style="padding-bottom:24px">
+    <h1>工作方式</h1>
+    <p class="lede">项目是一个文件夹，本体定方向，知识朝它汇聚。</p>
+    <nav class="how-nav" aria-label="本页目录">
+      <a href="#project">项目与文件夹</a><a href="#ontology">本体</a><a href="#knowledge">五层知识库</a><a href="#evidence">出处与确认</a><a href="#rules">五条规矩</a>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    
+    <section class="feature reveal" id="project">
+      <div class="ft">
+        <span class="num">01</span>
+        <h2>项目就是你电脑上的文件夹</h2>
+        <p>文件留在原处，格物在旁边建索引、本体和 Wiki。对话、智能体和日程都属于某个项目，只在这个项目的范围里查、写。</p>
+      </div>
+      <div class="fv">
+        <div class="panel">
+          <div class="hd">水性涂料配方研发</div>
+          <pre class="tree">recipe-rnd/
+├─ IAI.md
+├─ 目标.md
+├─ 物料规格.md
+├─ 配比表.csv
+└─ 实验记录/
+   └─ 批次记录.csv</pre>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="feature flip reveal" id="ontology">
+      <div class="ft">
+        <span class="num">02</span>
+        <h2>本体：这一行有什么，怎么关联，守什么规矩</h2>
+        <p>本体由类型、关系和规矩组成。AI 根据你的回答起草，你逐条采纳；采纳过的内容可以撤回，升级起步包时保留你的修改。</p>
+      </div>
+      <div class="fv">
+        <div class="panel">
+          <div class="hd">配方研发组 · 10 个类型</div>
+          <div class="row"><span>配方</span><span class="faint">rnd.Formulation</span></div>
+          <div class="row"><span>实验</span><span class="faint">rnd.Experiment</span></div>
+          <div class="row"><span>表征结果</span><span class="faint">rnd.Measurement</span></div>
+          <div class="row"><span>性能指标</span><span class="faint">rnd.Indicator</span></div>
+          <div class="row"><span>原料批次</span><span class="faint">rnd.MaterialLot</span></div>
+          <div class="acts"><span class="mbtn">撤回</span><span class="mbtn p">采纳</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature reveal" id="knowledge">
+      <div class="ft">
+        <span class="num">03</span>
+        <h2>五层知识库</h2>
+        <p>文件进来之后按本体归位，一层一层整理，每层都能单独检查。</p>
+      </div>
+      <div class="fv" style="padding:24px">
+        <ol class="layers">
+          <li><span class="n">1</span><div><b>知识仓</b><span class="d">原件、文件夹监听与解析后的文字，原件不改。</span></div></li>
+          <li><span class="n">2</span><div><b>检索面</b><span class="d">全文与语义检索，只在当前项目里找。</span></div></li>
+          <li><span class="n">3</span><div><b>Wiki 专题</b><span class="d">按本体类型整理成对象页和专题，逐条带出处。</span></div></li>
+          <li><span class="n">4</span><div><b>图谱与发现</b><span class="d">对象之间的关系连成图，沿着关系继续追问。</span></div></li>
+          <li><span class="n">5</span><div><b>知识体检</b><span class="d">按你的资料出题，查出缺失、冲突和过期的内容。</span></div></li>
+        </ol>
+      </div>
+    </section>
+
+    
+    <section class="feature flip reveal" id="evidence">
+      <div class="ft">
+        <span class="num">04</span>
+        <h2>每个结论有出处，每次写入先确认</h2>
+        <p>回答会写明读了哪些资料；没查到就说没查到。写文件、采纳提议、委派智能体、启用日程，都会先停下来等你。</p>
+      </div>
+      <div class="fv">
+        <div class="app-chat" style="padding:20px;display:grid;gap:12px">
+          <div class="bub-u">F-04 的粘度合格吗？</div>
+          <div class="bub-a">F-04 粘度 112 KU，高于目标上限 105 KU，不合格。
+            <div class="cite">批次记录.csv · 目标.md</div></div>
+          <div class="bub-a">要把 F-04 的复测交给配方实验记录员吗？
+            <div style="margin-top:10px;display:flex;gap:8px"><span class="mbtn">取消</span><span class="mbtn p">确认委派</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="rules">
+      <div class="sec-head"><h2>我们守的五条规矩</h2></div>
+      <div class="grid g3">
+        <div class="card rule"><span class="n">1</span><h3>每次调用都过权限</h3><p>智能体能用什么，由项目和你的授权决定，挂载了不等于可以用。</p></div>
+        <div class="card rule"><span class="n">2</span><h3>只在写操作前停下</h3><p>读取和检索不打断你；写文件、采纳、委派、定时才等你确认。</p></div>
+        <div class="card rule"><span class="n">3</span><h3>结论要有证据</h3><p>回答说明用了哪些资料；没查到就说没查到，不编。</p></div>
+        <div class="card rule"><span class="n">4</span><h3>提议先进草稿</h3><p>知识、类型、对象由 AI 提议，进草稿区，你采纳后才生效。</p></div>
+        <div class="card rule"><span class="n">5</span><h3>只在当前项目里查</h3><p>不把别的项目或上一轮的对象带进来，范围由你指定。</p></div>
+        <a class="card hover" href={href('/egress/')}><div class="ic blue"><Icon name="shield" size={18} /></div><h3>什么会发出去</h3><p>逐条列出发送什么、发到哪、云端留不留。</p><span class="link" style="margin-top:14px">出网清单</span></a>
+      </div>
+    </section>
+  </div>
+
+  <div class="final">
+    <svg class="mascot"><use href="#garwoo"/></svg>
+    <h2>从一个文件夹开始。</h2>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/desktop/')}>看桌面端</a></div>
+  </div>
+</main>
+</Base>

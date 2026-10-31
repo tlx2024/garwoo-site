@@ -1,12 +1,375 @@
 ---
 import Base from '../layouts/Base.astro';
-import { BRAND } from '../data/site';
 import { href } from '../lib/url';
+import Icon from '../components/Icon.astro';
+import AppTop from '../components/AppTop.astro';
+import AppSide from '../components/AppSide.astro';
 ---
-<Base>
-  <main style="max-width: 720px; margin: 0 auto; padding: 96px 16px;">
-    <h1>{BRAND.full}</h1>
-    <p>官网正在建设中。</p>
-    <p><a href={href('/docs/')}>文档</a></p>
-  </main>
+<Base description="格物从本体出发，把一个领域的问题做成方案：知识朝本体汇聚，事情交给对口的智能体，越用越专业。" page="home">
+<style is:global>
+.vs td{text-align:left;color:var(--ink-soft)}
+.vs td:last-child{color:var(--ink)}
+@media (max-width:640px){.vs{min-width:0}.vs th,.vs td{padding:12px 8px;white-space:normal}.vs td:first-child{white-space:nowrap}}
+.who-card ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.who-card li{display:grid;gap:2px;font-size:14px}
+.who-card li b{font-weight:600;color:var(--ink)}
+.who-card li span{color:var(--muted)}
+.ind .hit{font-size:13px;color:var(--muted);margin-top:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px;background:var(--panel);color:var(--ink)}
+</style>
+<main>
+  <div class="wrap hero">
+    <h1>从本体出发<br><span class="p">把一个领域的问题做成方案</span></h1>
+    <p class="lede">给研发、工艺、质量工程师，独立研究者和一人公司。</p>
+    <div class="cta">
+      <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="download" size={17} /></span>申请内测</a>
+      <a class="btn btn-lg" href={href('/download/')}>所有下载</a>
+    </div>
+  </div>
+
+  
+  <div class="stage">
+    <div class="inner">
+      <svg class="perch mascot"><use href="#garwoo"/></svg>
+      <div class="app" aria-label="格物项目对话">
+        <div class="app-top"><AppTop title="对话 · 格物" /></div>
+        <div class="app-body">
+          <nav class="app-side"><AppSide current="水性涂料配方研发" projects="水性涂料配方研发,专利审查,泵站维护,项目周报" /></nav>
+          <div class="app-main">
+            <div class="app-head">
+              <h4>水性涂料配方研发</h4>
+              <div class="path">D:\格物示例\水性涂料配方研发</div>
+              <div class="tabs"><span class="on">对话</span><span>文件</span><span>对象</span><span>智能体与日程</span></div>
+            </div>
+            <div class="app-chat" id="demo-chat"></div>
+          </div>
+          <aside class="app-right">
+            <div class="hd">智能体与日程</div>
+            <div class="mem"><span class="av">实</span><div class="who">配方实验记录员<small>项目智能体</small></div><span class="st ok">已发布</span></div>
+            <div class="mem"><span class="av">日</span><div class="who">实验日提醒<small>周二、周四 09:00</small></div><span class="st">已排期</span></div>
+            <div class="hd" style="margin-top:14px">本体</div>
+            <div class="mem"><span class="av">配</span><div class="who">配方研发组<small>1.1.0 · 10 个类型</small></div><span class="st ok">已钉住</span></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><h2>本体定方向，知识朝它汇聚</h2></div>
+      <div class="story">
+        <div class="steps">
+          <div class="step on"><span class="n">01</span><h3>先定领域</h3><p>把这一行的对象、关系和规矩写成本体。AI 起草，你逐条采纳。</p><div class="m-scene" data-clone="0"></div></div>
+          <div class="step"><span class="n">02</span><h3>按岗位组团队</h3><p>一人公司要销售、市场、产品、会计，就注册这几位智能体。</p><div class="m-scene" data-clone="1"></div></div>
+          <div class="step"><span class="n">03</span><h3>从一个文件夹开工</h3><p>项目就是电脑上的文件夹。事情交给对口的智能体，写操作先等你确认。</p><div class="m-scene" data-clone="2"></div></div>
+          <div class="step"><span class="n">04</span><h3>知识朝一个方向汇聚</h3><p>文件按本体归位，沉淀成 Wiki 专题，连成知识图谱。在图上追问，不往无关的方向发散。</p><div class="m-scene" data-clone="3"></div></div>
+          <div class="step"><span class="n">05</span><h3>落到具体对象</h3><p>数据孪生把对象变成看得见的产线和设备，智能体在这里与设备关联。</p><div class="m-scene" data-clone="4"></div></div>
+          <div class="step"><span class="n">06</span><h3>越用越专业</h3><p>答不上的问题变成本体提议，外部资料经你采纳才进来。资料越多，越对口。</p><div class="m-scene" data-clone="5"></div></div>
+          <div class="step"><span class="n">07</span><h3>一个包，一个领域</h3><p>同一套方法用在七个领域。包会升级，你的修改保留。</p><div class="m-scene" data-clone="6"></div></div>
+        </div>
+        <div class="viewer fv">
+          
+          <div class="scene on" id="scene-0">
+            <div class="panel">
+              <div class="hd">本体草案 · 配方研发组<span class="tag blue">AI 起草</span></div>
+              <div class="row"><span><b>配方</b> <span class="faint">· 类型</span></span><span class="st ok">已采纳</span></div>
+              <div class="row"><span><b>实验</b> <span class="faint">· 类型</span></span><span class="st ok">已采纳</span></div>
+              <div class="row"><span><b>表征结果</b> <span class="faint">· 类型</span></span><span class="st ok">已采纳</span></div>
+              <div class="row"><span>实验 <span class="faint">→ 所用配方 →</span> 配方</span><span class="st ok">已采纳</span></div>
+              <div class="row"><span>表征结果 <span class="faint">→ 性能指标 →</span> 性能指标</span><span style="display:flex;gap:6px"><span class="mbtn">忽略</span><span class="mbtn p">采纳</span></span></div>
+              <div class="row"><span>配方 <span class="faint">→ 派生自 →</span> 配方</span><span style="display:flex;gap:6px"><span class="mbtn">忽略</span><span class="mbtn p">采纳</span></span></div>
+            </div>
+          </div>
+          
+          <div class="scene" id="scene-1">
+            <div class="panel">
+              <div class="hd">一人公司 · 智能体</div>
+              <div class="mem"><span class="av">销</span><div class="who">销售助手<small>线索跟进、报价草稿</small></div><span class="st ok">已发布</span></div>
+              <div class="mem"><span class="av">市</span><div class="who">市场助手<small>内容日历、发布文案</small></div><span class="st ok">已发布</span></div>
+              <div class="mem"><span class="av">产</span><div class="who">产品经理<small>需求评审、版本计划</small></div><span class="st ok">已发布</span></div>
+              <div class="mem"><span class="av">会</span><div class="who">会计<small>记账整理、对账、税期清单</small></div><span class="st ok">已发布</span></div>
+              <div class="mem"><span class="av">早</span><div class="who">早安助手<small>每天一句</small></div><span class="st ok">已发布</span></div>
+              <div class="objrow" style="margin-top:8px"><span>报价、付款、报税、对外发布</span><span class="st warn">等你签批</span></div>
+            </div>
+          </div>
+          
+          <div class="scene" id="scene-2">
+            <div class="panel">
+              <div class="hd">文件 · 水性涂料配方研发</div>
+              <div class="row"><span>目标.md</span><span class="faint">粘度、对比率、耐擦洗、VOC</span></div>
+              <div class="row"><span>配比表.csv</span><span class="faint">F-01 – F-04</span></div>
+              <div class="row"><span>实验记录 / 批次记录.csv</span><span class="faint">4 个批次</span></div>
+              <div class="row"><span>物料规格.md</span><span class="faint">5 种原料</span></div>
+              <div class="objrow" style="margin-top:10px"><div style="display:flex;gap:10px;align-items:center"><span class="av">实</span><div><b>配方实验记录员</b><div class="k">整理、比较，不判定合格</div></div></div><span class="st run">办理中</span></div>
+            </div>
+          </div>
+          
+          <div class="scene" id="scene-3">
+            <div class="panel">
+              <div class="hd">Wiki · F 系列配方对比<span class="tag blue">3 份出处</span></div>
+              <div class="bub-a" style="margin-bottom:12px">F-02 三项达标；F-03 耐擦洗未测<span class="cite">1</span>；目标见<span class="cite">2</span></div>
+              <svg viewBox="0 0 420 170" style="width:100%" aria-hidden="true">
+                <g stroke="var(--line-strong)" stroke-width="1.5" fill="none"><path d="M75 85H165M255 85H330M210 85V40M210 85V135"/></g>
+                <g font-size="12" text-anchor="middle" font-family="inherit">
+                  <rect x="10" y="66" width="130" height="38" rx="8" fill="var(--primary)"/><text x="75" y="90" fill="#fff" font-weight="600">配方 F-02</text>
+                  <rect x="165" y="66" width="90" height="38" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="210" y="90" fill="var(--ink)">实验 B-1022</text>
+                  <rect x="300" y="66" width="110" height="38" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="355" y="90" fill="var(--ink)">粘度 99 KU</text>
+                  <rect x="160" y="8" width="100" height="32" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="210" y="29" fill="var(--ink)">对比率 0.93</text>
+                  <rect x="150" y="130" width="120" height="32" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="210" y="151" fill="var(--ink)">耐擦洗 5200 次</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="scene" id="scene-4">
+            <div class="panel">
+              <div class="hd">数据孪生 · 湿性产线 WET-01</div>
+              <svg viewBox="0 0 420 150" style="width:100%" aria-hidden="true">
+                <g stroke="var(--line-strong)" stroke-width="1.5" fill="none"><path d="M90 50h20M200 50h20M310 50h20"/></g>
+                <path d="M265 70V112" stroke="var(--primary)" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+                <g font-size="12" text-anchor="middle" font-family="inherit">
+                  <rect x="0" y="30" width="90" height="40" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="45" y="55" fill="var(--ink)">分模取片</text>
+                  <rect x="110" y="30" width="90" height="40" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="155" y="55" fill="var(--ink)">水合</text>
+                  <rect x="220" y="30" width="90" height="40" rx="8" fill="var(--primary)"/><text x="265" y="55" fill="#fff" font-weight="600">湿性全检</text>
+                  <rect x="330" y="30" width="90" height="40" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="375" y="55" fill="var(--ink)">封包</text>
+                  <rect x="170" y="112" width="190" height="34" rx="17" fill="var(--primary-soft)"/><text x="265" y="134" fill="var(--primary)">缺陷与检验对照助理</text>
+                </g>
+              </svg>
+              <div class="row"><span>湿性全检机</span><span class="tag blue">已关联智能体</span></div>
+            </div>
+          </div>
+          
+          <div class="scene" id="scene-5">
+            <div class="panel">
+              <div class="hd">配方研发组 · 本体演化</div>
+              <div class="row"><span>实验结果是否落在指标上下限内？</span><span class="st ok">能回答</span></div>
+              <div class="row"><span>F-03 耐擦洗达标吗？</span><span class="st warn">缺数据</span></div>
+              <div class="row"><span><b>新属性</b> 性能指标 · 测试方法</span><span style="display:flex;gap:6px"><span class="mbtn">忽略</span><span class="mbtn p">采纳</span></span></div>
+              <div class="row"><span><b>文献助理</b> 外部资料对应到配方版本</span><span style="display:flex;gap:6px"><span class="mbtn">忽略</span><span class="mbtn p">采纳</span></span></div>
+            </div>
+          </div>
+          
+          <div class="scene" id="scene-6">
+            <div class="panel">
+              <div class="hd">本体市场</div>
+              <div class="row"><span>隐形眼镜工厂</span><span class="faint">1.1.0</span></div>
+              <div class="row"><span>配方研发组</span><span class="st ok">升级保留你的修改</span></div>
+              <div class="row"><span>一人公司</span><span class="faint">1.1.0</span></div>
+              <div class="chips" style="margin-top:14px"><span>专利审查</span><span>冷却校验</span><span>泵站维护</span><span>软件开发</span><span>配方研发</span><span>项目周报</span><span>产品视频</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><h2>不是又一个聊天框</h2></div>
+      <div class="table-scroll">
+        <table class="cmp vs">
+          <thead><tr><th></th><th style="text-align:left">通用 AI 聊天</th><th style="text-align:left">格物</th></tr></thead>
+          <tbody>
+            <tr><td>方向</td><td>每次重新解释你的行业</td><td>本体先定领域，回答照它收敛</td></tr>
+            <tr><td>知识</td><td>聊完就散</td><td>沉淀成 Wiki 与图谱，越用越对口</td></tr>
+            <tr><td>依据</td><td>难以复核</td><td>每句带出处，没查到就说没查到</td></tr>
+            <tr><td>行动</td><td>给建议，你自己去办</td><td>交给对口的智能体，写操作先等你确认</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><h2>给谁用</h2></div>
+      <div class="grid g3">
+        <div class="card who-card reveal"><div class="ic"><Icon name="wave" size={18} /></div><h3>研发、工艺、质量工程师</h3>
+          <ul>
+            <li><b>冷却系统数据校验</b><span>超限、℉ 单位、缺测、台账外设备</span></li>
+            <li><b>泵站维护</b><span>P3 振动超阈</span></li>
+            <li><b>水性涂料配方研发</b><span>F-03 耐擦洗未测</span></li>
+          </ul></div>
+        <div class="card who-card reveal"><div class="ic"><Icon name="file" size={18} /></div><h3>独立研究者</h3>
+          <ul>
+            <li><b>专利审查</b><span>3 处参数与规范冲突</span></li>
+            <li><b>单位换算库开发</b><span>需求 R1–R6 只测了 3 条</span></li>
+          </ul></div>
+        <div class="card who-card reveal"><div class="ic"><Icon name="users" size={18} /></div><h3>一人公司</h3>
+          <ul>
+            <li><b>一人公司起步包</b><span>销售、市场、产品、会计、早安五位智能体</span></li>
+            <li><b>项目周报</b><span>任务风险项</span></li>
+            <li><b>产品宣传片分镜</b><span>精度、电池寿命与事实表不符</span></li>
+          </ul></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <div class="band-gray">
+    <div class="wrap sec-head split">
+      <h2>七个领域，同一套方法 <span class="tag" style="vertical-align:middle">示例项目 · 规划中</span></h2>
+      <div class="rail-ctrl"><button class="icon-btn bordered" data-rail-prev="inds" aria-label="上一组"><span><Icon name="arrowl" size={16} /></span></button><button class="icon-btn bordered" data-rail-next="inds" aria-label="下一组"><span><Icon name="arrowr" size={16} /></span></button></div>
+    </div>
+    <div class="rail" id="inds">
+      <div class="ind"><div><p class="q">“这份专利的参数和公共规范哪里冲突？”</p><p class="hit">CN-EX-2026-0412 对照 SR-COOL-01</p></div><span class="nm"><span class="ic blue"><Icon name="file" size={17} /></span>专利审查</span></div>
+      <div class="ind"><div><p class="q">“昨天数据有没有超限？”</p><p class="hit">1# 冷却站，每天 08:00 校验</p></div><span class="nm"><span class="ic blue"><Icon name="wave" size={17} /></span>冷却系统数据校验</span></div>
+      <div class="ind"><div><p class="q">“下周哪些泵该保养？”</p><p class="hit">3 号泵站 4 台离心泵</p></div><span class="nm"><span class="ic blue"><Icon name="pump" size={17} /></span>泵站维护</span></div>
+      <div class="ind"><div><p class="q">“这个函数的边界情况测全了吗？”</p><p class="hit">温度、压力、流量三类单位</p></div><span class="nm"><span class="ic blue"><Icon name="code" size={17} /></span>单位换算库开发</span></div>
+      <div class="ind"><div><p class="q">“哪组配方三项都达标？”</p><p class="hit">粘度、对比率、耐擦洗</p></div><span class="nm"><span class="ic blue"><Icon name="flask" size={17} /></span>水性涂料配方研发</span></div>
+      <div class="ind"><div><p class="q">“帮我写本周周报，每条都有出处。”</p><p class="hit">没有出处的写“待确认”</p></div><span class="nm"><span class="ic blue"><Icon name="chart" size={17} /></span>项目周报</span></div>
+      <div class="ind"><div><p class="q">“分镜和产品事实对得上吗？”</p><p class="hit">FM-300，60 秒横版</p></div><span class="nm"><span class="ic blue"><Icon name="video" size={17} /></span>产品宣传片分镜</span></div>
+    </div>
+  </div>
+
+  
+  <section class="sec">
+    <div class="wrap sec-head split">
+      <h2>以你的方式使用格物</h2>
+      <div class="seg" data-rail="family" role="tablist">
+        <button aria-selected="true">桌面端</button><button>手机伴侣</button><button>微信小程序</button><button>本体市场</button>
+      </div>
+    </div>
+    <div class="rail" id="family">
+      <article class="slide">
+        <div class="txt"><h3>项目、本体与智能体都在本机</h3><a class="link" href={href('/desktop/')}>桌面端</a></div>
+        <div class="vis">
+          <div class="panel">
+            <div class="hd">日程</div>
+            <div class="row"><span>每天 08:00 冷却站数据校验</span><span class="st">已排期</span></div>
+            <div class="row"><span>周一 08:00 保养到期汇总</span><span class="st">已排期</span></div>
+            <div class="row"><span>周二、周四 09:00 实验日提醒</span><span class="st">已排期</span></div>
+            <div class="row"><span>周五 17:00 起草周报</span><span class="st">已排期</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="slide">
+        <div class="txt"><h3>离开电脑，也能确认 <span class="tag">规划中</span></h3><a class="link" href={href('/mobile/')}>手机伴侣</a></div>
+        <div class="vis">
+          <div class="phone">
+            <div class="top">格物 <span class="st ok">我的桌面</span></div>
+            <div class="tile"><b>配方实验记录员</b>F-03 耐擦洗待测</div>
+            <div class="tile"><b>待你确认</b>写入 候选配方对比.md</div>
+            <div class="act"><span>稍后</span><span class="p">确认</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="slide">
+        <div class="txt"><h3>微信里接上你的项目 <span class="tag">规划中</span></h3><a class="link" href={href('/mobile/#weapp')}>微信小程序</a></div>
+        <div class="vis">
+          <div class="phone wx">
+            <span class="capsule"></span>
+            <div class="top">格物</div>
+            <div class="tile"><b>我的桌面</b>在线</div>
+            <div class="tile"><b>周报草稿</b>每条注明出处</div>
+            <div class="act"><span>稍后</span><span class="p">查看</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="slide">
+        <div class="txt"><h3>一个包，一个领域</h3><a class="link" href={href('/packs/')}>本体市场</a></div>
+        <div class="vis">
+          <div class="panel">
+            <div class="hd">本体市场</div>
+            <div class="row"><span style="display:flex;gap:10px;align-items:center"><span class="ic blue" style="margin:0;width:30px;height:30px"><Icon name="building" size={16} /></span>隐形眼镜工厂</span><span class="mbtn p">安装</span></div>
+            <div class="row"><span style="display:flex;gap:10px;align-items:center"><span class="ic blue" style="margin:0;width:30px;height:30px"><Icon name="flask" size={16} /></span>配方研发组</span><span class="mbtn">已安装</span></div>
+            <div class="row"><span style="display:flex;gap:10px;align-items:center"><span class="ic blue" style="margin:0;width:30px;height:30px"><Icon name="users" size={16} /></span>一人公司</span><span class="mbtn p">安装</span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head split"><h2>同一套本体，放大到一座工厂</h2><a class="link" href={href('/enterprise/')}>格物企业版</a></div>
+      <div class="grid duo">
+        <div class="fv" style="min-height:400px;padding:28px">
+          <div class="app whole" style="max-width:560px;box-shadow:var(--shadow-float)">
+            <div class="app-top"><AppTop title="处置 · IAI 企业版" /></div>
+            <div style="padding:16px;display:grid;gap:8px">
+              <div class="objrow"><span>报警唤起排查智能体</span><span class="tag">演示数据</span></div>
+              <div class="objrow"><span>查运行、工艺卡与历史案例</span><span class="st ok">已完成</span></div>
+              <div class="objrow"><span>带证据汇报给早班</span><span class="st ok">已送达</span></div>
+              <div class="objrow"><span>处置动作</span><span class="st warn">待人确认</span></div>
+              <div class="objrow"><span>执行账本</span><span class="st">留痕</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="card" style="display:flex;gap:14px;align-items:center;padding:20px;flex:1"><span class="ic" style="margin:0"><Icon name="plug" size={18} /></span><b>接入 MES / SCADA / ERP</b></div>
+          <div class="card" style="display:flex;gap:14px;align-items:center;padding:20px;flex:1"><span class="ic" style="margin:0"><Icon name="graph" size={18} /></span><b>全厂统一本体</b></div>
+          <div class="card" style="display:flex;gap:14px;align-items:center;padding:20px;flex:1"><span class="ic" style="margin:0"><Icon name="shield" size={18} /></span><b>权限、审批、审计</b></div>
+          <div class="card" style="display:flex;gap:14px;align-items:center;padding:20px;flex:1"><span class="ic" style="margin:0"><Icon name="building" size={18} /></span><b>内网私有化交付</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="sec">
+    <div class="wrap faq">
+      <h2>常见问题</h2>
+      <div>
+        <details open><summary>本体是什么？</summary><p>一份关于你这一行的说明：有哪些对象、它们怎么关联、要守哪些规矩。格物照着它归档资料、组织智能体、回答问题。</p></details>
+        <details><summary>一个包里有什么？</summary><p>一个领域的本体、示例对象、出处文章和能力问题，有的还带示例智能体和驾驶舱。装上就能问，升级时保留你的修改。</p></details>
+        <details><summary>格物和 IAI 个人版是什么关系？</summary><p>格物就是 IAI 个人版的新名字。账号、积分和本机数据都不变。</p></details>
+        <details><summary>为什么叫格物，又为什么是一只怪兽？</summary><p>格物致知，就是把事物的结构弄清楚，这正是本体做的事。怪兽叫嘎呜，是它开工的声音。</p></details>
+        <details><summary>支持 Mac 吗？</summary><p>先发 Windows 10 / 11，Mac 版在规划中。</p></details>
+        <details><summary>没有网络能用吗？</summary><p>浏览、编辑、检索与导出都能离线用；接本机模型时问答也能离线。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <div class="final">
+    <svg class="mascot"><use href="#garwoo"/></svg>
+    <h2>嘎呜一声，开工。</h2>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/pricing/')}>查看价格</a></div>
+  </div>
+</main>
+<script is:inline>
+document.querySelectorAll('[data-clone]').forEach(function (m) {
+  m.innerHTML = document.getElementById('scene-' + m.dataset.clone).innerHTML;
+});
+// 首屏对话自动播放；数值取自 recipe-rnd 的 批次记录.csv 与 目标.md
+(function () {
+  var box = document.getElementById('demo-chat');
+  var script = [
+    ['u', '哪组配方粘度、对比率、耐擦洗三项都达标？'],
+    ['t'],
+    ['a', '只有 <b>F-02</b>（批次 B-1022）：粘度 99 KU、对比率 0.93、耐擦洗 5200 次<span class="cite">1</span>，都在目标内<span class="cite">2</span>。F-03 前两项达标，耐擦洗还没测<span class="cite">1</span>；F-04 粘度 112 KU，超出上限 105<span class="cite">2</span>。'],
+    ['o', '<div><div class="k">表征结果 · 耐擦洗</div><b>F-03 · B-1024</b></div><span class="st warn">缺数据</span>'],
+    ['u', '让记录员把 F-03 的耐擦洗排进下次实验。'],
+    ['t'],
+    ['a', '已委派给 <b>配方实验记录员</b>，周四 09:00 实验日提醒时列入，结果写回这里。']
+  ];
+  var composer = '<div class="composer">在项目里提问，或交给智能体去办<span class="go">↑</span></div>';
+  function el(step) {
+    var d = document.createElement('div');
+    if (step[0] === 'u') { d.className = 'bub-u fade-in'; d.textContent = step[1]; }
+    if (step[0] === 'a') { d.className = 'bub-a fade-in'; d.innerHTML = step[1]; }
+    if (step[0] === 'o') { d.className = 'objrow fade-in'; d.innerHTML = step[1]; }
+    if (step[0] === 't') { d.className = 'bub-a'; d.innerHTML = '<span class="typing"><i></i><i></i><i></i></span>'; }
+    return d;
+  }
+  function render(n) {
+    box.innerHTML = '';
+    script.slice(0, n).forEach(function (s, i) { if (s[0] !== 't' || i === n - 1) box.appendChild(el(s)); });
+    box.insertAdjacentHTML('beforeend', composer);
+  }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(script.length); return; }
+  var i = 0;
+  (function tick() {
+    i++; render(i);
+    if (i >= script.length) { i = 0; setTimeout(tick, 6000); return; }
+    setTimeout(tick, script[i - 1][0] === 't' ? 1100 : 1500);
+  })();
+})();
+</script>
 </Base>

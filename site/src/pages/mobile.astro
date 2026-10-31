@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import Icon from '../components/Icon.astro';
+---
+<Base title="手机伴侣" description="格物手机伴侣与微信小程序（规划中）：离开电脑也能看进展、确认写操作。" page="mobile">
+<style is:global>
+.phones{display:flex;justify-content:center;align-items:flex-end;gap:36px}
+.phones .phone{border-bottom:0;border-bottom-left-radius:0;border-bottom-right-radius:0;height:380px}
+.phones .phone.mid{height:440px}
+@media (max-width:760px){.phones .phone:not(.mid){display:none}}
+.relay{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:12px;text-align:center}
+.relay .card{padding:28px 16px}
+.relay .card .ic{margin:0 auto 12px}
+.relay .wire{width:80px;height:1px;background:repeating-linear-gradient(90deg,var(--line-strong) 0 6px,transparent 6px 11px);position:relative}
+.relay .wire::after{content:"";position:absolute;top:-3px;left:0;width:7px;height:7px;border-radius:50%;background:var(--primary);animation:run 2.4s linear infinite}
+@keyframes run{to{left:calc(100% - 7px)}}
+@media (max-width:760px){.relay{grid-template-columns:1fr}.relay .wire{width:1px;height:32px;margin:0 auto;background:repeating-linear-gradient(180deg,var(--line-strong) 0 6px,transparent 6px 11px)}.relay .wire::after{display:none}}
+</style>
+<main>
+  <div class="wrap hero center">
+    <h1>手机伴侣</h1>
+    <p class="lede">电脑在办事，你在路上也能确认。</p>
+    <div class="cta">
+      <span class="tag" style="align-self:center">规划中</span>
+      <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="desktop" size={17} /></span>先装桌面端</a>
+      <a class="btn btn-lg" href="#weapp"><span><Icon name="wechat" size={17} /></span>微信小程序</a>
+    </div>
+  </div>
+
+  
+  <div class="stage" style="padding-top:64px">
+    <div class="phones">
+      <div class="phone">
+        <div class="top">进展</div>
+        <div class="tile"><b>配方实验记录员</b><span class="st run">进行中</span></div>
+        <div class="tile"><b>数据校验员</b><span class="st">每天 08:00</span></div>
+        <div class="tile"><b>周报助手</b><span class="st">周五 17:00</span></div>
+      </div>
+      <div class="phone mid">
+        <div class="top">格物 <span class="st ok">我的电脑</span></div>
+        <div class="tile"><b>待你确认</b>写入 候选配方对比.md：F-02 三项达标，F-03 耐擦洗待测。</div>
+        <div class="tile"><b>出处</b><span class="cite">1</span><span class="cite">2</span></div>
+        <div class="act"><span>稍后</span><span class="p">确认</span></div>
+      </div>
+      <div class="phone">
+        <div class="top">发到项目</div>
+        <div class="tile" style="height:140px;display:grid;place-items:center;background:var(--bg-2)"><span class="faint"><Icon name="file" size={30} /></span></div>
+        <div class="tile"><b>水性涂料配方研发</b>B-1024 耐擦洗记录.jpg</div>
+        <div class="act" style="grid-template-columns:1fr"><span class="p">发送</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="sec">
+      <div class="grid g3">
+        <div class="card media reveal"><div class="cover"><div class="panel" style="max-width:240px">
+          <div class="row"><span>配方实验记录员</span><span class="st run">进行中</span></div>
+          <div class="row"><span>数据校验员</span><span class="st">08:00</span></div>
+          <div class="row"><span>周报助手</span><span class="st">周五</span></div></div></div><div class="body"><h3>看进展</h3></div></div>
+        <div class="card media reveal"><div class="cover"><div class="panel" style="max-width:240px">
+          <div class="hd">写入项目文件<span class="st warn">待确认</span></div>
+          <div class="acts"><span class="mbtn">稍后</span><span class="mbtn p">确认</span></div></div></div><div class="body"><h3>确认写操作</h3></div></div>
+        <div class="card media reveal"><div class="cover"><div class="panel" style="max-width:240px;display:flex;gap:10px;align-items:center">
+          <span class="ic" style="margin:0"><Icon name="file" size={18} /></span>
+          <div><b>B-1024 耐擦洗记录.jpg</b><div class="faint" style="font-size:12px">→ 水性涂料配方研发</div></div></div></div><div class="body"><h3>拍照发到项目</h3></div></div>
+      </div>
+    </section>
+
+    
+    <section class="sec">
+      <div class="sec-head center"><h2>资料不离开你的电脑</h2></div>
+      <div class="relay">
+        <div class="card"><div class="ic"><Icon name="phone" size={18} /></div><b>手机</b></div>
+        <span class="wire"></span>
+        <div class="card"><div class="ic blue"><Icon name="lock" size={18} /></div><b>端到端加密中继</b></div>
+        <span class="wire"></span>
+        <div class="card"><div class="ic"><Icon name="desktop" size={18} /></div><b>你的电脑</b></div>
+      </div>
+      <p class="muted" style="text-align:center;margin-top:20px">中继只看得到连接时刻和密文长度；电脑离线时，密文最多暂存七天。</p>
+    </section>
+
+    <section class="sec" id="weapp">
+      <div class="grid duo even">
+        <div>
+          <h2 style="font-size:clamp(28px,3.6vw,40px)">微信小程序</h2>
+          <p class="muted" style="font-size:16px;margin-top:12px">不用装应用，扫码配对。</p>
+          <span class="tag" style="margin-top:20px">规划中</span>
+        </div>
+        <div class="fv" style="padding:40px">
+          <div class="phone wx">
+            <span class="capsule"></span>
+            <div class="top">格物</div>
+            <div class="tile"><b>我的电脑</b>在线</div>
+            <div class="tile"><b>周报草稿</b>每条注明出处</div>
+            <div class="tile"><b>待你确认</b>1 项</div>
+            <div class="act"><span>稍后</span><span class="p">查看</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="final">
+    <svg class="mascot"><use href="#garwoo"/></svg>
+    <h2>先装桌面端，再配手机。</h2>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a></div>
+  </div>
+</main>
+</Base>

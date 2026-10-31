@@ -1,0 +1,126 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import AppTop from '../components/AppTop.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="格物企业版" description="格物企业版：同一套本体放大到一座工厂，由 IAI 智能工厂中枢提供，私有化交付。" page="enterprise">
+<style is:global>
+@media (max-width:860px){.arch{display:grid;gap:8px}
+.arch .layer{display:grid;grid-template-columns:140px 1fr;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.arch .layer b{font-size:14px}
+.arch .boxes{display:flex;gap:8px;flex-wrap:wrap}
+.arch .boxes span{padding:5px 12px;border-radius:6px;border:1px solid var(--line);font-size:13px;color:var(--ink-soft)}
+.arch .layer.core{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.arch .layer.core b{color:var(--primary)}
+.arch .layer.core .boxes span{background:var(--primary-soft);border-color:transparent;color:var(--primary)}
+@media (max-width:700px){.arch .layer{grid-template-columns:1fr}}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form .full{grid-column:1/-1}
+@media (max-width:700px){.form{grid-template-columns:1fr}}
+</style>
+<main>
+  
+  <div class="wrap hero">
+    <h1>格物企业版<br><span class="muted">同一套本体，放大到一座工厂</span></h1>
+    <p class="lede">由 IAI 智能工厂中枢提供，私有化交付。</p>
+    <div class="cta"><a class="btn btn-primary btn-lg" href="#contact">预约演示</a><a class="btn btn-lg" href="#arch">看架构</a></div>
+  </div>
+
+  <div class="stage">
+    <div class="inner">
+      <div class="app" aria-label="夜间报警处置">
+        <div class="app-top"><AppTop title="运行中心 · IAI 企业版" /></div>
+        <div style="padding:18px;display:grid;gap:8px">
+          <div class="objrow"><b>夜里报警，智能体先去查</b><span class="tag">演示数据</span></div>
+          <div class="objrow"><span><b>02:15</b>　压片机 A03 主电机温升报警，唤起“温升异常排查”智能体</span><span class="st ok">已唤起</span></div>
+          <div class="objrow"><span><b>02:15</b>　调用只读技能：设备对象、当日运行数据、报警归纳</span><span class="st ok">只读</span></div>
+          <div class="objrow"><span><b>02:16</b>　列出候选根因，逐条找支持与反驳的证据</span><span class="st ok">已完成</span></div>
+          <div class="objrow"><span><b>02:16</b>　根因候选与证据写入运行中心</span><span class="st warn">等待早班确认</span></div>
+          <div class="objrow"><span><b>07:00</b>　早班工程师确认结论；改动设备的处置走审批</span><span class="st">执行账本留痕</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="sec">
+      <div class="sec-head"><h2>一个入口，三种用法</h2></div>
+      <div class="dash">
+        <div><span><Icon name="quote" size={20} /></span><h3>对话</h3><p>用现场的说法查运行、报警、质量和文档，需要时调用技能。</p></div>
+        <div><span><Icon name="dash" size={20} /></span><h3>工作台</h3><p>知识空间、本体对象、运行与待办、报告按岗位组织。</p></div>
+        <div><span><Icon name="bot" size={20} /></span><h3>智能体中心</h3><p>把固定流程配置成可审批、可审计的智能体。</p></div>
+      </div>
+    </section>
+
+    <section class="sec" id="arch">
+      <div class="sec-head"><h2>向下接系统，向上给岗位</h2></div>
+      <div class="arch">
+        <div class="layer"><b>入口</b><div class="boxes"><span>网页</span><span>企业客户端</span><span>钉钉</span><span>企业微信</span></div></div>
+        <div class="layer"><b>智能体</b><div class="boxes"><span>智能体中心</span><span>审批</span><span>执行账本</span></div></div>
+        <div class="layer core"><b>本体与知识</b><div class="boxes"><span>权威本体</span><span>五层知识库</span><span>数据孪生</span></div></div>
+        <div class="layer"><b>接入</b><div class="boxes"><span>MES</span><span>SCADA</span><span>ERP</span><span>文件库</span></div></div>
+        <div class="layer"><b>治理</b><div class="boxes"><span>权限</span><span>审计</span><span>备份</span><span>本机模型</span></div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><h2>安全与数据</h2></div>
+      <div class="dash">
+        <div><span><Icon name="building" size={20} /></span><h3>数据留在厂内</h3><p>部署在企业内网，模型也可以完全运行在本机。</p></div>
+        <div><span><Icon name="shield" size={20} /></span><h3>身份与授权</h3><p>谁能看、谁能调、谁能改，分层设防。</p></div>
+        <div><span><Icon name="users" size={20} /></span><h3>人在回路</h3><p>只读直接执行，写操作先生成审批卡。</p></div>
+        <div><span><Icon name="clock" size={20} /></span><h3>全程留痕</h3><p>执行账本记录每一步技能调用、参数与返回。</p></div>
+        <div><span><Icon name="lock" size={20} /></span><h3>配方与敏感字段</h3><p>配方敏感字段在送往模型前掩码。</p></div>
+        <div><span><Icon name="download" size={20} /></span><h3>安装包与发布</h3><p>公开制品经人工把关，镜像不提供公开直链。</p></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="grid duo even" style="align-items:start">
+        <div>
+          <h2 style="font-size:clamp(28px,3.6vw,40px)">部署与交付</h2>
+          <div class="grid" style="margin-top:24px;gap:10px">
+            <div class="card" style="padding:18px"><b>部署套件</b><p class="muted" style="font-size:14px;margin-top:4px">docker-compose 编排、安装脚本与部署文档</p></div>
+            <div class="card" style="padding:18px"><b>镜像包</b><p class="muted" style="font-size:14px;margin-top:4px">离线介质或按客户签发的限时链接</p></div>
+            <div class="card" style="padding:18px"><b>模型</b><p class="muted" style="font-size:14px;margin-top:4px">不随产品分发，提供导入说明</p></div>
+          </div>
+        </div>
+        <table class="req">
+          <tr><td>Web 工作台</td><td>浏览器访问，对内网开放一个端口</td></tr>
+          <tr><td>中枢服务</td><td>对话、技能、知识库、本体、智能体、审批、审计</td></tr>
+          <tr><td>数据库</td><td>PostgreSQL 16 + pgvector</td></tr>
+          <tr><td>任务</td><td>Redis · Celery</td></tr>
+          <tr><td>文件</td><td>MinIO</td></tr>
+          <tr><td>模型服务</td><td>本机 vLLM / Ollama，或企业已有的 OpenAI 兼容服务</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><h2>行业场景</h2></div>
+      <div class="grid g3">
+        <div class="card media reveal"><div class="cover"><span class="ic blue" style="margin:0;width:52px;height:52px;border-radius:12px"><Icon name="building" size={24} /></span></div><div class="body"><h3>通用制造</h3><span class="tag">私有化交付</span></div></div>
+        <div class="card media reveal"><div class="cover"><span class="ic blue" style="margin:0;width:52px;height:52px;border-radius:12px"><Icon name="shield" size={24} /></span></div><div class="body"><h3>医药 GMP</h3><span class="tag">部分能力验证中</span></div></div>
+        <div class="card media reveal"><div class="cover"><span class="ic blue" style="margin:0;width:52px;height:52px;border-radius:12px"><Icon name="flask" size={24} /></span></div><div class="body"><h3>研发配方</h3><span class="tag">验证中</span></div></div>
+      </div>
+    </section>
+
+    <section class="sec" id="contact">
+      <div class="grid duo even" style="align-items:start">
+        <h2 style="font-size:clamp(28px,3.6vw,40px)">预约演示</h2>
+        <form class="form card">
+          <fieldset disabled style="display:contents">
+            <label class="field">姓名<input></label>
+            <label class="field">公司<input></label>
+            <label class="field">手机<input type="tel"></label>
+            <label class="field">行业<select><option>通用制造</option><option>医药 GMP</option><option>研发配方</option><option>其他</option></select></label>
+            <label class="field full">产线上最费时间的是哪件事<textarea></textarea></label>
+            <button class="btn btn-primary full" type="button">预约入口尚未开放</button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+</Base>

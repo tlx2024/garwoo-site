@@ -1,0 +1,187 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import Icon from '../components/Icon.astro';
+import AppTop from '../components/AppTop.astro';
+import AppSide from '../components/AppSide.astro';
+---
+<Base title="桌面端" description="格物桌面端：项目就是你电脑上的文件夹，本体、出处、智能体与日程都在本机。" page="desktop">
+<main>
+  <div class="wrap hero center">
+    <h1>桌面端</h1>
+    <p class="lede">项目就是你电脑上的文件夹。</p>
+    <div class="cta">
+      <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="win" size={16} /></span>申请内测</a>
+      <a class="btn btn-lg" href={href('/download/')}>所有下载</a>
+    </div>
+  </div>
+
+  
+  <div class="stage">
+    <div class="inner">
+      <div class="app" aria-label="文件视图">
+        <div class="app-top"><AppTop title="文件 · 格物" /></div>
+        <div class="app-body">
+          <nav class="app-side"><AppSide current="专利审查" projects="水性涂料配方研发,专利审查,泵站维护,项目周报" /></nav>
+          <div class="app-main">
+            <div class="app-head">
+              <h4>专利审查 · 冷却流量控制</h4>
+              <div class="path">D:\格物示例\专利审查</div>
+              <div class="tabs"><span>对话</span><span class="on">文件</span><span>对象</span><span>智能体与日程</span></div>
+            </div>
+            <div class="app-chat" style="gap:8px">
+              <div class="objrow"><div><b>CN-EX-2026-0412 冷却液流量自适应控制装置.md</b><div class="k">专利 · 权利要求 1–5</div></div><span class="st ok">已入库</span></div>
+              <div class="objrow"><div><b>SR-COOL-01 冷却系统流量控制通用要求-摘录.md</b><div class="k">规范</div></div><span class="st ok">已入库</span></div>
+              <div class="objrow"><div><b>参数对照.csv</b><div class="k">5 项参数</div></div><span class="st ok">已入库</span></div>
+              <div class="objrow"><div><b>审查要点.md</b><div class="k">模板</div></div><span class="st">模板</span></div>
+              <div class="objrow"><div><b>IAI.md</b><div class="k">项目说明</div></div><span class="st">随对话带上</span></div>
+            </div>
+          </div>
+          <aside class="app-right">
+            <div class="hd">预览 · SR-COOL-01</div>
+            <div style="border:1px solid var(--line);border-radius:6px;padding:12px;font-size:12px;line-height:1.9;color:var(--ink-soft)">
+              4.2 <mark style="background:var(--primary-soft);color:var(--ink);padding:1px 2px;border-radius:3px">回水温度报警上限不得高于 80 ℃</mark>；工艺另有规定时须在设计文件中说明理由。
+            </div>
+            <div class="objrow" style="margin-top:10px"><div><div class="k">规范条款</div><b>4.2 回水温度上限 ≤ 80 ℃</b></div><span class="tag blue">被引用</span></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="feature">
+      <div class="ft"><h2>句句有出处</h2><p>点开引用，回到原文那一条。没查到就说没查到。</p></div>
+      <div class="fv reveal">
+        <div class="panel">
+          <div class="bub-a">权利要求 1 的回水温度上限 <b>85 ℃</b><span class="cite">1</span>，高于规范 4.2 条的 80 ℃<span class="cite">2</span>。另有供液压力下限、管路设计耐压两处与规范冲突。</div>
+          <div class="objrow" style="margin-top:12px"><div><div class="k">[1] CN-EX-2026-0412 · 权利要求 1</div>“回水温度设定上限为 85 ℃”</div></div>
+          <div class="objrow" style="margin-top:6px"><div><div class="k">[2] SR-COOL-01 · 4.2</div>“回水温度报警上限不得高于 80 ℃”</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="ft"><h2>从资料里长出本体</h2><p>AI 从字段表提出类型和关系，你点采纳才生效。</p></div>
+      <div class="fv reveal">
+        <div class="panel">
+          <div class="hd">AI 提议 · 来自 参数对照.csv<span class="tag blue">3 条</span></div>
+          <div class="row"><span><b>新类型</b> 权利要求</span><span class="st ok">已采纳</span></div>
+          <div class="row"><span><b>新类型</b> 规范条款</span><span style="display:flex;gap:6px"><span class="mbtn">忽略</span><span class="mbtn p">采纳</span></span></div>
+          <div class="row"><span><b>新关系</b> 参数 → 依据 → 规范条款</span><span style="display:flex;gap:6px"><span class="mbtn">忽略</span><span class="mbtn p">采纳</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="ft"><h2>一句话建智能体</h2><p>说清楚它负责什么、什么时候交、哪些事不能替你定。</p></div>
+      <div class="fv reveal">
+        <div class="panel">
+          <div style="display:flex;justify-content:flex-end"><div class="bub-u">建一个审查助手，每周一检查专利目录里新增的文件</div></div>
+          <div class="objrow" style="margin-top:12px">
+            <div style="display:flex;gap:10px;align-items:center"><span class="av">审</span><div><b>专利审查助手</b><div class="k">只起草审查意见，结论由审查人确认</div></div></div>
+            <span class="st ok">已发布</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="ft"><h2>到点就办，结果回到对话</h2><p>成功、失败或跳过，都写回约定它的那条对话。</p></div>
+      <div class="fv reveal">
+        <div class="panel">
+          <div class="hd">专利审查助手 · 日程</div>
+          <div class="row"><span>时间</span><span>每周一 09:00</span></div>
+          <div class="row"><span>范围</span><span>专利审查项目</span></div>
+          <div class="row"><span>结果</span><span>写回本对话</span></div>
+          <div class="row"><span>状态</span><span style="display:flex;gap:10px;align-items:center"><span class="st">已暂停</span><span class="mbtn p">启用</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="ft"><h2>在孪生里看见对象</h2><p>产线、工位和设备按本体摆开，智能体挂在对应工位上。</p></div>
+      <div class="fv reveal">
+        <div class="panel">
+          <div class="hd">数据孪生 · 干性产线 DRY-01</div>
+          <svg viewBox="0 0 420 150" style="width:100%" aria-hidden="true">
+            <g stroke="var(--line-strong)" stroke-width="1.5" fill="none"><path d="M90 50h20M200 50h20M310 50h20"/></g>
+            <path d="M155 70V112" stroke="var(--primary)" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+            <g font-size="12" text-anchor="middle" font-family="inherit">
+              <rect x="0" y="30" width="90" height="40" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="45" y="55" fill="var(--ink)">母模上料</text>
+              <rect x="110" y="30" width="90" height="40" rx="8" fill="var(--primary)"/><text x="155" y="55" fill="#fff" font-weight="600">彩模移印</text>
+              <rect x="220" y="30" width="90" height="40" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="265" y="55" fill="var(--ink)">印刷固化</text>
+              <rect x="330" y="30" width="90" height="40" rx="8" fill="var(--panel)" stroke="var(--line-strong)"/><text x="375" y="55" fill="var(--ink)">填料合模</text>
+              <rect x="60" y="112" width="190" height="34" rx="17" fill="var(--primary-soft)"/><text x="155" y="134" fill="var(--primary)">工位与流程梳理助理</text>
+            </g>
+          </svg>
+          <div class="row"><span>彩模移印机</span><span class="tag">隐形眼镜工厂起步包</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="ft"><h2>官方 AI，或你自己的模型</h2><p>用积分即开即用，也能接局域网或本机模型。</p></div>
+      <div class="fv reveal">
+        <div class="panel">
+          <div class="hd">模型</div>
+          <div class="row"><span>格物官方 AI</span><span class="st ok">使用中</span></div>
+          <div class="row"><span>局域网 · OpenAI 兼容</span><span class="st">已配置</span></div>
+          <div class="row"><span>本机 Ollama</span><span class="st">未启用</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="band-gray" id="privacy">
+    <div class="wrap">
+      <div class="sec-head"><h2>什么会发出去，什么不会</h2></div>
+      <div class="grid g3">
+        <div class="card">
+          <div class="ic"><Icon name="cloud" size={18} /></div><h3>用官方 AI 时</h3>
+          <ul style="margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)">
+            <li>提问与命中的原文片段，转发后不落盘、不训练</li>
+            <li>额度确认，不含正文</li>
+            <li>扫描页图，报价确认后逐页发送</li>
+            <li>版本心跳，可在账号页关闭</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ic"><Icon name="plug" size={18} /></div><h3>你接入后才发生</h3>
+          <ul style="margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)">
+            <li>微信、飞书、钉钉通道里的提问与回复</li>
+            <li>手机伴侣的端到端加密中继</li>
+            <li>你点击确认后上传的诊断包</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ic blue"><Icon name="lock" size={18} /></div><h3>留在本机</h3>
+          <ul style="margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)">
+            <li>知识库原件、本体与向量索引</li>
+            <li>Word、Excel、文字版 PDF 的解析</li>
+            <li>接自己模型时的全部请求</li>
+            <li>离线时的浏览、编辑、检索与导出</li>
+          </ul>
+        </div>
+      </div>
+      <a class="link" style="margin-top:24px" href={href('/egress/')}>完整出网清单</a>
+    </div>
+  </div>
+
+  <section class="sec-sm">
+    <div class="wrap grid g4">
+      <div class="card"><div class="ic"><Icon name="win" size={16} /></div><h3>Windows 10 / 11</h3></div>
+      <div class="card"><div class="ic"><Icon name="desktop" size={18} /></div><h3>本机运行</h3></div>
+      <div class="card"><div class="ic"><Icon name="lock" size={18} /></div><h3>离线可用</h3></div>
+      <div class="card"><div class="ic"><Icon name="apple" size={16} /></div><h3>Mac 规划中</h3></div>
+    </div>
+  </section>
+
+  <div class="final">
+    <svg class="mascot"><use href="#garwoo"/></svg>
+    <h2>装上格物，嘎呜开工。</h2>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a></div>
+  </div>
+</main>
+</Base>

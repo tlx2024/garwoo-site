@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import { RELEASES } from '../data/changelog';
+const latest = RELEASES[0];
+import Icon from '../components/Icon.astro';
+---
+<Base title="下载" description="下载格物：Windows 0.2.0 邀请内测，macOS、Android 与微信小程序规划中。" page="download">
+<style is:global>
+.dl{display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
+.dl .main{display:flex;flex-direction:column;min-height:380px;padding:36px;position:relative;overflow:hidden}
+.dl .main h2{font-size:clamp(30px,3.6vw,40px);margin-top:20px}
+.dl .main .cta{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+.dl .main .big{position:absolute;right:32px;bottom:28px;width:150px;height:150px}
+.dl .side-col{display:grid;gap:16px}
+.plat{display:flex;align-items:center;gap:14px;padding:22px}
+.plat .ic{margin:0}
+.plat b{font-size:16px;display:block;line-height:1.3}
+.plat .r{margin-left:auto}
+@media (max-width:900px){.dl{grid-template-columns:1fr}.dl .main{padding:24px;min-height:320px}.dl .main .big{width:90px;height:90px;right:20px;bottom:auto;top:20px}}
+.req{width:100%;border-collapse:collapse;font-size:15px}
+.req td{padding:14px 0;border-bottom:1px solid var(--line)}
+.req td:first-child{color:var(--muted);width:30%}
+</style>
+<main>
+  <div class="wrap hero center" style="padding-bottom:48px"><h1>下载格物</h1></div>
+  <div class="wrap">
+    
+    <div class="dl">
+      <div class="card main">
+        <div class="ic blue" style="width:48px;height:48px;margin:0"><Icon name="win" size={22} /></div>
+        <h2>Windows</h2>
+        <p class="muted">{latest.version} · {latest.status}</p>
+        <div class="cta">
+          <a class="btn btn-primary btn-lg" href={href('/docs/trial/')}><span><Icon name="download" size={17} /></span>申请内测</a>
+        </div>
+        <svg class="big mascot"><use href="#garwoo"/></svg>
+      </div>
+      <div class="side-col">
+        <div class="card plat"><div class="ic"><Icon name="apple" size={18} /></div><div><b>macOS</b><span class="faint">规划中</span></div></div>
+        <div class="card plat"><div class="ic"><Icon name="android" size={18} /></div><div><b>Android</b><span class="faint">规划中</span></div><a class="btn btn-sm r" href={href('/mobile/')}>了解</a></div>
+        <div class="card plat" id="weapp"><div class="ic"><Icon name="wechat" size={18} /></div><div><b>微信小程序</b><span class="faint">规划中</span></div><a class="btn btn-sm r" href={href('/mobile/#weapp')}>了解</a></div>
+      </div>
+    </div>
+
+    <section class="sec">
+      <div class="grid duo even" style="align-items:start">
+        <h2 style="font-size:clamp(26px,3.2vw,36px)">系统要求</h2>
+        <table class="req">
+          <tr><td>系统</td><td>Windows 10 / 11，64 位</td></tr>
+          <tr><td>网络</td><td>官方 AI 与登录需联网，其余可离线</td></tr>
+          <tr><td>模型</td><td>官方 AI，或 OpenAI 兼容接口、本机 Ollama</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head split"><h2>更新日志</h2><a class="link" href={href('/changelog/')}>全部版本</a></div>
+      <div class="grid g3">
+        {RELEASES.map((r) => (
+          <a class="card" href={href(`/changelog/#v${r.version}`)}><span class="faint" style="font-size:13px">{r.date}</span><h3 style="margin-top:8px">{r.version}</h3></a>
+        ))}
+      </div>
+    </section>
+  </div>
+</main>
+</Base>

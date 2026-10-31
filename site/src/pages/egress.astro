@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import egress from '../data/personal-egress.json';
+
+// 出网清单契约的副本：官网只换品牌称呼，其余原文照搬。
+const brand = (text: string) => text.replace(/（account\.iai\.example）/g, '').replace(/IAI\s?/g, '格物');
+const items = egress.egressItems.filter((item) => item.id !== 'local_only');
+const status = (value: string) => (value === 'available' ? { cls: 'st ok', label: '邀请内测' } : { cls: 'st', label: '规划中' });
+const columns = [['发送什么', 'what'], ['发到哪', 'where'], ['云端保留', 'retention'], ['费用', 'cost'], ['离线时', 'offline']] as const;
+import Icon from '../components/Icon.astro';
+---
+<Base title="出网清单" description="格物个人版逐条列出什么会发出去：发送什么、发到哪、云端保留多久、费用和离线时的行为。" page="egress">
+<style is:global>
+.pr{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.pr li{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:18px}
+.pr .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--primary-soft);color:var(--primary);font-size:12px;font-weight:600;margin-right:8px}
+.pr li > span:nth-child(2){font-weight:600;font-size:15px}
+.pr p{margin-top:8px;font-size:13px;color:var(--muted);line-height:1.7}
+.eg{width:100%;border-collapse:collapse;font-size:14px;min-width:1040px}
+.eg th,.eg td{padding:14px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.7}
+.eg thead th{font-size:13px;font-weight:600;color:var(--ink);border-bottom-color:var(--line-strong);position:sticky;top:0;background:var(--bg)}
+.eg td{color:var(--ink-soft)}
+.eg td:first-child{min-width:150px;color:var(--ink)}
+.eg .s{margin-top:6px}
+.eg .no-{color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
+.eg tr:target td{background:var(--primary-soft)}
+.meta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:20px;font-size:14px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+ul.plain{margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)}
+@media (max-width:1100px){.pr{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){
+  .pr{grid-template-columns:1fr}
+  .eg{min-width:0}.eg thead{display:none}
+  .eg,.eg tbody,.eg tr,.eg td{display:block;width:100%}
+  .eg tr{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:8px 16px;margin-bottom:12px}
+  .eg td{border:0;padding:8px 0}
+  .eg td[data-l]::before{content:attr(data-l);display:block;font-size:12px;color:var(--faint);margin-bottom:2px}
+  .eg td:first-child::before{display:none}
+}
+</style>
+<main>
+  
+  <div class="wrap hero center" style="padding-bottom:40px">
+    <h1>出网清单</h1>
+    <p class="lede">什么会发出去，发到哪，云端留不留。逐条列出，没有例外。</p>
+    <div class="meta"><span>契约版本 <b>{egress.version}</b></span><span>更新于 <b>{egress.updatedAt}</b></span><span>共 <b>{items.length}</b> 条出网</span></div>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <div class="sec-head"><h2>五条原则</h2></div>
+      <ol class="pr">{egress.principles.map((text, i) => {
+        const [title, ...rest] = brand(text).split('：');
+        return <li><span class="n">{i + 1}</span><span>{title}</span><p>{rest.join('：')}</p></li>;
+      })}</ol>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head split"><h2>逐条清单</h2><span class="faint" style="font-size:14px">只有表中这 {items.length} 件事会让数据离开你的电脑</span></div>
+      <div class="table-scroll">
+        <table class="eg">
+          <thead><tr><th>功能</th><th>发送什么</th><th>发到哪</th><th>云端保留</th><th>费用</th><th>离线时</th></tr></thead>
+          <tbody>{items.map((item, i) => {
+            const st = status(item.status);
+            return (
+              <tr id={item.id}>
+                <td data-l="功能"><span class="no-">{String(i + 1).padStart(2, '0')}</span> <b>{brand(item.fn)}</b><div class="s"><span class={st.cls}>{st.label}</span></div></td>
+                {columns.map(([label, key]) => <td data-l={label}>{brand(item[key])}</td>)}
+              </tr>
+            );
+          })}</tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="grid g3">
+        <div class="card">
+          <div class="ic blue"><Icon name="lock" size={18} /></div><h3>不出网</h3>
+          <p style="margin-top:10px">资料解析、全文检索与本地语义索引：Word、PDF（有文字层）、Excel、PowerPoint 在本机解析。完全可用。</p>
+        </div>
+        <div class="card">
+          <div class="ic"><Icon name="cloud" size={18} /></div><h3>云端会存</h3>
+          <ul class="plain">{egress.cloudStoragePolicy.storedOnCloud.map((t) => <li>{brand(t)}</li>)}</ul>
+        </div>
+        <div class="card">
+          <div class="ic blue"><Icon name="shield" size={18} /></div><h3>云端不存</h3>
+          <ul class="plain">{egress.cloudStoragePolicy.neverStoredOnCloud.map((t) => <li>{brand(t)}</li>)}</ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="final">
+    <svg class="mascot"><use href="#garwoo"/></svg>
+    <h2>接自己的模型，问答不经过格物。</h2>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/desktop/')}>看桌面端</a><a class="btn btn-lg" href={href('/pricing/')}>查看价格</a></div>
+  </div>
+</main>
+</Base>

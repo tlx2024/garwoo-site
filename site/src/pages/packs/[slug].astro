@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import { href } from '../../lib/url';
+import { PACKS, PACK_VERSION, PACK_DATE, PACK_PUBLISHER, PACK_LICENSE, COUNT_LABELS } from '../../data/packs';
+
+export function getStaticPaths() {
+  return PACKS.map((pack) => ({ params: { slug: pack.slug }, props: { pack } }));
+}
+const { pack: p } = Astro.props;
+const rows = [
+  ['版本', PACK_VERSION],
+  ['更新日期', PACK_DATE],
+  ['发布方', PACK_PUBLISHER],
+  ['许可', PACK_LICENSE],
+  ['最低客户端', p.minApp],
+  ['体积', `${(p.size / 1024).toFixed(1)} KB`],
+  ['来源', '随客户端内置'],
+];
+---
+<Base title={p.title} description={`${p.title}：${p.sub}。版本、许可、包内容计数、安装时授予的权限和更新说明。`} page="packs">
+<style is:global>
+.pk-head{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.pk-head .crumb{font-size:14px;color:var(--muted);margin-bottom:16px;display:block}
+.pk-head h1{font-size:clamp(34px,4.6vw,52px);letter-spacing:-.025em;font-weight:600}
+.pk-head .sub{margin-top:12px;font-size:18px;color:var(--muted);max-width:640px}
+.pk-head .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+.pk-cta{display:flex;gap:10px;flex-wrap:wrap}
+.pk-body{display:grid;grid-template-columns:1.3fr .7fr;gap:56px;margin-top:72px;align-items:start}
+.pk-body h2{font-size:clamp(22px,2.6vw,28px)}
+.pk-body p{margin-top:14px;color:var(--ink-soft);font-size:16px}
+.pk-body ul{margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)}
+.pk-body section + section{margin-top:48px}
+.cnt b{display:block;font-size:34px;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.cnt span{font-size:14px;color:var(--muted)}
+.facts{width:100%;border-collapse:collapse;font-size:15px}
+.facts td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.facts td:first-child{color:var(--muted);width:40%}
+.perm{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.perm code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;padding:2px 8px;border:1px solid var(--line);border-radius:4px;color:var(--ink-soft);background:var(--bg-2)}
+#counts{grid-template-columns:repeat(3,1fr)}
+@media (max-width:900px){#counts{grid-template-columns:repeat(2,1fr)}.pk-head,.pk-body{grid-template-columns:1fr;gap:32px}.pk-body{margin-top:48px}}
+</style>
+<main>
+  <div class="wrap hero" style="padding-bottom:0">
+    <div class="pk-head">
+      <div>
+        <a class="crumb link" href={href('/packs/')} style="font-size:14px">本体市场</a>
+        <h1>{p.title}</h1>
+        <p class="sub">{p.sub}</p>
+        <div class="tags">
+          <span class="tag blue">官方精选 · {PACK_VERSION}</span>
+          <span class="tag">{p.domain}</span>
+          {p.tags.map((t) => <span class="tag">{t}</span>)}
+        </div>
+      </div>
+      <div class="pk-cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>在格物中安装</a></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="pk-body">
+      <div>
+        <section><h2>这个包是什么</h2><div>{p.desc.map((d) => <p>{d}</p>)}</div></section>
+        <section>
+          <h2>包里有什么</h2>
+          <div class="grid g3" id="counts" style="margin-top:20px">
+            {p.counts.map((n, i) => <div class="card cnt"><b>{n}</b><span>{COUNT_LABELS[i]}</span></div>)}
+          </div>
+          <ul>{p.hl.map((h) => <li>{h}</li>)}</ul>
+        </section>
+        <section>
+          <h2>安装时授予的权限</h2>
+          <p>{p.grants}</p>
+          <div class="perm">{p.perm.map((x) => <code>{x}</code>)}</div>
+        </section>
+        <section><h2>更新说明</h2><div>{p.chg.map((c) => <p>{c}</p>)}</div></section>
+      </div>
+      <aside class="card">
+        <h3>信息</h3>
+        <table class="facts" style="margin-top:12px">
+          {rows.map(([k, v]) => <tr><td>{k}</td><td>{v}</td></tr>)}
+        </table>
+      </aside>
+    </div>
+  </div>
+
+  <div class="final">
+    <svg class="mascot"><use href="#garwoo" /></svg>
+    <h2>一个包，一个领域。</h2>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/packs/')}>回本体市场</a></div>
+  </div>
+</main>
+</Base>

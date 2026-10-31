@@ -29,8 +29,19 @@ export default defineConfig({
       disable404Route: true,
       lastUpdated: false,
       sidebar: [
-        { label: '开始', items: [{ label: '文档首页', slug: 'docs' }] },
-        { label: '官网', items: [{ label: '返回首页', link: '/' }] },
+        {
+          label: '文档',
+          items: [{ label: '文档首页', link: '/docs/' }, 'docs/quickstart', 'docs/models', 'docs/trial', 'docs/faq'],
+        },
+        {
+          label: '官网',
+          items: [
+            { label: '返回首页', link: '/' },
+            { label: '工作方式', link: '/how/' },
+            { label: '出网清单', link: '/egress/' },
+            { label: '更新日志', link: '/changelog/' },
+          ],
+        },
       ],
     }),
   ],

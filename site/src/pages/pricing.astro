@@ -1,0 +1,174 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import Icon from '../components/Icon.astro';
+---
+<Base title="价格" description="格物价格：客户端免费，官方 AI 按积分；接自己的模型不扣积分。页面金额为示例。" page="pricing">
+<style is:global>
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:28px;display:flex;flex-direction:column}
+.plan.hl{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.plan .nm{font-weight:600;font-size:16px;display:flex;justify-content:space-between;align-items:center}
+.plan .amt{font-size:44px;font-weight:600;letter-spacing:-.03em;margin:18px 0 0;line-height:1}
+.plan .amt small{font-size:14px;font-weight:400;color:var(--muted);letter-spacing:0}
+.plan ul{list-style:none;padding:0;margin:24px 0 28px;flex:1;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:20px}
+.plan li{display:flex;gap:10px;align-items:flex-start}
+.plan li svg{flex:none;margin-top:4px;color:var(--primary)}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.calc{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line-strong);border-radius:8px;overflow:hidden;height:40px}
+.stepper button{width:40px;height:100%;border:0;background:var(--panel-2);cursor:pointer;font-size:18px;color:var(--ink-soft)}
+.stepper output{min-width:120px;text-align:center;font-weight:500}
+.total{font-size:32px;font-weight:600;letter-spacing:-.02em}
+.cost .num{font-size:28px;font-weight:600;margin-top:4px;letter-spacing:-.02em}
+.cost .num small{font-size:13px;font-weight:400;color:var(--muted);letter-spacing:0}
+</style>
+<main>
+  <div class="wrap hero center" style="padding-bottom:40px">
+    <h1>价格</h1>
+    <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap">
+      <div class="seg" data-tabs role="tablist">
+        <button aria-selected="true" data-target="tab-personal">个人</button>
+        <button aria-selected="false" data-target="tab-ent">企业</button>
+      </div>
+      <span class="tag">示例价格 · 注册与购买未开放</span>
+    </div>
+  </div>
+
+  
+  <div class="wrap" id="tab-personal">
+    <div class="plans">
+      <div class="plan">
+        <div class="nm">免费客户端</div>
+        <div class="amt">¥0</div>
+        <ul>
+          <li><span><Icon name="check" size={15} /></span>项目、文件、本体与五层知识库</li>
+          <li><span><Icon name="check" size={15} /></span>三个官方起步包</li>
+          <li><span><Icon name="check" size={15} /></span>本机解析、检索、备份与导出</li>
+          <li><span><Icon name="check" size={15} /></span>接自己的模型</li>
+          <li><span><Icon name="check" size={15} /></span>用自己的模型跑智能体与日程</li>
+        </ul>
+        <a class="btn" href={href('/download/')}>申请内测</a>
+      </div>
+      <div class="plan hl">
+        <div class="nm">个人会员<span class="tag">示例</span></div>
+        <div class="amt">¥39<small> / 月</small></div>
+        <ul>
+          <li><span><Icon name="check" size={15} /></span>每月 2,000 积分</li>
+          <li><span><Icon name="check" size={15} /></span>官方 AI 问答、起草与 Wiki 整理</li>
+          <li><span><Icon name="check" size={15} /></span>扫描页云端识别</li>
+          <li><span><Icon name="check" size={15} /></span>用官方 AI 跑智能体与日程</li>
+          <li><span><Icon name="check" size={15} /></span>微信、飞书、钉钉通道</li>
+          <li><span><Icon name="check" size={15} /></span>不自动续费</li>
+        </ul>
+        <button class="btn btn-primary" disabled style="opacity:.5;cursor:not-allowed">开通会员 · 未开放</button>
+      </div>
+      <div class="plan">
+        <div class="nm">积分加量包<span class="tag">示例</span></div>
+        <div class="amt">¥20<small> / 800 积分</small></div>
+        <ul>
+          <li><span><Icon name="check" size={15} /></span>与会员积分分批记账</li>
+          <li><span><Icon name="check" size={15} /></span>先用快到期的批次</li>
+          <li><span><Icon name="check" size={15} /></span>可用、预留、消费随时可查</li>
+        </ul>
+        <a class="btn" href="#credits">购买</a>
+      </div>
+    </div>
+
+    <section class="sec-sm" id="credits">
+      <div class="card calc" style="padding:32px">
+        <div>
+          <h3 style="font-size:20px">积分加量包 <span class="tag">示例</span></h3>
+          <div class="stepper" style="margin-top:16px"><button id="minus" aria-label="减少">−</button><output id="qty">800 积分</output><button id="plus" aria-label="增加">+</button></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px">
+          <div style="text-align:right"><div class="faint" style="font-size:13px">合计</div><div class="total" id="total">¥20</div></div>
+          <button class="btn btn-primary btn-lg" disabled style="opacity:.5;cursor:not-allowed">购买 · 未开放</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><h2>每次花多少</h2></div>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead><tr><th>操作</th><th>计费</th></tr></thead>
+          <tbody>
+            <tr><td>智能问答</td><td>按实际 Token</td></tr>
+            <tr><td>AI 引导起草本体</td><td>约 3–8 积分 / 次</td></tr>
+            <tr><td>Wiki 专题整理、本体演化建议、体检出题</td><td>按实际 Token</td></tr>
+            <tr><td>云端扫描页识别</td><td>约 0.5 积分 / 页，逐份报价</td></tr>
+            <tr><td>本机解析、检索、编辑、备份、导出</td><td>0</td></tr>
+            <tr><td>接自己的模型</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid g2" style="margin-top:24px">
+        <div class="card"><div class="ic"><Icon name="clock" size={18} /></div><h3>先确认额度</h3><p class="muted" style="margin-top:8px">第一次用官方 AI 时确认一次额度，默认 30 积分；期间问答与起草共用，按实际扣减。空闲 15 分钟或手动结束后，退回没用完的部分。</p></div>
+        <div class="card"><div class="ic"><Icon name="cpu" size={18} /></div><h3>自带模型</h3><p class="muted" style="margin-top:8px">接 OpenAI 兼容地址或本机 Ollama 后，请求直接发到你配置的地址，不经格物网关，不扣积分。</p></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><h2>功能对比</h2></div>
+      <div class="table-scroll">
+        <table class="cmp">
+          <thead><tr><th></th><th>免费客户端</th><th>个人会员</th><th>企业版</th></tr></thead>
+          <tbody>
+            <tr class="grp"><td colspan="4">项目与知识</td></tr>
+            <tr><td>项目、文件、对象</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>本体与起步包</td><td class="yes">✓</td><td class="yes">✓</td><td>全厂统一本体</td></tr>
+            <tr><td>五层知识库</td><td class="yes">✓</td><td class="yes">✓</td><td>全企业共享</td></tr>
+            <tr class="grp"><td colspan="4">AI</td></tr>
+            <tr><td>官方 AI</td><td class="no">—</td><td>按积分</td><td>私有部署模型</td></tr>
+            <tr><td>自带模型</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>智能体与日程</td><td>自带模型</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>聊天通道</td><td class="no">—</td><td>微信、飞书、钉钉</td><td>钉钉、企业微信</td></tr>
+            <tr class="grp"><td colspan="4">协作与治理</td></tr>
+            <tr><td>手机伴侣</td><td>规划中</td><td>规划中</td><td>规划中</td></tr>
+            <tr><td>系统接入（MES / SCADA / ERP）</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr><td>权限、审批、审计</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap" id="tab-ent" hidden>
+    <div class="plan hl" style="max-width:760px;margin:0 auto;padding:40px">
+      <div class="nm">格物企业版</div>
+      <div class="amt" style="font-size:36px">按项目报价</div>
+      <ul style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px">
+        <li><span><Icon name="check" size={15} /></span>内网私有化部署</li>
+        <li><span><Icon name="check" size={15} /></span>MES / SCADA / ERP 接入</li>
+        <li><span><Icon name="check" size={15} /></span>全厂统一本体</li>
+        <li><span><Icon name="check" size={15} /></span>钉钉、企业微信</li>
+        <li><span><Icon name="check" size={15} /></span>权限、审批、审计</li>
+        <li><span><Icon name="check" size={15} /></span>本机模型（vLLM / Ollama）</li>
+      </ul>
+      <p class="muted" style="font-size:14px">报价随接入范围、部署形态与交付清单确定。</p>
+      <a class="btn btn-primary" style="width:fit-content;margin-top:20px" href={href('/enterprise/#contact')}>预约演示</a>
+    </div>
+  </div>
+
+  <section class="sec">
+    <div class="wrap faq">
+      <h2>常见问题</h2>
+      <div>
+        <details open><summary>不买会员还能用吗？</summary><p>能。本机的浏览、编辑、检索、备份和导出都不依赖会员，也可以接自己的模型，用它跑智能体与日程。</p></details>
+        <details><summary>积分怎么扣？</summary><p>第一次用官方 AI 时确认一次额度，默认 30 积分，按实际用量扣减；空闲 15 分钟或手动结束后退回没用完的部分。</p></details>
+        <details><summary>会员到期后资料会怎样？</summary><p>资料都在你的电脑上，不受影响。</p></details>
+        <details><summary>现在能购买吗？</summary><p>还不能。页面上的金额和积分是示例，注册与购买开放时以正式价格为准。</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+<script is:inline>
+(function () {
+  var n = 1, qty = document.getElementById('qty'), total = document.getElementById('total');
+  function show() { qty.textContent = (n * 800).toLocaleString() + ' 积分'; total.textContent = '¥' + n * 20; }
+  document.getElementById('minus').onclick = function () { if (n > 1) { n--; show(); } };
+  document.getElementById('plus').onclick = function () { if (n < 50) { n++; show(); } };
+})();
+</script>
+</Base>
