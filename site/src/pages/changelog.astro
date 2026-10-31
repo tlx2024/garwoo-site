@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import { RELEASES } from '../data/changelog';
 ---
-<Base title="更新日志" description="格物每个发行版本的更新说明：新增、改进、修复和升级注意。目前只有 0.2.0。" page="changelog">
+<Base title="更新日志" description={`格物每个发行版本的更新说明：新增、改进和升级注意。最新版本 ${RELEASES[0].version}。`} page="changelog">
 <style is:global>
 .rel{display:grid;grid-template-columns:180px minmax(0,1fr);gap:32px}
 .rel .v{position:sticky;top:96px;align-self:start}
@@ -41,7 +41,7 @@ import { RELEASES } from '../data/changelog';
   </div>
 
   <div class="final">
-    <svg class="mascot"><use href="#garwoo"/></svg>
+    <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>下一版发布时，这里会多一行。</h2>
     <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a></div>
   </div>

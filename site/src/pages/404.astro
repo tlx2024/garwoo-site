@@ -5,7 +5,7 @@ import { href } from '../lib/url';
 <Base title="页面不存在" description="这个页面不存在，回首页或看文档。" page="404">
 <main>
   <div class="wrap hero center" style="min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center">
-    <svg class="mascot" style="width:120px;height:120px" aria-hidden="true"><use href="#garwoo"/></svg>
+    <img class="mascot" style="width:120px;height:120px" aria-hidden="true" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h1 style="margin-top:24px;font-size:clamp(32px,4.4vw,48px)">这一页嘎呜找不到了</h1>
     <p class="lede">地址可能写错了，或者页面已经搬走。</p>
     <div class="cta"><a class="btn btn-primary btn-lg" href={href('/')}>回首页</a><a class="btn btn-lg" href={href('/docs/')}>看文档</a></div>

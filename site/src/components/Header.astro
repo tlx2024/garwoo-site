@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { href } from '../lib/url';
+import Mascot from './Mascot.astro';
 
 interface Props {
   page?: string;
@@ -24,7 +25,7 @@ const links = [
 <div class="announce">格物个人版邀请内测中<a href={href('/download/')}>申请内测 →</a></div>
 <header class="site-header" id="hdr">
   <div class="wrap nav">
-    <a class="logo" href={href('/')} aria-label="格物首页"><svg><use href="#garwoo-mini" /></svg>格物<span class="en">Garwoo</span></a>
+    <a class="logo" href={href('/')} aria-label="格物首页"><Mascot />格物<span class="en">Garwoo</span></a>
     <ul class="menu">
       <li class="has-mega">
         <button aria-expanded="false">产品<svg class="caret" viewBox="0 0 10 10"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.4" /></svg></button>

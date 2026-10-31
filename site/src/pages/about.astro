@@ -15,7 +15,7 @@ import { href } from '../lib/url';
 </style>
 <main>
   <div class="wrap hero center" style="padding-bottom:24px">
-    <svg class="mascot" style="width:96px;height:96px;margin:0 auto 20px" aria-hidden="true"><use href="#garwoo"/></svg>
+    <img class="mascot" style="width:96px;height:96px;margin:0 auto 20px" aria-hidden="true" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h1>关于格物</h1>
   </div>
   <div class="wrap">
@@ -52,7 +52,7 @@ import { href } from '../lib/url';
     </section>
   </div>
   <div class="final">
-    <svg class="mascot"><use href="#garwoo"/></svg>
+    <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>格物致知，嘎呜开工。</h2>
     <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/how/')}>看工作方式</a></div>
   </div>

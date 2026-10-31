@@ -29,16 +29,16 @@ Node 22，进入 `site/` 后执行 `npm ci`、`npm test`、`npm run check`。Win
 
 ## 发布
 
-`deploy/deploy.ps1` 与 `deploy/remote-install.sh` 是从 `iai-pages` 改来的，尚未在真实主机上验证，G5 之前不使用。素材（吉祥物、字标）目前是占位稿，不授权复用。
+`deploy/deploy.ps1` 与 `deploy/remote-install.sh` 是从 `iai-pages` 改来的，尚未在真实主机上验证，G5 之前不使用。吉祥物与字标素材（设计稿 v2）不授权复用。
 
 ## 上线前必须完成
 
 当前站点是预览形态（`robots.txt` 与 `<meta name="robots">` 都不让收录），以下事项没做完之前不要用正式域名构建发布：
 
 - **真实截图。** 页面里的产品界面是 HTML 画的示意，不是真实截图。产品内显示名改为“格物”之前，客户端界面仍写着旧名称，截图会与官网品牌不符；对话类截图还要用真实模型的回答。
-- **正式品牌资产。** 吉祥物、字标是占位稿。
+- **品牌规范。** 吉祥物与字标已换成设计稿 v2；最小尺寸、安全边距、禁用示例等规范还没定稿，品牌页上的色值是从素材里取样的近似值。
 - **域名与备案。** `garwoo.cn` 的 ICP 备案号、页脚备案位。
 - **预约演示、注册与购买。** 目前没有提交端点，企业页的预约表单是禁用状态，不放登录入口。
 - **联系方式与运营主体。** 关于页写“备案完成后公布”。
 
-重新生成 OG 图与 favicon 位图：在 `site/` 下执行 `node scripts/make-og.mjs`（需要系统里有中文黑体）。
+更新品牌图：在 `site/` 下执行 `node scripts/make-brand.mjs "<设计稿目录>"`（生成 `public/brand/` 与 favicon 位图），再执行 `node scripts/make-og.mjs` 重绘 OG 图（需要系统里有中文黑体）。

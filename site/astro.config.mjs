@@ -20,7 +20,7 @@ export default defineConfig({
     starlight({
       title: '格物 Garwoo',
       description: '格物 Garwoo 的使用指南与常见问题。',
-      favicon: '/favicon.svg',
+      favicon: '/favicon-32.png',
       defaultLocale: 'root',
       locales: { root: { label: '简体中文', lang: 'zh-CN' } },
       customCss: ['./src/styles/docs.css'],
@@ -28,7 +28,7 @@ export default defineConfig({
         { tag: 'link', attrs: { rel: 'stylesheet', href: `${BASE}/fonts/fonts.css` } },
         { tag: 'meta', attrs: { property: 'og:image', content: `${SITE}${BASE}/og/og-default.png` } },
         { tag: 'meta', attrs: { name: 'twitter:image', content: `${SITE}${BASE}/og/og-default.png` } },
-        ...(target.mode === 'pages' ? [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex, nofollow' } }] : []),
+        ...(target.mode === 'pages' ? [{ tag: /** @type {'meta'} */ ('meta'), attrs: { name: 'robots', content: 'noindex, nofollow' } }] : []),
       ],
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/tlx2024/garwoo-site' }],
       disable404Route: true,

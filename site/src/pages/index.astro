@@ -44,7 +44,7 @@ import AppSide from '../components/AppSide.astro';
   
   <div class="stage">
     <div class="inner">
-      <svg class="perch mascot"><use href="#garwoo"/></svg>
+      <img class="perch mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
       <div class="app" aria-label="格物项目对话">
         <div class="app-top"><AppTop title="对话 · 格物" /></div>
         <div class="app-body">
@@ -341,7 +341,7 @@ import AppSide from '../components/AppSide.astro';
   </section>
 
   <div class="final">
-    <svg class="mascot"><use href="#garwoo"/></svg>
+    <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>嘎呜一声，开工。</h2>
     <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/pricing/')}>查看价格</a></div>
   </div>

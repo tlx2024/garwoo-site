@@ -5,7 +5,7 @@ import { RELEASES } from '../data/changelog';
 const latest = RELEASES[0];
 import Icon from '../components/Icon.astro';
 ---
-<Base title="下载" description="下载格物：Windows 0.2.0 邀请内测，macOS、Android 与微信小程序规划中。" page="download">
+<Base title="下载" description="下载格物：Windows 0.2.1 邀请内测，macOS、Android 与微信小程序规划中。" page="download">
 <style is:global>
 .dl{display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
 .dl .main{display:flex;flex-direction:column;min-height:380px;padding:36px;position:relative;overflow:hidden}
@@ -34,7 +34,7 @@ import Icon from '../components/Icon.astro';
         <div class="cta">
           <a class="btn btn-primary btn-lg" href={href('/docs/trial/')}><span><Icon name="download" size={17} /></span>申请内测</a>
         </div>
-        <svg class="big mascot"><use href="#garwoo"/></svg>
+        <img class="big mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
       </div>
       <div class="side-col">
         <div class="card plat"><div class="ic"><Icon name="apple" size={18} /></div><div><b>macOS</b><span class="faint">规划中</span></div></div>

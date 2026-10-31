@@ -5,9 +5,13 @@ import { href } from '../lib/url';
 <Base title="品牌" description="格物 Garwoo 吉祥物、字标、颜色与图标。" page="brand">
 <style is:global>
 .tile{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:28px}
-.tile svg.m{width:128px;height:128px}
-.tile.b{background:var(--primary);border-color:var(--primary);color:#fff}
+.tile img.m{width:160px;height:160px;object-fit:contain}
+.tile.w,.lock.w{background:#fff;border-color:#e4e7ec;color:#161b26}
 .tile.k{background:#121214;border-color:#2c2c31;color:#ececee}
+.tile.b{background:var(--primary);border-color:var(--primary);color:#fff}
+.lock{display:grid;place-items:center;padding:36px}
+.lock img{width:min(100%,520px);height:auto}
+.lock.k{background:#121214;border-color:#2c2c31}
 .word{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:32px}
 .word .cn{font-size:48px;font-weight:600;letter-spacing:.04em;line-height:1}
 .word .en{font-size:20px;font-weight:500;color:var(--faint)}
@@ -17,7 +21,8 @@ import { href } from '../lib/url';
 .sw code{color:var(--muted);font-size:12px}
 .sizes{display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap;padding:32px}
 .sizes figure{margin:0;text-align:center;font-size:12px;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
-.app-ic{display:grid;place-items:center;border-radius:22%;background:var(--primary)}
+.app-ic{display:grid;place-items:center;border-radius:22%;background:#fff;border:1px solid var(--line-strong)}
+.app-ic img{width:82%;height:82%}
 .x{position:relative}
 .x::after{content:"✕";position:absolute;top:10px;right:14px;color:var(--bad);font-weight:600}
 </style>
@@ -27,22 +32,23 @@ import { href } from '../lib/url';
   <section class="sec-sm" style="padding-top:32px">
     <div class="sec-head"><h2>嘎呜</h2></div>
     <div class="grid g4">
-      <div class="card tile"><svg class="m mascot"><use href="#garwoo"/></svg><b>主形象</b></div>
-      <div class="card tile b"><svg class="m" style="--m-body:#fff;--m-deep:#dbe6ff;--m-belly:#c2d4ff"><use href="#garwoo"/></svg><b>反白</b></div>
-      <div class="card tile k"><svg class="m"><use href="#garwoo"/></svg><b>暗色</b></div>
-      <div class="card tile"><svg class="m" style="filter:grayscale(1) contrast(1.15)"><use href="#garwoo"/></svg><b>单色</b></div>
+      <div class="card tile w"><img class="m mascot" src={href('/brand/mascot.webp')} alt="嘎呜全身形象" width="512" height="512" /><b>全身</b></div>
+      <div class="card tile k"><img class="m" src={href('/brand/mascot.webp')} alt="暗色底上的嘎呜全身形象" width="512" height="512" /><b>暗色底</b></div>
+      <div class="card tile w"><img class="m" src={href('/brand/head-light.webp')} alt="浅色主题用的嘎呜头像" width="256" height="256" /><b>头像 · 浅色</b></div>
+      <div class="card tile k"><img class="m" src={href('/brand/head-dark.webp')} alt="暗色主题用的嘎呜头像" width="256" height="256" /><b>头像 · 暗色</b></div>
     </div>
   </section>
 
   <section class="sec-sm">
     <div class="sec-head"><h2>字标</h2></div>
-    <div class="grid">
-      <div class="card word"><svg width="64" height="64"><use href="#garwoo-mini"/></svg><span class="cn">格物</span><span class="en">Garwoo</span></div>
-      <div class="grid g3">
-        <div class="card word" style="flex-direction:column;align-items:flex-start;gap:8px"><svg width="48" height="48"><use href="#garwoo-mini"/></svg><span class="cn" style="font-size:32px">格物</span><span class="en" style="font-size:15px">Garwoo</span></div>
-        <div class="card word"><span class="cn" style="font-size:32px">格物</span></div>
-        <div class="card word"><span class="en" style="font-size:28px;color:var(--ink)">Garwoo</span></div>
-      </div>
+    <div class="grid g2">
+      <div class="card lock w"><img src={href('/brand/logo-light.webp')} alt="格物 Garwoo 横版字标，浅色底" width="1200" height="400" /></div>
+      <div class="card lock k"><img src={href('/brand/logo-dark.webp')} alt="格物 Garwoo 横版字标，暗色底" width="1200" height="400" /></div>
+    </div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card word" style="flex-direction:column;align-items:flex-start;gap:8px"><span class="cn" style="font-size:32px">格物</span><span class="en" style="font-size:15px">Garwoo</span></div>
+      <div class="card word"><span class="cn" style="font-size:32px">格物</span></div>
+      <div class="card word"><span class="en" style="font-size:28px;color:var(--ink)">Garwoo</span></div>
     </div>
   </section>
 
@@ -50,8 +56,8 @@ import { href } from '../lib/url';
     <div class="sec-head"><h2>颜色</h2></div>
     <div class="grid g4">
       <div class="card sw"><div style="background:#2f6bff"></div><p><b>主蓝</b><br><code>#2f6bff · 暗色 #3b82f6</code></p></div>
-      <div class="card sw"><div style="background:#e8efff"></div><p><b>浅蓝</b><br><code>#e8efff</code></p></div>
-      <div class="card sw"><div style="background:#161b26"></div><p><b>墨</b><br><code>#161b26</code></p></div>
+      <div class="card sw"><div style="background:#0f2f72"></div><p><b>墨蓝</b><br><code>#0f2f72，吉祥物身体与字标</code></p></div>
+      <div class="card sw"><div style="background:#fd9e0c"></div><p><b>橙</b><br><code>#fd9e0c，只用于点缀</code></p></div>
       <div class="card sw"><div style="background:#121214"></div><p><b>暗色底</b><br><code>#121214 · #1a1a1d</code></p></div>
     </div>
   </section>
@@ -59,20 +65,20 @@ import { href } from '../lib/url';
   <section class="sec-sm">
     <div class="sec-head"><h2>图标</h2></div>
     <div class="card sizes">
-      <figure><div class="app-ic" style="width:128px;height:128px"><svg width="100" height="100" style="--m-body:#fff;--m-deep:#dbe6ff;--m-belly:#c2d4ff"><use href="#garwoo"/></svg></div>128</figure>
-      <figure><div class="app-ic" style="width:64px;height:64px"><svg width="50" height="50" style="--m-body:#fff;--m-deep:#dbe6ff;--m-belly:#c2d4ff"><use href="#garwoo"/></svg></div>64</figure>
-      <figure><div class="app-ic" style="width:32px;height:32px"><svg width="26" height="26" style="--m-body:#fff;--m-deep:#dbe6ff"><use href="#garwoo-mini"/></svg></div>32</figure>
-      <figure><svg width="16" height="16"><use href="#garwoo-mini"/></svg>16</figure>
-      <figure><div style="width:72px;height:72px;border-radius:50%;background:var(--primary-soft);display:grid;place-items:center"><svg width="56" height="56"><use href="#garwoo-mini"/></svg></div>小程序</figure>
+      <figure><div class="app-ic" style="width:128px;height:128px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>128</figure>
+      <figure><div class="app-ic" style="width:64px;height:64px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>64</figure>
+      <figure><div class="app-ic" style="width:32px;height:32px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>32</figure>
+      <figure><img src={href('/brand/head-light.webp')} alt="" width="16" height="16" />16</figure>
+      <figure><div style="width:72px;height:72px;border-radius:50%;background:var(--primary-soft);display:grid;place-items:center"><img src={href('/brand/head-light.webp')} alt="" width="56" height="56" /></div>小程序</figure>
     </div>
   </section>
 
   <section class="sec-sm">
     <div class="sec-head"><h2>不要这样</h2></div>
     <div class="grid g3">
-      <div class="card tile x"><svg class="m" style="transform:scaleX(1.45)"><use href="#garwoo"/></svg></div>
-      <div class="card tile x"><svg class="m" style="--m-body:#ff7a1a;--m-deep:#d95e06;--m-belly:#ffe6d2"><use href="#garwoo"/></svg></div>
-      <div class="card tile x b"><svg class="m"><use href="#garwoo"/></svg></div>
+      <div class="card tile x"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" style="transform:scaleX(1.45)" /></div>
+      <div class="card tile x"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" style="filter:hue-rotate(150deg) saturate(1.4)" /></div>
+      <div class="card tile x b"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" /></div>
     </div>
   </section>
 </main>

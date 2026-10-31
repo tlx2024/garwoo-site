@@ -87,7 +87,7 @@ button{font:inherit;color:inherit}
 .site-header.scrolled{border-bottom-color:var(--line)}
 .nav{display:flex;align-items:center;gap:28px;height:60px}
 .logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:17px;letter-spacing:.04em}
-.logo svg{width:26px;height:26px}
+.logo img{width:28px;height:28px}
 .logo .en{font-weight:500;font-size:13px;color:var(--faint);letter-spacing:.01em}
 .menu{display:flex;gap:2px;list-style:none;margin:0;padding:0;font-size:14px}
 .menu > li{position:relative}
@@ -245,7 +245,7 @@ a.card:hover,.card.hover:hover{border-color:var(--line-strong)}
 .app-body.two{grid-template-columns:208px 1fr}
 .app-side{background:var(--chrome);border-right:1px solid var(--line-soft);padding:8px}
 .app-side .brand{display:flex;align-items:center;gap:7px;height:34px;padding:0 6px;font-weight:600;font-size:13px}
-.app-side .brand svg{width:18px;height:18px}
+.app-side .brand img{width:18px;height:18px}
 .app-side .brand .tag{font-weight:400}
 .app-side .grp{margin:12px 0 2px;padding:0 8px;font-size:11px;color:var(--faint)}
 .app-side a{display:flex;align-items:center;gap:8px;height:28px;padding:0 8px;border-radius:5px;color:var(--ink-soft);font-size:13px}
@@ -376,3 +376,9 @@ a.card:hover,.card.hover:hover{border-color:var(--line-strong)}
 .no{color:var(--faint)}
 .table-scroll{overflow-x:auto}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:13px;z-index:90;animation:fadeIn .3s}
+
+/* 品牌图的明暗切换：浅色主题显示 .for-light，暗色主题显示 .for-dark，规则与上面的主题令牌一致 */
+.for-dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .for-light{display:none}:root:not([data-theme="light"]) .for-dark{display:inline-block}}
+:root[data-theme="dark"] .for-light{display:none}
+:root[data-theme="dark"] .for-dark{display:inline-block}
