@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import Icon from '../components/Icon.astro';
+import { windowsCta } from '../data/status';
+const cta = await windowsCta();
 ---
 <Base title="工作方式" description="格物怎么工作：项目是一个文件夹，本体定方向，五层知识库把资料整理成能追问的知识，每一步都有出处和确认。" page="how">
 <style is:global>
@@ -121,7 +123,7 @@ import Icon from '../components/Icon.astro';
   <div class="final">
     <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>从一个文件夹开始。</h2>
-    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/desktop/')}>看桌面端</a></div>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>{cta.label}</a><a class="btn btn-lg" href={href('/desktop/')}>看桌面端</a></div>
   </div>
 </main>
 </Base>

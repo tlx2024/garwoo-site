@@ -10,7 +10,7 @@
     "check:sensitive": "node scripts/check-sensitive.mjs",
     "build:pages": "node scripts/build-site.mjs pages",
     "build:www": "node scripts/build-site.mjs www",
-    "test": "node --test scripts/test-site-target.mjs"
+    "test": "node --test scripts/test-site-target.mjs scripts/test-releases.mjs"
   },
   "engines": {
     "node": ">=22"

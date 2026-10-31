@@ -17,6 +17,8 @@ const jsonLd = {
 import Icon from '../components/Icon.astro';
 import AppTop from '../components/AppTop.astro';
 import AppSide from '../components/AppSide.astro';
+import { windowsCta } from '../data/status';
+const cta = await windowsCta();
 ---
 <Base og="og-home" jsonLd={jsonLd} description="格物从本体出发，把一个领域的问题做成方案：知识朝本体汇聚，事情交给对口的智能体，越用越专业。" page="home">
 <style is:global>
@@ -36,7 +38,7 @@ import AppSide from '../components/AppSide.astro';
     <h1>从本体出发<br><span class="p">把一个领域的问题做成方案</span></h1>
     <p class="lede">给研发、工艺、质量工程师，独立研究者和一人公司。</p>
     <div class="cta">
-      <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="download" size={17} /></span>申请内测</a>
+      <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="download" size={17} /></span>{cta.label}</a>
       <a class="btn btn-lg" href={href('/download/')}>所有下载</a>
     </div>
   </div>
@@ -343,7 +345,7 @@ import AppSide from '../components/AppSide.astro';
   <div class="final">
     <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>嘎呜一声，开工。</h2>
-    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/pricing/')}>查看价格</a></div>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>{cta.label}</a><a class="btn btn-lg" href={href('/pricing/')}>查看价格</a></div>
   </div>
 </main>
 <script is:inline>

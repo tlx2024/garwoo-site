@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import Icon from '../components/Icon.astro';
+import { windowsCta } from '../data/status';
+const cta = await windowsCta();
 ---
 <Base title="价格" description="格物价格：客户端免费，官方 AI 按积分；接自己的模型不扣积分。页面金额为示例。" page="pricing">
 <style is:global>
@@ -48,7 +50,7 @@ import Icon from '../components/Icon.astro';
           <li><span><Icon name="check" size={15} /></span>接自己的模型</li>
           <li><span><Icon name="check" size={15} /></span>用自己的模型跑智能体与日程</li>
         </ul>
-        <a class="btn" href={href('/download/')}>申请内测</a>
+        <a class="btn" href={href('/download/')}>{cta.label}</a>
       </div>
       <div class="plan hl">
         <div class="nm">个人会员<span class="tag">示例</span></div>

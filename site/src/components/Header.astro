@@ -2,11 +2,13 @@
 import Icon from './Icon.astro';
 import { href } from '../lib/url';
 import Mascot from './Mascot.astro';
+import { windowsCta } from '../data/status';
 
 interface Props {
   page?: string;
 }
 const { page = '' } = Astro.props;
+const cta = await windowsCta();
 const cur = (p: string) => (page === p ? 'page' : undefined);
 const products = [
   { icon: 'desktop', label: '桌面端', to: '/desktop/' },
@@ -22,7 +24,7 @@ const links = [
   { page: 'docs', label: '文档', to: '/docs/' },
 ];
 ---
-<div class="announce">格物个人版邀请内测中<a href={href('/download/')}>申请内测 →</a></div>
+<div class="announce">格物个人版{cta.status}中<a href={href('/download/')}>{cta.label} →</a></div>
 <header class="site-header" id="hdr">
   <div class="wrap nav">
     <a class="logo" href={href('/')} aria-label="格物首页"><Mascot />格物<span class="en">Garwoo</span></a>

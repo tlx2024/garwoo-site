@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import Icon from '../components/Icon.astro';
+import { windowsCta } from '../data/status';
+const cta = await windowsCta();
 ---
 <Base title="手机伴侣" description="格物手机伴侣与微信小程序（规划中）：离开电脑也能看进展、确认写操作。" page="mobile">
 <style is:global>
@@ -105,7 +107,7 @@ import Icon from '../components/Icon.astro';
   <div class="final">
     <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>先装桌面端，再配手机。</h2>
-    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a></div>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>{cta.label}</a></div>
   </div>
 </main>
 </Base>

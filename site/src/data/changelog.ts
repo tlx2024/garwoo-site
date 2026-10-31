@@ -3,7 +3,6 @@ export type ReleaseNote = {
   version: string;
   date: string;
   platform: string;
-  status: string;
   sections: { title: string; items: string[] }[];
 };
 
@@ -12,7 +11,6 @@ export const RELEASES: ReleaseNote[] = [
     "version": "0.2.1",
     "date": "2026-10-31",
     "platform": "Windows",
-    "status": "邀请内测",
     "sections": [
       {
         "title": "新增",
@@ -36,7 +34,7 @@ export const RELEASES: ReleaseNote[] = [
       {
         "title": "升级注意",
         "items": [
-          "当前只面向受邀用户，签名安装包尚未公开发布。",
+          "安装包尚未做代码签名，Windows 安装时会提示未知发布者，请核对下载页给出的 SHA-256。",
           "手机伴侣与微信小程序不在本版本范围内。"
         ]
       }
@@ -46,7 +44,6 @@ export const RELEASES: ReleaseNote[] = [
     version: '0.2.0',
     date: '2026-10-28',
     platform: 'Windows',
-    status: '邀请内测',
     sections: [
       {
         "title": "新增",
@@ -79,7 +76,7 @@ export const RELEASES: ReleaseNote[] = [
       {
         "title": "升级注意",
         "items": [
-          "当前只面向受邀用户，签名安装包尚未公开发布。",
+          "安装包尚未做代码签名，Windows 安装时会提示未知发布者，请核对下载页给出的 SHA-256。",
           "手机伴侣与微信小程序不在本版本范围内。"
         ]
       }

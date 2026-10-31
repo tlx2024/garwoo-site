@@ -2,10 +2,21 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import { RELEASES } from '../data/changelog';
-const latest = RELEASES[0];
+import { platformStatus } from '../data/status';
 import Icon from '../components/Icon.astro';
+const win = await platformStatus('windows');
+const and = await platformStatus('android');
+const wm = win.manifest;
+const am = and.manifest;
+const mb = (n: number) => `${(n / 1048576).toFixed(1)} MB`;
+const day = (iso: string) => iso.slice(0, 10);
+const unsigned = wm?.signature?.status === 'NotSigned';
+const desc = wm
+  ? `下载格物：Windows ${wm.version} ${win.label}${unsigned ? '，安装包未签名' : ''}。`
+  : '下载格物：Windows 0.2.1 邀请内测，macOS、Android 与微信小程序规划中。';
+const latest = RELEASES[0];
 ---
-<Base title="下载" description="下载格物：Windows 0.2.1 邀请内测，macOS、Android 与微信小程序规划中。" page="download">
+<Base title="下载" description={desc} page="download">
 <style is:global>
 .dl{display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
 .dl .main{display:flex;flex-direction:column;min-height:380px;padding:36px;position:relative;overflow:hidden}
@@ -21,27 +32,73 @@ import Icon from '../components/Icon.astro';
 .req{width:100%;border-collapse:collapse;font-size:15px}
 .req td{padding:14px 0;border-bottom:1px solid var(--line)}
 .req td:first-child{color:var(--muted);width:30%}
+.req code{word-break:break-all;font-size:13px}
+.dl .main .facts{margin:14px 0 22px;display:grid;gap:4px;max-width:calc(100% - 180px)}
+.dl .notice{margin:0 0 18px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:12px;font-size:14px;max-width:calc(100% - 180px)}
+@media (max-width:900px){.dl .main .facts,.dl .notice{max-width:100%}}
 </style>
 <main>
   <div class="wrap hero center" style="padding-bottom:48px"><h1>下载格物</h1></div>
   <div class="wrap">
-    
+
     <div class="dl">
       <div class="card main">
         <div class="ic blue" style="width:48px;height:48px;margin:0"><Icon name="win" size={22} /></div>
         <h2>Windows</h2>
-        <p class="muted">{latest.version} · {latest.status}</p>
-        <div class="cta">
-          <a class="btn btn-primary btn-lg" href={href('/docs/trial/')}><span><Icon name="download" size={17} /></span>申请内测</a>
-        </div>
+        {wm ? (
+          <>
+            <div class="facts">
+              <p class="muted">{wm.version} · {win.label} · {day(wm.published_at)} · {mb(wm.size)}</p>
+              <p class="faint" style="font-size:14px">Windows 10 / 11，64 位</p>
+            </div>
+            {unsigned ? <p class="notice">这个安装包没有代码签名。Windows 安装时会提示“未知发布者”，请先在下方核对 SHA-256，再选择“更多信息 → 仍要运行”。</p> : null}
+            <div class="cta">
+              <a class="btn btn-primary btn-lg" href={wm.urls[0]}><span><Icon name="download" size={17} /></span>下载 Windows 版</a>
+              {wm.alternates?.map((a) => <a class="btn btn-lg" href={a.urls[0]}>{a.file.endsWith('.msi') ? 'MSI 安装包' : a.file}</a>)}
+            </div>
+          </>
+        ) : (
+          <>
+            <p class="muted">{latest.version} · {win.label}</p>
+            <div class="cta">
+              <a class="btn btn-primary btn-lg" href={href('/docs/trial/')}><span><Icon name="download" size={17} /></span>申请内测</a>
+            </div>
+          </>
+        )}
         <img class="big mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
       </div>
       <div class="side-col">
         <div class="card plat"><div class="ic"><Icon name="apple" size={18} /></div><div><b>macOS</b><span class="faint">规划中</span></div></div>
-        <div class="card plat"><div class="ic"><Icon name="android" size={18} /></div><div><b>Android</b><span class="faint">规划中</span></div><a class="btn btn-sm r" href={href('/mobile/')}>了解</a></div>
+        <div class="card plat"><div class="ic"><Icon name="android" size={18} /></div><div><b>Android</b><span class="faint">{am ? `${am.version} · ${and.label}` : and.label}</span></div>
+          {am ? <a class="btn btn-sm r" href={am.urls[0]}>下载</a> : <a class="btn btn-sm r" href={href('/mobile/')}>了解</a>}</div>
         <div class="card plat" id="weapp"><div class="ic"><Icon name="wechat" size={18} /></div><div><b>微信小程序</b><span class="faint">规划中</span></div><a class="btn btn-sm r" href={href('/mobile/#weapp')}>了解</a></div>
       </div>
     </div>
+
+    {(wm || am) ? (
+      <section class="sec" id="verify">
+        <div class="grid duo even" style="align-items:start">
+          <h2 style="font-size:clamp(26px,3.2vw,36px)">安装与核对</h2>
+          <table class="req">
+            {wm ? (
+              <>
+                <tr><td>Windows SHA-256</td><td><code>{wm.sha256}</code></td></tr>
+                {wm.alternates?.map((a) => <tr><td>{a.file.endsWith('.msi') ? 'MSI SHA-256' : `${a.file} SHA-256`}</td><td><code>{a.sha256}</code></td></tr>)}
+                <tr><td>签名</td><td>{wm.signature?.status === 'Valid' ? `已签名：${wm.signature.signer_subject}（指纹 ${wm.signature.signer_thumbprint}）` : '未签名。核对上面的 SHA-256 后再安装。'}</td></tr>
+                <tr><td>核对方法</td><td>在 PowerShell 里执行 <code>Get-FileHash 安装包路径</code>，结果应与上面一致。</td></tr>
+              </>
+            ) : null}
+            {am ? (
+              <>
+                <tr><td>Android SHA-256</td><td><code>{am.sha256}</code></td></tr>
+                <tr><td>签名证书指纹</td><td><code>{am.cert_sha256}</code></td></tr>
+                <tr><td>安装</td><td>用浏览器下载后，按系统提示允许该浏览器安装应用。系统要求 API 级别 {am.min_os_sdk} 以上。更新时证书指纹必须与已装版本一致，否则系统会拒绝安装。</td></tr>
+              </>
+            ) : null}
+          </table>
+        </div>
+      </section>
+    ) : null}
 
     <section class="sec">
       <div class="grid duo even" style="align-items:start">

@@ -4,6 +4,8 @@ import { href } from '../lib/url';
 import Icon from '../components/Icon.astro';
 import AppTop from '../components/AppTop.astro';
 import AppSide from '../components/AppSide.astro';
+import { windowsCta } from '../data/status';
+const cta = await windowsCta();
 ---
 <Base title="桌面端" description="格物桌面端：项目就是你电脑上的文件夹，本体、出处、智能体与日程都在本机。" page="desktop">
 <main>
@@ -11,7 +13,7 @@ import AppSide from '../components/AppSide.astro';
     <h1>桌面端</h1>
     <p class="lede">项目就是你电脑上的文件夹。</p>
     <div class="cta">
-      <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="win" size={16} /></span>申请内测</a>
+      <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="win" size={16} /></span>{cta.label}</a>
       <a class="btn btn-lg" href={href('/download/')}>所有下载</a>
     </div>
   </div>
@@ -181,7 +183,7 @@ import AppSide from '../components/AppSide.astro';
   <div class="final">
     <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>装上格物，嘎呜开工。</h2>
-    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a></div>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>{cta.label}</a></div>
   </div>
 </main>
 </Base>

@@ -16,6 +16,8 @@ const rows = [
   ['体积', `${(p.size / 1024).toFixed(1)} KB`],
   ['来源', '随客户端内置'],
 ];
+import { windowsCta } from '../../data/status';
+const cta = await windowsCta();
 ---
 <Base og="og-packs" title={p.title} description={`${p.title}：${p.sub}。版本、许可、包内容计数、安装时授予的权限和更新说明。`} page="packs">
 <style is:global>
@@ -87,7 +89,7 @@ const rows = [
   <div class="final">
     <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>一个包，一个领域。</h2>
-    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/packs/')}>回本体市场</a></div>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>{cta.label}</a><a class="btn btn-lg" href={href('/packs/')}>回本体市场</a></div>
   </div>
 </main>
 </Base>

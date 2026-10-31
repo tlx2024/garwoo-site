@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import { RELEASES } from '../data/changelog';
+import { windowsCta } from '../data/status';
+const cta = await windowsCta();
 ---
 <Base title="更新日志" description={`格物每个发行版本的更新说明：新增、改进和升级注意。最新版本 ${RELEASES[0].version}。`} page="changelog">
 <style is:global>
@@ -26,7 +28,7 @@ import { RELEASES } from '../data/changelog';
     
     {RELEASES.map((r) => (
       <section class="rel" id={`v${r.version}`}>
-        <div class="v"><b>{r.version}</b><span>{r.date} · {r.platform} · {r.status}</span></div>
+        <div class="v"><b>{r.version}</b><span>{r.date} · {r.platform}</span></div>
         <article class="card body">
           {r.sections.map((g) => (
             <>
@@ -43,7 +45,7 @@ import { RELEASES } from '../data/changelog';
   <div class="final">
     <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>下一版发布时，这里会多一行。</h2>
-    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a></div>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>{cta.label}</a></div>
   </div>
 </main>
 </Base>

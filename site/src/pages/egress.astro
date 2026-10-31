@@ -2,11 +2,13 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import egress from '../data/personal-egress.json';
+import { platformStatus } from '../data/status';
 
 // 出网清单契约的副本：官网只换品牌称呼，其余原文照搬。
 const brand = (text: string) => text.replace(/（account\.iai\.example）/g, '').replace(/IAI\s?/g, '格物');
 const items = egress.egressItems.filter((item) => item.id !== 'local_only');
-const status = (value: string) => (value === 'available' ? { cls: 'st ok', label: '邀请内测' } : { cls: 'st', label: '规划中' });
+const windows = await platformStatus('windows');
+const status = (value: string) => (value === 'available' ? { cls: 'st ok', label: windows.label } : { cls: 'st', label: '规划中' });
 const columns = [['发送什么', 'what'], ['发到哪', 'where'], ['云端保留', 'retention'], ['费用', 'cost'], ['离线时', 'offline']] as const;
 import Icon from '../components/Icon.astro';
 ---

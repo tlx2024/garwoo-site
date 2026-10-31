@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
+import { windowsCta } from '../data/status';
+const cta = await windowsCta();
 ---
 <Base title="关于" description="格物名字的由来、吉祥物嘎呜，以及格物与 IAI 的关系。" page="about">
 <style is:global>
@@ -38,7 +40,7 @@ import { href } from '../lib/url';
       <div class="tx">
         <p>格物和 IAI 用同一套本体和内核。一个人、一个项目文件夹用<b>格物</b>；一座工厂、多人协作、接入设备和系统用 <b>IAI</b>，私有化交付。</p>
         <div class="rel2" style="margin-top:24px">
-          <a class="card hover" href={href('/desktop/')}><h3>格物</h3><p>个人版。Windows 桌面端，邀请内测。</p></a>
+          <a class="card hover" href={href('/desktop/')}><h3>格物</h3><p>个人版。Windows 桌面端，{cta.status}。</p></a>
           <div class="mid">同一套本体与内核</div>
           <a class="card hover" href={href('/enterprise/')}><h3>IAI</h3><p>企业版。私有化交付，接入设备与系统。</p></a>
         </div>
@@ -54,7 +56,7 @@ import { href } from '../lib/url';
   <div class="final">
     <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>格物致知，嘎呜开工。</h2>
-    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>申请内测</a><a class="btn btn-lg" href={href('/how/')}>看工作方式</a></div>
+    <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>{cta.label}</a><a class="btn btn-lg" href={href('/how/')}>看工作方式</a></div>
   </div>
 </main>
 </Base>
