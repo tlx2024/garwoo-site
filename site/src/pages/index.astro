@@ -1,11 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
+import { ENDPOINTS } from '../lib/target';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: '格物 Garwoo',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Windows 10, Windows 11',
+  description: '从本体出发，把一个领域的问题做成方案。',
+  url: ENDPOINTS.site + '/',
+  // 价格只对客户端写免费；官方 AI 的积分另计，注册与购买尚未开放。
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CNY', description: '客户端免费，官方 AI 按积分计费' },
+};
 import Icon from '../components/Icon.astro';
 import AppTop from '../components/AppTop.astro';
 import AppSide from '../components/AppSide.astro';
 ---
-<Base description="格物从本体出发，把一个领域的问题做成方案：知识朝本体汇聚，事情交给对口的智能体，越用越专业。" page="home">
+<Base og="og-home" jsonLd={jsonLd} description="格物从本体出发，把一个领域的问题做成方案：知识朝本体汇聚，事情交给对口的智能体，越用越专业。" page="home">
 <style is:global>
 .vs td{text-align:left;color:var(--ink-soft)}
 .vs td:last-child{color:var(--ink)}

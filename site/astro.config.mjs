@@ -24,7 +24,12 @@ export default defineConfig({
       defaultLocale: 'root',
       locales: { root: { label: '简体中文', lang: 'zh-CN' } },
       customCss: ['./src/styles/docs.css'],
-      head: [{ tag: 'link', attrs: { rel: 'stylesheet', href: `${BASE}/fonts/fonts.css` } }],
+      head: [
+        { tag: 'link', attrs: { rel: 'stylesheet', href: `${BASE}/fonts/fonts.css` } },
+        { tag: 'meta', attrs: { property: 'og:image', content: `${SITE}${BASE}/og/og-default.png` } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: `${SITE}${BASE}/og/og-default.png` } },
+        ...(target.mode === 'pages' ? [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex, nofollow' } }] : []),
+      ],
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/tlx2024/garwoo-site' }],
       disable404Route: true,
       lastUpdated: false,

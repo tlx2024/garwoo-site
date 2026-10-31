@@ -52,3 +52,20 @@ export function toneProblems(text, { terms = true } = {}) {
   if (stale) out.push(`过期或错误说法：“${stale[0]}”`);
   return out;
 }
+
+/** 排版：逐个文本节点检查，中文与拉丁字母、数字之间留空格，中文后不跟半角标点。 */
+export function typographyProblems(html) {
+  const nodes = html.replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, '\n').replace(/<[^>]+>/g, '\n').split('\n');
+  const rules = [
+    ['中文与字母数字之间缺空格', /[一-鿿][A-Za-z0-9]|[A-Za-z0-9][一-鿿]/],
+    ['中文旁的半角标点', /[一-鿿][,;:?!]|[一-鿿]\.(?=\s|$)|[,;:?!][一-鿿]/],
+  ];
+  const out = [];
+  for (const node of nodes) {
+    for (const [kind, re] of rules) {
+      const m = node.match(re);
+      if (m) out.push(`${kind}：“${node.slice(Math.max(0, m.index - 6), m.index + 8).trim()}”`);
+    }
+  }
+  return out;
+}

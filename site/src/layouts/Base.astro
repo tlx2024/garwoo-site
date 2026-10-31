@@ -5,17 +5,24 @@ import Footer from '../components/Footer.astro';
 import Mascot from '../components/Mascot.astro';
 import { BRAND } from '../data/site';
 import { href } from '../lib/url';
+import { ENDPOINTS } from '../lib/target';
 
 interface Props {
   /** 页面名；首页不传。显示为“<页面名> · 格物 Garwoo”。 */
   title?: string;
+  /** 一句话，不超过 80 字。 */
   description?: string;
   /** 当前导航项，对应 Header 里的 page 值。 */
   page?: string;
+  /** OG 图，public/og/ 下的文件名。 */
+  og?: 'og-default' | 'og-home' | 'og-packs';
+  /** 页面级结构化数据。 */
+  jsonLd?: Record<string, unknown>;
 }
-const { title, description = '从本体出发，把一个领域的问题做成方案。', page = '' } = Astro.props;
+const { title, description = '从本体出发，把一个领域的问题做成方案。', page = '', og = 'og-default', jsonLd } = Astro.props;
 const pageTitle = title ? `${title} · ${BRAND.full}` : BRAND.full;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL(href(`/og/${og}.png`), Astro.site).toString();
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -25,11 +32,26 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {ENDPOINTS.mode === 'pages' && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={BRAND.full} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
+    <link rel="icon" type="image/png" sizes="32x32" href={href('/favicon-32.png')} />
+    <link rel="apple-touch-icon" href={href('/apple-touch-icon.png')} />
     <link rel="stylesheet" href={href('/fonts/fonts.css')} />
     <script is:inline>
       try { var t = localStorage.getItem('garwoo-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
     </script>
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body data-page={page}>
     <Mascot />
