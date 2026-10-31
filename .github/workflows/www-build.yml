@@ -1,0 +1,46 @@
+# 手动构建生产制品（不上传服务器）。域名与备案未就绪前不要用于上线。
+name: www-build
+on:
+  workflow_dispatch:
+    inputs:
+      www_origin:
+        description: Official HTTPS www origin
+        required: true
+      account_origin:
+        description: Verified account origin (leave blank until ready)
+        required: false
+      download_origin:
+        description: Verified download origin (leave blank until ready)
+        required: false
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run check
+        env:
+          SITE_MODE: www
+          WWW_ORIGIN: ${{ inputs.www_origin }}
+          ACCOUNT_ORIGIN: ${{ inputs.account_origin }}
+          DOWNLOAD_ORIGIN: ${{ inputs.download_origin }}
+      - run: npm run build:www
+        env:
+          WWW_ORIGIN: ${{ inputs.www_origin }}
+          ACCOUNT_ORIGIN: ${{ inputs.account_origin }}
+          DOWNLOAD_ORIGIN: ${{ inputs.download_origin }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: garwoo-www
+          path: site/dist/www

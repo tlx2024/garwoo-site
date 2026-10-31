@@ -1,0 +1,13 @@
+/* 文档（Starlight）样式：只覆盖 Starlight 的变量，主色与字体对齐官网和产品前端。
+   不使用 Tailwind；官网页面的令牌在 tokens.css（S1 引入）。 */
+:root {
+  --sl-font: "Garwoo Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  --sl-color-accent-low: #14213d;
+  --sl-color-accent: #2f6bff;
+  --sl-color-accent-high: #9db8ff;
+}
+:root[data-theme='light'] {
+  --sl-color-accent-low: #e8efff;
+  --sl-color-accent: #2f6bff;
+  --sl-color-accent-high: #1f4fd6;
+}

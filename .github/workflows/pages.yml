@@ -1,0 +1,62 @@
+# 官网预览构建与发布到 GitHub Pages（tlx2024.github.io/garwoo-site/）。
+# 触发：push 到 main、手动。预览站 robots.txt 为 Disallow: /，不让搜索引擎收录。
+# 首次使用前：仓库 Settings → Pages → Source 选 “GitHub Actions”。
+# 第三方 action 一律固定到 commit SHA（注释里是对应版本）。
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: npm ci
+
+      - run: npm test
+
+      - run: npm run check
+
+      # astro build → 字体子集 → 去敏与链接检查 → 产物检查
+      - run: npm run build:pages
+        env:
+          SITE_MODE: pages
+          CI: 'true'
+
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site/dist/pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

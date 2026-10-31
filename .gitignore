@@ -1,0 +1,9 @@
+node_modules/
+site/dist/
+site/.astro/
+# 构建时按用字生成的字体子集
+site/public/fonts/NotoSansSC-subset.woff2
+.DS_Store
+Thumbs.db
+site/.vite/
+site/.cache/

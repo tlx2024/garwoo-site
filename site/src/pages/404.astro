@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+---
+<Base title="页面不存在">
+  <main style="max-width: 720px; margin: 0 auto; padding: 96px 16px;">
+    <h1>页面不存在</h1>
+    <p><a href={href('/')}>回到首页</a></p>
+  </main>
+</Base>

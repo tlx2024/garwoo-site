@@ -1,0 +1,30 @@
+{
+  "name": "garwoo-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/build-site.mjs pages",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:sensitive": "node scripts/check-sensitive.mjs",
+    "build:pages": "node scripts/build-site.mjs pages",
+    "build:www": "node scripts/build-site.mjs www",
+    "test": "node --test scripts/test-site-target.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@astrojs/markdown-satteri": "0.4.2",
+    "@astrojs/starlight": "^0.42.4",
+    "astro": "^7.3.5",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "satteri": "0.10.5",
+    "@astrojs/check": "^0.9.10",
+    "subset-font": "^2.9.0",
+    "typescript": "^6.0.3"
+  }
+}

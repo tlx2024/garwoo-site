@@ -1,0 +1,39 @@
+---
+import { BRAND } from '../data/site';
+import { href } from '../lib/url';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = '从本体出发，把一个领域的问题做成方案。' } = Astro.props;
+const pageTitle = title ? `${title} · ${BRAND.full}` : BRAND.full;
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
+    <link rel="stylesheet" href={href('/fonts/fonts.css')} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    font-family: "Garwoo Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+    background: #ffffff;
+    color: #161b26;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #121214; color: #ececee; }
+  }
+</style>

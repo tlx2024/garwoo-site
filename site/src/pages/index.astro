@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { BRAND } from '../data/site';
+import { href } from '../lib/url';
+---
+<Base>
+  <main style="max-width: 720px; margin: 0 auto; padding: 96px 16px;">
+    <h1>{BRAND.full}</h1>
+    <p>官网正在建设中。</p>
+    <p><a href={href('/docs/')}>文档</a></p>
+  </main>
+</Base>
