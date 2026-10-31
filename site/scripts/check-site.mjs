@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { walk } from './lib.mjs';
 import { siteTarget } from '../site-target.mjs';
 import { artifactProblems } from './artifact-policy.mjs';
+import { toneProblems, visibleText } from './tone.mjs';
 
 const target = siteTarget(process.env);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -18,9 +19,10 @@ for (const file of walk(dist).filter(file => /\.(html|js|mjs|css|json|xml|txt|sv
 }
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(dist, file), 'utf8');
-  const text = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ');
-  if (/120\s*天|离线试用|桌面试用|下载试用|IAI-Trial_|原文永不上传|最终解释权/.test(text))
-    problems.push(`${file}: stale or unsupported product claim`);
+  // 出网清单的正文按契约原文照搬，术语不查；其余规则照常。
+  // Starlight 文档页自带界面文字（搜索、目录），只查口吻与过期说法。
+  for (const problem of toneProblems(visibleText(html), { terms: !/^egress\//.test(file) && !/^docs\/./.test(file) }))
+    problems.push(`${file}: ${problem}`);
   if (target.mode === 'www' && /(?:href|src|poster)="\/garwoo-site\//.test(html))
     problems.push(`${file}: Pages base leaked into www`);
   for (const match of html.matchAll(/\s(?:href|src|poster)="(\/[^"\s]*)"/g)) {

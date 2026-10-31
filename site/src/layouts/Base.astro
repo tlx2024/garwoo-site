@@ -1,12 +1,19 @@
 ---
+import '../styles/site.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Mascot from '../components/Mascot.astro';
 import { BRAND } from '../data/site';
 import { href } from '../lib/url';
 
 interface Props {
+  /** 页面名；首页不传。显示为“<页面名> · 格物 Garwoo”。 */
   title?: string;
   description?: string;
+  /** 当前导航项，对应 Header 里的 page 值。 */
+  page?: string;
 }
-const { title, description = '从本体出发，把一个领域的问题做成方案。' } = Astro.props;
+const { title, description = '从本体出发，把一个领域的问题做成方案。', page = '' } = Astro.props;
 const pageTitle = title ? `${title} · ${BRAND.full}` : BRAND.full;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
@@ -20,20 +27,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
     <link rel="stylesheet" href={href('/fonts/fonts.css')} />
+    <script is:inline>
+      try { var t = localStorage.getItem('garwoo-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+    </script>
   </head>
-  <body>
+  <body data-page={page}>
+    <Mascot />
+    <Header page={page} />
     <slot />
+    <Footer />
+    <script>
+      import '../scripts/site.js';
+      import '../scripts/bg.js';
+    </script>
   </body>
 </html>
-
-<style is:global>
-  body {
-    margin: 0;
-    font-family: "Garwoo Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
-    background: #ffffff;
-    color: #161b26;
-  }
-  @media (prefers-color-scheme: dark) {
-    body { background: #121214; color: #ececee; }
-  }
-</style>

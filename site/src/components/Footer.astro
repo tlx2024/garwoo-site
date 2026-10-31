@@ -1,0 +1,28 @@
+---
+import { href } from '../lib/url';
+
+const groups = [
+  { title: '产品', items: [['桌面端', '/desktop/'], ['手机伴侣', '/mobile/'], ['微信小程序', '/mobile/#weapp'], ['本体市场', '/packs/']] },
+  { title: '价格', items: [['个人', '/pricing/'], ['积分', '/pricing/#credits'], ['企业', '/enterprise/']] },
+  { title: '资源', items: [['文档', '/docs/'], ['工作方式', '/how/'], ['更新日志', '/changelog/'], ['下载', '/download/']] },
+  { title: '企业', items: [['企业版', '/enterprise/'], ['预约演示', '/enterprise/#contact']] },
+  { title: '法律', items: [['出网清单', '/egress/'], ['关于', '/about/'], ['品牌', '/brand/']] },
+];
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="logo" href={href('/')}><svg><use href="#garwoo-mini" /></svg>格物<span class="en">Garwoo</span></a>
+        <p class="slogan">格物致知，嘎呜开工。</p>
+      </div>
+      {groups.map((g) => (
+        <div>
+          <h4>{g.title}</h4>
+          {g.items.map(([label, to]) => <a href={href(to)}>{label}</a>)}
+        </div>
+      ))}
+    </div>
+    <div class="legal"><span>© 2026 格物 Garwoo</span><span>备案号待定</span></div>
+  </div>
+</footer>

@@ -1,0 +1,24 @@
+---
+// 个人版界面复刻的左栏，分组与产品前端一致。
+import Icon from './Icon.astro';
+
+interface Props {
+  current: string;
+  projects?: string;
+}
+const { current, projects = '配方研发,专利审查,泵站维护,周报与项目管理' } = Astro.props;
+const rows = (items: [string, string][]) => items.map(([icon, label]) => ({ icon, label, on: label === current }));
+const groups = [
+  { title: '', items: rows([['home', '工作台']]) },
+  { title: '领域能力', items: rows([['hammer', '本体工坊'], ['boxes', '本体资产'], ['bot', '智能体'], ['library', '知识库']]) },
+  { title: '知识应用', items: rows([['cube', '数据孪生'], ['book', '知识 Wiki'], ['graph', '知识图谱'], ['dash', '驾驶舱']]) },
+  { title: '项目', items: rows(projects.split(',').map((p): [string, string] => ['folder', p])) },
+];
+---
+<div class="brand"><svg><use href="#garwoo-mini" /></svg>格物<span class="tag">个人版</span></div>
+{groups.map((g) => (
+  <>
+    {g.title && <div class="grp">{g.title}</div>}
+    {g.items.map((r) => <a class={r.on ? 'on' : undefined}><Icon name={r.icon} size={15} /><span>{r.label}</span></a>)}
+  </>
+))}

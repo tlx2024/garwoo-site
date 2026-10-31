@@ -1,0 +1,10 @@
+---
+// 个人版界面复刻的标题栏，结构照产品前端。
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<span class="wc"><Icon name="sidebar" size={15} /><Icon name="arrowl" size={15} /><Icon name="arrowr" size={15} /></span><span class="t">{title}</span><span class="wc r"><Icon name="edit" size={15} /></span>

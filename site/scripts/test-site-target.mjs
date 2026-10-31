@@ -60,3 +60,13 @@ test('Markdown links adapt to both bases; external links remain intact', () => {
     assert.ok(result.html.includes(`src="${base}/og.jpg"`));
   }
 });
+
+test('tone gate rejects reversal, jargon, em dash and stale claims; accepts plain statements', async () => {
+  const { toneProblems, visibleText } = await import('./tone.mjs');
+  for (const bad of ['这不是聊天框，而是一个本体', '一站式平台', '先查——再答', '全新发布！', '价格 1,284 积分', '本机工作区']) {
+    assert.ok(toneProblems(bad).length, bad);
+  }
+  assert.deepEqual(toneProblems('回答带出处，没查到就说没查到。'), []);
+  assert.deepEqual(toneProblems('本地工作区浏览、编辑照常可用', { terms: false }), []);
+  assert.equal(visibleText('<p>甲</p><script>var a = "！";</script><p>乙</p>').includes('！'), false);
+});
