@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { GARWOO_LINES } from '../data/plain-guide';
 import { href } from '../lib/url';
 import { ENDPOINTS } from '../lib/target';
 
@@ -36,7 +37,9 @@ const cta = await windowsCta();
 <main>
   <div class="wrap hero">
     <h1>从本体出发<br><span class="p">把一个领域的问题做成方案</span></h1>
-    <p class="lede">给研发、工艺、质量工程师，独立研究者和一人公司。</p>
+    <p class="lede">{GARWOO_LINES.product} {GARWOO_LINES.slogan}</p>
+    <p>{GARWOO_LINES.plain}</p>
+    <a class="link" href={href('/what-is-garwoo/')}>格物是什么，第一步怎么做 ↗</a>
     <div class="cta">
       <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="download" size={17} /></span>{cta.label}</a>
       <a class="btn btn-lg" href={href('/download/')}>所有下载</a>
@@ -77,13 +80,13 @@ const cta = await windowsCta();
       <div class="sec-head"><h2>本体定方向，知识朝它汇聚</h2></div>
       <div class="story">
         <div class="steps">
-          <div class="step on"><span class="n">01</span><h3>先定领域</h3><p>把这一行的对象、关系和规矩写成本体。AI 起草，你逐条采纳。</p><div class="m-scene" data-clone="0"></div></div>
-          <div class="step"><span class="n">02</span><h3>按岗位组团队</h3><p>一人公司要销售、市场、产品、会计，就注册这几位智能体。</p><div class="m-scene" data-clone="1"></div></div>
-          <div class="step"><span class="n">03</span><h3>从一个文件夹开工</h3><p>项目就是电脑上的文件夹。事情交给对口的智能体，写操作先等你确认。</p><div class="m-scene" data-clone="2"></div></div>
-          <div class="step"><span class="n">04</span><h3>知识朝一个方向汇聚</h3><p>文件按本体归位，沉淀成 Wiki 专题，连成知识图谱。在图上追问，不往无关的方向发散。</p><div class="m-scene" data-clone="3"></div></div>
-          <div class="step"><span class="n">05</span><h3>落到具体对象</h3><p>数据孪生把对象变成看得见的产线和设备，智能体在这里与设备关联。</p><div class="m-scene" data-clone="4"></div></div>
-          <div class="step"><span class="n">06</span><h3>越用越专业</h3><p>答不上的问题变成本体提议，外部资料经你采纳才进来。资料越多，越对口。</p><div class="m-scene" data-clone="5"></div></div>
-          <div class="step"><span class="n">07</span><h3>一个包，一个领域</h3><p>同一套方法用在七个领域。包会升级，你的修改保留。</p><div class="m-scene" data-clone="6"></div></div>
+          <div class="step on"><span class="n">01</span><h3>先定领域</h3><p>把这一行的对象、关系和规矩写成本体。AI 起草，你逐条采纳。</p><p class="hit">举个例子：配方研发先列出原料、配方和实验结果。</p><div class="m-scene" data-clone="0"></div></div>
+          <div class="step"><span class="n">02</span><h3>按岗位组团队</h3><p>一人公司要销售、市场、产品、会计，就注册这几位智能体。</p><p class="hit">举个例子：周报助手负责起草，什么时候发出由你决定。</p><div class="m-scene" data-clone="1"></div></div>
+          <div class="step"><span class="n">03</span><h3>从一个文件夹开工</h3><p>项目就是电脑上的文件夹。事情交给对口的智能体，写操作先等你确认。</p><p class="hit">举个例子：把任务表、会议纪要和周报模板放进同一个项目。</p><div class="m-scene" data-clone="2"></div></div>
+          <div class="step"><span class="n">04</span><h3>知识朝一个方向汇聚</h3><p>文件按本体归位，沉淀成 Wiki 专题，连成知识图谱。在图上追问，不往无关的方向发散。</p><p class="hit">举个例子：从一条周报结论点回对应的会议纪要。</p><div class="m-scene" data-clone="3"></div></div>
+          <div class="step"><span class="n">05</span><h3>落到具体对象</h3><p>数据孪生把对象变成看得见的产线和设备，智能体在这里与设备关联。</p><p class="hit">举个例子：工厂起步包展示示例工位和读数，不代表真实现场。</p><div class="m-scene" data-clone="4"></div></div>
+          <div class="step"><span class="n">06</span><h3>越用越专业</h3><p>答不上的问题变成本体提议，外部资料经你采纳才进来。资料越多，越对口。</p><p class="hit">举个例子：两份资料对不上时，先列出待你确认的地方。</p><div class="m-scene" data-clone="5"></div></div>
+          <div class="step"><span class="n">07</span><h3>一个包，一个领域</h3><p>同一套方法用在七个领域。包会升级，你的修改保留。</p><p class="hit">举个例子：配方项目需要对比实验，专利项目需要逐条对照文献。</p><div class="m-scene" data-clone="6"></div></div>
         </div>
         <div class="viewer fv">
           

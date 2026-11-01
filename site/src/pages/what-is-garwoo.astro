@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+import { GARWOO_LINES } from '../data/plain-guide';
+const steps = [
+  ['建一个项目', '一个项目对应手上的一件事，比如一份周报或一轮实验。'],
+  ['放进资料', '准备任务表、会议纪要或实验记录；使用本机模型或自己的 API Key。云模型按你授权的范围接收内容。'],
+  ['提要求', '比如“请按模板起草本周周报，列出资料不一致的地方并注明出处”。'],
+  ['你来确认', '查看原文，决定是否采用结果；发送周报和安排实验由你决定。'],
+];
+const terms = [
+  ['本体', '写清这一行常见的东西、关系和规矩，方便按同一套说法整理资料。'],
+  ['本体包与起步包', '可装入的领域结构叫本体包；格物自带的叫起步包。项目可以先从资料开始，再按需装包。'],
+  ['Wiki 与知识图谱', 'Wiki 把同一个对象的说明和出处集中在一页；图谱把对象和资料之间的关系画出来。'],
+  ['推断与未核验', '推断是从资料推出的说法，原文未直接写明；未核验表示还没核对过。请先检查依据再采用。'],
+];
+---
+<Base title="格物是什么" description={GARWOO_LINES.plain} page="what">
+<main>
+  <section class="wrap hero"><h1>格物是什么</h1><p class="lede">{GARWOO_LINES.product} {GARWOO_LINES.slogan}</p><p>{GARWOO_LINES.plain}</p><p>面向研发、工艺、质量工程师，独立研究者和一人公司。</p></section>
+  <section class="wrap sec"><h2>先从一份周报试起</h2><p>你给它任务表、会议纪要和模板；它起草周报并列出资料不一致的地方。你核对原文，决定哪些内容写进去。</p><ol class="grid g2">{steps.map(([title, text]) => <li class="card"><h3>{title}</h3><p>{text}</p></li>)}</ol></section>
+  <section class="wrap sec"><h2>界面里的词是什么意思</h2>{terms.map(([term, text]) => <details><summary>{term}</summary><p>{text}</p></details>)}</section>
+  <section class="wrap sec"><h2>先知道这些条件</h2><p>示例材料是合成的。模型需要配置，AI 给出的结果需要核对。工厂起步包提供示例结构和场景；连接真实设备需要另行适配与现场验收。</p><a class="btn btn-primary" href={href('/download/')}>查看安装条件</a> <a class="btn" href={href('/how/')}>了解工作方式</a></section>
+</main>
+<style>p{line-height:1.9;color:var(--muted)}ol{padding:0;list-style:none;margin-top:24px}details{padding:18px 0;border-bottom:1px solid var(--line)}summary{cursor:pointer;font-weight:600}.sec{padding-top:32px;padding-bottom:40px}</style>
+</Base>

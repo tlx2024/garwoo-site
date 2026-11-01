@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { GARWOO_LINES } from '../data/plain-guide';
 import { href } from '../lib/url';
 import Icon from '../components/Icon.astro';
 import AppTop from '../components/AppTop.astro';
@@ -11,7 +12,7 @@ const cta = await windowsCta();
 <main>
   <div class="wrap hero center">
     <h1>桌面端</h1>
-    <p class="lede">项目就是你电脑上的文件夹。</p>
+    <p class="lede">{GARWOO_LINES.product} {GARWOO_LINES.slogan}</p><p>{GARWOO_LINES.plain}</p>
     <div class="cta">
       <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="win" size={16} /></span>{cta.label}</a>
       <a class="btn btn-lg" href={href('/download/')}>所有下载</a>

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { GARWOO_LINES } from '../data/plain-guide';
 import { href } from '../lib/url';
 import { RELEASES } from '../data/changelog';
 import { platformStatus } from '../data/status';
@@ -38,7 +39,7 @@ const latest = RELEASES[0];
 @media (max-width:900px){.dl .main .facts,.dl .notice{max-width:100%}}
 </style>
 <main>
-  <div class="wrap hero center" style="padding-bottom:48px"><h1>下载格物</h1></div>
+  <div class="wrap hero center" style="padding-bottom:48px"><h1>下载格物</h1><p class="lede">{GARWOO_LINES.product} {GARWOO_LINES.slogan}</p><p>{GARWOO_LINES.plain}</p><a class="link" href={href('/what-is-garwoo/')}>第一次使用，从这里看起 ↗</a></div>
   <div class="wrap">
 
     <div class="dl">
