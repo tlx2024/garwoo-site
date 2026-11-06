@@ -1,17 +1,22 @@
 /* 格物官网共享样式。颜色、圆角、线条与个人版 apps/web/app/globals.css 同源，官网只在字号和留白上放大；暗色是黑灰，不用深蓝。 */
 :root{
+  --garwoo-brand-blue: #0757E7;
+  --garwoo-navy: #061734;
+  --garwoo-cyan: #19B7F5;
+  --garwoo-surface: #F7FAFF;
+  --garwoo-white: #FFFFFF;
   --bg:#ffffff; --bg-2:#f5f6f8; --panel:#ffffff; --panel-2:#f2f4f7; --chrome:#f2f4f7;
   --ink:#161b26; --ink-soft:#344054; --muted:#667085; --faint:#98a2b3;
   --line:#e4e7ec; --line-soft:#eef0f3; --line-strong:#d0d5dd;
-  --primary:#2f6bff; --primary-strong:#1f4fd6; --primary-soft:#e8efff; --row-active:#f0f4ff;
-  --bubble-user:#2f6bff;
+  --primary:#0757E7; --primary-strong:#0545b8; --primary-soft:#eef4ff; --row-active:#f0f5ff;
+  --bubble-user:#0757E7;
   --ok:#12b76a; --warn:#f79009; --bad:#f04438; --neutral:#98a2b3;
   --ok-fg:#067647; --warn-fg:#b54708;
   --shadow-float:0 6px 24px rgba(16,24,40,.1);
   --shadow-win:0 1px 2px rgba(16,24,40,.06),0 24px 64px -28px rgba(16,24,40,.28);
   --dot:rgba(16,24,40,.07);
   --phone:#161b26;
-  --m-body:#2f6bff; --m-deep:#1f4fd6; --m-belly:#e8efff;
+  --m-body:#0757E7; --m-deep:#0545b8; --m-belly:#eef4ff;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
@@ -87,7 +92,7 @@ button{font:inherit;color:inherit}
 .site-header.scrolled{border-bottom-color:var(--line)}
 .nav{display:flex;align-items:center;gap:28px;height:60px}
 .logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:17px;letter-spacing:.04em}
-.logo img{width:28px;height:28px}
+.logo img{height:20px;width:auto;max-height:24px;max-width:180px;object-fit:contain}
 .logo .en{font-weight:500;font-size:13px;color:var(--faint);letter-spacing:.01em}
 .menu{display:flex;gap:2px;list-style:none;margin:0;padding:0;font-size:14px}
 .menu > li{position:relative}
@@ -106,6 +111,14 @@ button{font:inherit;color:inherit}
 .nav .right{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px}
 .nav .login{color:var(--muted);padding:0 8px}
 .nav .login:hover{color:var(--ink)}
+.icon-btn .for-light{display:flex}
+.icon-btn .for-dark{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .icon-btn .for-light{display:none}
+  :root:not([data-theme="light"]) .icon-btn .for-dark{display:flex}
+}
+:root[data-theme="dark"] .icon-btn .for-light{display:none}
+:root[data-theme="dark"] .icon-btn .for-dark{display:flex}
 .icon-btn{width:34px;height:34px;border-radius:6px;border:0;background:none;display:grid;place-items:center;cursor:pointer;color:var(--muted)}
 .icon-btn:hover{background:var(--panel-2);color:var(--ink)}
 .icon-btn.bordered{border:1px solid var(--line)}
@@ -140,6 +153,8 @@ button{font:inherit;color:inherit}
 /* 分区 */
 .sec{padding-top:120px}
 .sec-sm{padding-top:80px}
+.sec:last-child,.sec-sm:last-child{padding-bottom:64px}
+@media (max-width:640px){.sec:last-child,.sec-sm:last-child{padding-bottom:44px}}
 .sec-head{margin-bottom:40px}
 .sec-head h2{font-size:clamp(28px,3.6vw,40px)}
 .sec-head .sub{margin-top:12px;font-size:16px;color:var(--muted)}
@@ -245,7 +260,7 @@ a.card:hover,.card.hover:hover{border-color:var(--line-strong)}
 .app-body.two{grid-template-columns:208px 1fr}
 .app-side{background:var(--chrome);border-right:1px solid var(--line-soft);padding:8px}
 .app-side .brand{display:flex;align-items:center;gap:7px;height:34px;padding:0 6px;font-weight:600;font-size:13px}
-.app-side .brand img{width:18px;height:18px}
+.app-side .brand img{height:20px;width:auto;max-width:110px;object-fit:contain}
 .app-side .brand .tag{font-weight:400}
 .app-side .grp{margin:12px 0 2px;padding:0 8px;font-size:11px;color:var(--faint)}
 .app-side a{display:flex;align-items:center;gap:8px;height:28px;padding:0 8px;border-radius:5px;color:var(--ink-soft);font-size:13px}

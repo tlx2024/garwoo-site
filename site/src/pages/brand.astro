@@ -1,8 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
+
+const agents = [
+  { id: 'goal', name_cn: '目标推进', name_en: 'Goal Driver', color: '#1467EB', desc: '拆解工作主线与阶段里程碑' },
+  { id: 'ontology', name_cn: '本体支撑', name_en: 'Ontology Keeper', color: '#1EA38C', desc: '沉淀领域模型与专业规则约束' },
+  { id: 'knowledge', name_cn: '知识沉淀', name_en: 'Knowledge Harvester', color: '#9B5DE5', desc: '归纳交付物并提炼可复用经验' },
+  { id: 'builder', name_cn: '技能构建', name_en: 'Skill Builder', color: '#E65100', desc: '装配工业算子与自动化执行流' },
+  { id: 'research', name_cn: '研究检索', name_en: 'Research Agent', color: '#009688', desc: '文献探查、标准对齐与证据索引' },
+  { id: 'collaboration', name_cn: '协作推进', name_en: 'Collaboration Coordinator', color: '#2979FF', desc: '组织多智能体协同与上下文流转' },
+  { id: 'delivery', name_cn: '交付核验', name_en: 'Delivery Auditor', color: '#2E7D32', desc: '对标要求与出厂质量一致性核验' },
+  { id: 'dispatcher', name_cn: '调度分发', name_en: 'Task Dispatcher', color: '#5C6BC0', desc: '流水线排程与异构计算资源分派' },
+];
+
+const anims = [
+  { id: 'hello', name: '打招呼', file: '/brand/animations/hello.gif', desc: '上线迎候与就绪待命' },
+  { id: 'work', name: '开工专注', file: '/brand/animations/work.gif', desc: '目标推进与任务执行中' },
+  { id: 'thinking', name: '深度思考', file: '/brand/animations/thinking.gif', desc: '模型推理与多维比对' },
+  { id: 'success', name: '成功庆祝', file: '/brand/animations/success.gif', desc: '阶段成果验收通过' },
+];
 ---
-<Base title="品牌" description="格物 Garwoo 吉祥物、字标、颜色与图标。" page="brand">
+<Base title="品牌" description="格物 Garwoo 吉祥物、字标、智能体家族、颜色与图标规范。" page="brand">
 <style is:global>
 .tile{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:28px}
 .tile img.m{width:160px;height:160px;object-fit:contain}
@@ -10,7 +28,7 @@ import { href } from '../lib/url';
 .tile.k{background:#121214;border-color:#2c2c31;color:#ececee}
 .tile.b{background:var(--primary);border-color:var(--primary);color:#fff}
 .lock{display:grid;place-items:center;padding:36px}
-.lock img{width:min(100%,520px);height:auto}
+.lock img{width:min(100%,520px);height:auto;object-fit:contain}
 .lock.k{background:#121214;border-color:#2c2c31}
 .word{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:32px}
 .word .cn{font-size:48px;font-weight:600;letter-spacing:.04em;line-height:1}
@@ -19,66 +37,112 @@ import { href } from '../lib/url';
 .sw div{height:96px;border-bottom:1px solid var(--line)}
 .sw p{padding:12px 16px;font-size:13px;margin:0;color:var(--ink)}
 .sw code{color:var(--muted);font-size:12px}
+.agent-card{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:20px 14px}
+.agent-card img{width:96px;height:96px;object-fit:contain;transition:transform .2s ease}
+.agent-card:hover img{transform:scale(1.06)}
+.agent-card b{font-size:14px;color:var(--ink)}
+.agent-card .sub{font-size:12px;color:var(--muted);line-height:1.4}
+.anim-card{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:24px 16px}
+.anim-card img{width:120px;height:120px;object-fit:contain}
 .sizes{display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap;padding:32px}
 .sizes figure{margin:0;text-align:center;font-size:12px;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
 .app-ic{display:grid;place-items:center;border-radius:22%;background:#fff;border:1px solid var(--line-strong)}
 .app-ic img{width:82%;height:82%}
 .x{position:relative}
 .x::after{content:"✕";position:absolute;top:10px;right:14px;color:var(--bad);font-weight:600}
+.lead-box{background:var(--garwoo-surface,#f7faff);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:32px}
+.lead-box h3{margin:0 0 8px;font-size:16px;color:var(--garwoo-navy,#061734)}
+.lead-box p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.6}
 </style>
 <main class="wrap">
-  <div class="hero" style="padding-bottom:16px"><h1>品牌</h1></div>
+  <div class="hero" style="padding-bottom:16px">
+    <h1>品牌与视觉资产</h1>
+    <p class="sub">嘎呜一声，格物开工。目标驱动、本体支撑、智能体协作的持续工作系统。</p>
+  </div>
 
-  <section class="sec-sm" style="padding-top:32px">
-    <div class="sec-head"><h2>嘎呜</h2></div>
+  <div class="lead-box">
+    <h3>视觉 DNA 与设计原则</h3>
+    <p>有角（家族特征）、头身一体（圆润团子形态）、极简五官（白色双眼与小嘴）、单色主体（单一主色调）。角色扩展优先通过角形、配饰、工具与动作表情区分，不改动基础脸型轮廓。</p>
+  </div>
+
+  <section class="sec-sm">
+    <div class="sec-head"><h2>嘎呜 Mascot</h2></div>
     <div class="grid g4">
-      <div class="card tile w"><img class="m mascot" src={href('/brand/mascot.webp')} alt="嘎呜全身形象" width="512" height="512" /><b>全身</b></div>
-      <div class="card tile k"><img class="m" src={href('/brand/mascot.webp')} alt="暗色底上的嘎呜全身形象" width="512" height="512" /><b>暗色底</b></div>
-      <div class="card tile w"><img class="m" src={href('/brand/head-light.webp')} alt="浅色主题用的嘎呜头像" width="256" height="256" /><b>头像 · 浅色</b></div>
-      <div class="card tile k"><img class="m" src={href('/brand/head-dark.webp')} alt="暗色主题用的嘎呜头像" width="256" height="256" /><b>头像 · 暗色</b></div>
+      <div class="card tile w"><img class="m mascot" src={href('/brand/mascot.webp')} alt="嘎呜全身形象 3D" width="512" height="512" /><b>3D 团子形态</b></div>
+      <div class="card tile k"><img class="m" src={href('/brand/mascot.webp')} alt="暗色底上的嘎呜全身形象" width="512" height="512" /><b>暗色背景适配</b></div>
+      <div class="card tile w"><img class="m" src={href('/brand/mascot-flat.webp')} alt="嘎呜扁平矢量形象" width="512" height="512" /><b>真矢量扁平版</b></div>
+      <div class="card tile w"><img class="m" src={href('/brand/head-light.webp')} alt="浅色环境用的嘎呜头像" width="256" height="256" /><b>吉祥物头像</b></div>
     </div>
   </section>
 
   <section class="sec-sm">
-    <div class="sec-head"><h2>字标</h2></div>
+    <div class="sec-head"><h2>组合标志与纯文字标</h2></div>
     <div class="grid g2">
-      <div class="card lock w"><img src={href('/brand/logo-light.webp')} alt="格物 Garwoo 横版字标，浅色底" width="1200" height="400" /></div>
-      <div class="card lock k"><img src={href('/brand/logo-dark.webp')} alt="格物 Garwoo 横版字标，暗色底" width="1200" height="400" /></div>
+      <div class="card lock w"><img src={href('/brand/logo-light.webp')} alt="格物 Garwoo 品牌横版组合 Logo，浅色底" width="1200" height="400" /><b>品牌横版组合 Logo · 浅色</b></div>
+      <div class="card lock k"><img src={href('/brand/logo-dark.webp')} alt="格物 Garwoo 品牌横版组合 Logo，暗色底" width="1200" height="400" /><b>品牌横版组合 Logo · 暗色</b></div>
     </div>
-    <div class="grid g3" style="margin-top:16px">
-      <div class="card word" style="flex-direction:column;align-items:flex-start;gap:8px"><span class="cn" style="font-size:32px">格物</span><span class="en" style="font-size:15px">Garwoo</span></div>
-      <div class="card word"><span class="cn" style="font-size:32px">格物</span></div>
-      <div class="card word"><span class="en" style="font-size:28px;color:var(--ink)">Garwoo</span></div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card lock w"><img src={href('/brand/wordmark-light.webp')} alt="格物 Garwoo 纯文字字标，浅色底" width="1200" height="400" /><b>纯文字字标 · 浅色底</b></div>
+      <div class="card lock k"><img src={href('/brand/wordmark-dark.webp')} alt="格物 Garwoo 纯文字字标，暗色底" width="1200" height="400" /><b>纯文字字标 · 暗色底</b></div>
     </div>
   </section>
 
   <section class="sec-sm">
-    <div class="sec-head"><h2>颜色</h2></div>
+    <div class="sec-head"><h2>智能体家族</h2></div>
     <div class="grid g4">
-      <div class="card sw"><div style="background:#2f6bff"></div><p><b>主蓝</b><br><code>#2f6bff · 暗色 #3b82f6</code></p></div>
-      <div class="card sw"><div style="background:#0f2f72"></div><p><b>墨蓝</b><br><code>#0f2f72，吉祥物身体与字标</code></p></div>
-      <div class="card sw"><div style="background:#fd9e0c"></div><p><b>橙</b><br><code>#fd9e0c，只用于点缀</code></p></div>
-      <div class="card sw"><div style="background:#121214"></div><p><b>暗色底</b><br><code>#121214 · #1a1a1d</code></p></div>
+      {agents.map((ag) => (
+        <div class="card agent-card">
+          <img src={href(`/brand/agents/${ag.id}.png`)} alt={ag.name_cn} width="128" height="128" />
+          <b>{ag.name_cn}</b>
+          <code style={`color:${ag.color};font-size:12px;font-weight:600`}>{ag.name_en}</code>
+          <span class="sub">{ag.desc}</span>
+        </div>
+      ))}
     </div>
   </section>
 
   <section class="sec-sm">
-    <div class="sec-head"><h2>图标</h2></div>
+    <div class="sec-head"><h2>工作状态动效</h2></div>
+    <div class="grid g4">
+      {anims.map((an) => (
+        <div class="card anim-card">
+          <img src={href(an.file)} alt={an.name} width="120" height="120" />
+          <b>{an.name}</b>
+          <span style="font-size:12px;color:var(--muted)">{an.desc}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="sec-sm">
+    <div class="sec-head"><h2>品牌基础色</h2></div>
+    <div class="grid g5" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div class="card sw"><div style="background:#0757E7"></div><p><b>Garwoo Blue</b><br><code>#0757E7 · 吉祥物与主色</code></p></div>
+      <div class="card sw"><div style="background:#061734"></div><p><b>Dark Navy</b><br><code>#061734 · 浅色环境字标与标题</code></p></div>
+      <div class="card sw"><div style="background:#19B7F5"></div><p><b>Cyan</b><br><code>#19B7F5 · 渐变辅助与强调</code></p></div>
+      <div class="card sw"><div style="background:#F7FAFF;border:1px solid #e4e7ec"></div><p><b>Surface</b><br><code>#F7FAFF · 画布与卡片背景</code></p></div>
+      <div class="card sw"><div style="background:#FFFFFF;border:1px solid #e4e7ec"></div><p><b>White</b><br><code>#FFFFFF · 暗色字标与五官</code></p></div>
+    </div>
+  </section>
+
+  <section class="sec-sm">
+    <div class="sec-head"><h2>多平台应用图标</h2></div>
     <div class="card sizes">
-      <figure><div class="app-ic" style="width:128px;height:128px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>128</figure>
-      <figure><div class="app-ic" style="width:64px;height:64px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>64</figure>
-      <figure><div class="app-ic" style="width:32px;height:32px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>32</figure>
-      <figure><img src={href('/brand/head-light.webp')} alt="" width="16" height="16" />16</figure>
-      <figure><div style="width:72px;height:72px;border-radius:50%;background:var(--primary-soft);display:grid;place-items:center"><img src={href('/brand/head-light.webp')} alt="" width="56" height="56" /></div>小程序</figure>
+      <figure><div class="app-ic" style="width:128px;height:128px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>128px 桌面端</figure>
+      <figure><div class="app-ic" style="width:64px;height:64px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>64px 系统大图</figure>
+      <figure><div class="app-ic" style="width:32px;height:32px"><img src={href('/brand/head-light.webp')} alt="" width="256" height="256" /></div>32px 标签页</figure>
+      <figure><img src={href('/brand/head-light.webp')} alt="" width="16" height="16" />16px Favicon</figure>
+      <figure><div style="width:72px;height:72px;border-radius:50%;background:var(--primary-soft);display:grid;place-items:center"><img src={href('/brand/head-light.webp')} alt="" width="56" height="56" /></div>微信小程序</figure>
+      <figure><div class="app-ic" style="width:72px;height:72px;border-radius:18px"><img src={href('/apple-touch-icon.png')} alt="" width="72" height="72" /></div>iOS / iPadOS</figure>
     </div>
   </section>
 
-  <section class="sec-sm">
-    <div class="sec-head"><h2>不要这样</h2></div>
+  <section class="sec-sm" style="padding-bottom:64px">
+    <div class="sec-head"><h2>品牌禁忌</h2></div>
     <div class="grid g3">
-      <div class="card tile x"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" style="transform:scaleX(1.45)" /></div>
-      <div class="card tile x"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" style="filter:hue-rotate(150deg) saturate(1.4)" /></div>
-      <div class="card tile x b"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" /></div>
+      <div class="card tile x"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" style="transform:scaleX(1.45)" /><b>禁止拉伸变形</b></div>
+      <div class="card tile x"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" style="filter:hue-rotate(150deg) saturate(1.4)" /><b>禁止随意改变单色色相</b></div>
+      <div class="card tile x b"><img class="m" src={href('/brand/mascot.webp')} alt="" width="512" height="512" /><b>禁止在对比度不足的背景下使用</b></div>
     </div>
   </section>
 </main>

@@ -3,8 +3,9 @@ import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import Icon from '../components/Icon.astro';
 import { PACKS, EXAMPLES, PACK_VERSION } from '../data/packs';
+const exampleImages: Record<string, string> = { '专利审查': 'patent-review', '冷却系统数据校验': 'cooling-check', '泵站维护': 'pump-maintenance', '单位换算库开发': 'unit-conversion', '水性涂料配方研发': 'waterborne-coating', '项目周报': 'weekly-report', '产品宣传片分镜': 'product-storyboard' };
 ---
-<Base og="og-packs" title="本体市场" description="格物本体市场：一个包就是一个领域，含隐形眼镜工厂、配方研发组、一人公司三个起步包。" page="packs">
+<Base og="og-packs" title="本体市场" description="从专业包开始构建自己的领域。查看一人公司、配方研发组、隐形眼镜工厂起步包，以及七种项目任务示例。" page="packs">
 <style is:global>
 .search{display:flex;align-items:center;gap:10px;max-width:560px;margin:28px auto 0;height:44px;padding:0 14px;border-radius:8px;background:var(--panel);border:1px solid var(--line-strong);color:var(--faint)}
 .search:focus-within{outline:2px solid var(--primary);outline-offset:-1px}
@@ -13,12 +14,15 @@ import { PACKS, EXAMPLES, PACK_VERSION } from '../data/packs';
 .feat-pack .art{min-height:340px;border-right:1px solid var(--line)}
 .feat-pack .txt{padding:40px;display:flex;flex-direction:column;gap:16px;justify-content:center}
 @media (max-width:860px){.feat-pack{grid-template-columns:1fr}.feat-pack .art{border-right:0;border-bottom:1px solid var(--line);min-height:260px}.feat-pack .txt{padding:24px}}
-.pack .cover{height:150px}
+.card.media.pack .cover{height:200px;padding:0}
+.card.media.pack .cover::before{display:none}
+.card.media.pack .cover img{width:100%;height:100%;object-fit:cover;display:block}
 .pack[hidden]{display:none}
 </style>
 <main>
   <div class="wrap hero center" style="padding-bottom:40px">
-    <h1>一个包，一个领域</h1>
+    <h1>选一个专业包<br>搭起你的领域</h1>
+    <p class="lede">领域结构、专业知识和智能体配置一起装入项目。<br>内置的本体包称为起步包，可按你的目标继续调整。</p>
     <label class="search"><span><Icon name="search" size={17} /></span><input id="q" placeholder="搜索行业、对象或智能体" aria-label="搜索本体包"></label>
     <div style="margin-top:18px"><div class="seg" id="chips" role="tablist">
       <button aria-selected="true" data-k="">全部</button><button aria-selected="false" data-k="离散制造">离散制造</button><button aria-selected="false" data-k="研发实验">研发实验</button><button aria-selected="false" data-k="组织经营">组织经营</button><button aria-selected="false" data-k="示例项目">示例项目</button>
@@ -54,16 +58,16 @@ import { PACKS, EXAMPLES, PACK_VERSION } from '../data/packs';
     <section class="sec-sm">
       <div class="grid g3" id="packs">
         {PACKS.map((p) => (
-          <a class="card media pack hover" href={href(`/packs/${p.slug}/`)} data-k={p.keywords}><div class="cover"><span class="ic blue" style="margin:0;width:52px;height:52px;border-radius:12px"><Icon name={p.icon} size={24} /></span></div><div class="body"><h3>{p.title.replace(/起步包$/, '')}</h3><span class="tag">{PACK_VERSION} · {p.counts[0]} 个类型</span></div></a>
+          <a class="card media pack hover" href={href(`/packs/${p.slug}/`)} data-k={p.keywords}><div class="cover"><img src={href(`/images/packs/${p.slug}.webp`)} alt="" loading="lazy" width="608" height="258" /></div><div class="body"><h3>{p.title.replace(/起步包$/, '')}</h3><span class="tag">{PACK_VERSION} · {p.counts[0]} 个类型</span></div></a>
         ))}
         {EXAMPLES.map((e) => (
-          <article class="card media pack hover" data-k={e.keywords}><div class="cover"><span class="ic" style="margin:0;width:52px;height:52px;border-radius:12px"><Icon name={e.icon} size={24} /></span></div><div class="body"><h3>{e.title}</h3><span class="tag">{e.tag}</span></div></article>
+          <article class="card media pack hover" data-k={e.keywords}><div class="cover"><img src={href(`/images/packs/${exampleImages[e.title]}.webp`)} alt="" loading="lazy" width="608" height="258" /></div><div class="body"><h3>{e.title}</h3><span class="tag">任务示例</span></div></article>
         ))}
       </div>
       <p id="empty" class="faint" style="text-align:center;padding:48px 0" hidden>没有找到，换个词试试。</p>
     </section>
 
-    <section class="sec">
+    <section class="sec" style="padding-bottom:64px">
       <div class="grid duo even">
         <div>
           <h2 style="font-size:clamp(28px,3.6vw,40px)">把你的本体做成包</h2>

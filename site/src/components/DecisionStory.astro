@@ -1,0 +1,57 @@
+<section class="decision-story wrap" id="decision-story" aria-labelledby="decision-heading">
+  <header class="decision-heading">
+    <div><span class="eyebrow">从一个实际问题开始</span><h2 id="decision-heading">下一轮实验，先验证哪组配方？</h2></div>
+    <span class="tag">水性涂料 · 示例说明</span>
+  </header>
+  <div class="decision-map">
+    <div class="decision-purpose">
+      <span class="step-label">01 / 明确目的</span>
+      <h3>选下一步，先定标准。</h3>
+      <p>想选出值得继续验证的配方，先说清楚要看哪些指标。</p>
+      <dl class="criteria"><div><dt>粘度</dt><dd>95–105 KU</dd></div><div><dt>对比率</dt><dd>≥ 0.93</dd></div><div><dt>耐擦洗</dt><dd>≥ 5000 次</dd></div></dl>
+    </div>
+    <div class="decision-structure">
+      <span class="step-label">02 / 用本体组织依据</span>
+      <h3>哪组配方，做了哪次实验，测出了什么。</h3>
+      <div class="object-chain" aria-label="配方关联实验批次，实验批次关联实测结果">
+        <div><small>配方</small><strong>F-03</strong></div><span aria-hidden="true">→</span><div><small>实验批次</small><strong>B-1024</strong></div><span aria-hidden="true">→</span><div><small>实测结果</small><strong>2 项已测</strong></div>
+      </div>
+      <p>本体把配方、批次和指标连起来，让资料对应到具体对象，按同一套标准比较。</p>
+    </div>
+  </div>
+  <div class="decision-evidence">
+    <div class="evidence-title"><div><span class="step-label">03 / 对照证据</span><h3>哪些达到目标，哪些还缺数据。</h3></div><a href="#decision-sources">查看示例依据 <span aria-hidden="true">↗</span></a></div>
+    <div class="evidence-scroll" tabindex="0" role="region" aria-label="配方实测对比表，可横向滚动">
+      <table><caption class="sr-only">三项指标的示例对比，不代表配方整体合格</caption><thead><tr><th scope="col">配方 / 批次</th><th scope="col">粘度 <small>KU</small></th><th scope="col">对比率</th><th scope="col">耐擦洗 <small>次</small></th><th scope="col">核对结果</th></tr></thead>
+      <tbody><tr><th scope="row">F-02 <small>B-1022</small></th><td data-label="粘度 / KU">99</td><td data-label="对比率">0.93</td><td data-label="耐擦洗 / 次">5200</td><td data-label="核对结果"><span class="result-pass">三项达到目标</span></td></tr><tr class="focus-row"><th scope="row">F-03 <small>B-1024</small></th><td data-label="粘度 / KU">103</td><td data-label="对比率">0.95</td><td data-label="耐擦洗 / 次"><span class="result-missing">未测</span></td><td data-label="核对结果">还缺耐擦洗结果</td></tr><tr><th scope="row">F-04 <small>B-1027</small></th><td data-label="粘度 / KU"><span class="result-missing">112</span></td><td data-label="对比率">0.94</td><td data-label="耐擦洗 / 次">6100</td><td data-label="核对结果">粘度高于目标</td></tr></tbody></table>
+    </div>
+    <details id="decision-sources"><summary>依据来自哪里</summary><p>目标.md 给出三项指标的范围；实验记录 / 批次记录.csv 给出各批次实测值。此处只比较这三项指标，未判断配方整体合格。页面为示例资料的整理展示，非实时运行结果。</p></details>
+  </div>
+  <div class="decision-next"><span class="step-label">04 / 你来决定</span><div><h3>先补测 F-03 的耐擦洗？</h3><p>已有数据和缺项放在一起，下一轮实验由你安排。</p></div><span class="decision-owner">待研发人员确认</span></div>
+</section>
+
+<style>
+  .decision-story{scroll-margin-top:100px;padding-top:28px;padding-bottom:64px}
+  .decision-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+  .eyebrow,.step-label{font-size:12px;font-weight:600;letter-spacing:.07em;color:var(--primary)}
+  h2{font-size:clamp(26px,3vw,38px);line-height:1.35;letter-spacing:-.035em;margin:10px 0 0}
+  h3{font-size:21px;line-height:1.5;letter-spacing:-.02em;margin:12px 0}
+  p{font-size:15px;line-height:1.8;color:var(--muted);margin:0}
+  .decision-map{display:grid;grid-template-columns:.85fr 1.15fr;border:1px solid var(--line);border-radius:16px 16px 0 0;overflow:hidden}
+  .decision-purpose,.decision-structure{padding:32px}
+  .decision-purpose{background:var(--primary-soft);border-right:1px solid var(--line)}
+  .decision-structure{background:var(--panel)}
+  .criteria{display:flex;flex-wrap:wrap;gap:20px;margin:24px 0 0}
+  .criteria dt{font-size:12px;color:var(--muted);margin-bottom:6px}.criteria dd{margin:0;font-size:17px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .object-chain{display:flex;align-items:center;gap:12px;margin:24px 0}
+  .object-chain div{flex:1;padding:14px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--bg)}
+  .object-chain small,.object-chain strong{display:block}.object-chain small{font-size:12px;color:var(--muted);margin-bottom:6px}.object-chain strong{font-size:17px;font-weight:600}.object-chain>span{color:var(--primary)}
+  .decision-evidence{padding:28px 32px;border:1px solid var(--line);border-top:0;background:var(--panel)}
+  .evidence-title{display:flex;align-items:center;justify-content:space-between;gap:16px}.evidence-title h3{margin-bottom:20px}.evidence-title a{font-size:13px;color:var(--primary);white-space:nowrap}
+  .evidence-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left;font-size:14px;font-variant-numeric:tabular-nums}th,td{padding:14px 16px;border-bottom:1px solid var(--line-soft)}thead th{font-weight:500;font-size:12px;color:var(--muted);background:var(--bg-2)}tbody th{font-weight:600}th small{font-weight:400;color:var(--muted);margin-left:7px}.focus-row{background:var(--row-active)}.result-pass{color:var(--ok-fg)}.result-missing{color:var(--warn-fg)}
+  details{margin-top:14px;font-size:12px;color:var(--muted);scroll-margin-top:100px}summary{cursor:pointer;width:fit-content}details p{font-size:13px;max-width:800px;padding-top:12px}
+  .decision-next{display:flex;gap:24px;align-items:center;padding:24px 32px;background:var(--bg-2);border:1px solid var(--line);border-top:0;border-radius:0 0 16px 16px}.decision-next h3{margin:0 0 4px}.decision-next .step-label{white-space:nowrap}.decision-owner{margin-left:auto;border:1px solid var(--line-strong);padding:8px 12px;border-radius:6px;font-size:12px;color:var(--ink-soft);white-space:nowrap}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  @media(max-width:760px){.decision-heading{display:block}.decision-heading>.tag{margin-top:14px}.decision-map{grid-template-columns:1fr}.decision-purpose{border-right:0;border-bottom:1px solid var(--line)}.decision-purpose,.decision-structure,.decision-evidence{padding:24px}.decision-next{padding:24px;align-items:start;flex-direction:column;gap:12px}.decision-owner{margin-left:0}.evidence-title{display:block}.evidence-title a{display:inline-block;margin-bottom:16px}table{min-width:0}thead{display:none}tbody{display:grid;gap:12px}tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:8px;overflow:hidden}tbody th{grid-column:1/-1;padding:12px}td{padding:10px 12px;border:0;font-size:13px}td::before{content:attr(data-label);display:block;font-size:10px;color:var(--muted);margin-bottom:6px}td:last-child{grid-column:1/-1;border-top:1px solid var(--line-soft)}td:last-child::before{display:none}.object-chain{gap:7px}.object-chain div{padding:12px 8px}.object-chain strong{font-size:15px}.criteria{gap:24px}.decision-story{padding-bottom:32px}}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>

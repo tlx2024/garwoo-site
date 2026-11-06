@@ -11,3 +11,12 @@
   --sl-color-accent: #2f6bff;
   --sl-color-accent-high: #1f4fd6;
 }
+
+/* 顶部品牌 Logo 尺寸与官网首页一致 */
+.site-title img {
+  height: 22px;
+  width: auto;
+  max-height: 24px;
+  max-width: 180px;
+  object-fit: contain;
+}

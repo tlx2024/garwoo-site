@@ -1,0 +1,33 @@
+---
+import { PROJECT_STORIES } from '../data/project-stories';
+---
+<section class="wrap projects-section" id="examples" aria-labelledby="examples-title">
+  <header class="examples-heading"><div><span class="eyebrow">七个文件夹，七种工作</span><h2 id="examples-title">打开一个项目，看看任务怎么开展。</h2></div><p>从已有资料出发，把工作交给职责明确的智能体。</p></header>
+  <div class="project-explorer">
+    <div class="folder-list" role="tablist" aria-label="选择示例项目">
+      {PROJECT_STORIES.map((s,i)=><button type="button" role="tab" id={`tab-${s.id}`} aria-controls={`project-${s.id}`} aria-selected={i===0?'true':'false'} tabindex={i===0?0:-1}><span aria-hidden="true" class="folder-icon"></span><span>{s.name}<small>{s.folder}/</small></span><span class="folder-arrow" aria-hidden="true">↗</span></button>)}
+    </div>
+    <div class="project-content">
+      {PROJECT_STORIES.map((s,i)=><article id={`project-${s.id}`} role="tabpanel" aria-labelledby={`tab-${s.id}`} tabindex="0" hidden={i!==0}>
+        <div class="project-title"><span class="tag">合成资料 · 任务示例</span><h3>{s.goal}</h3></div>
+        <div class="project-work"><div class="project-files"><h4>准备的资料</h4><ul>{s.files.map(f=><li><span aria-hidden="true">↳</span>{f}</li>)}</ul></div><div class="project-task"><span class="eyebrow">交给谁</span><h4>{s.role}</h4><p>{s.task}</p></div></div>
+        <div class="project-fact"><span>看一个具体问题</span><p>{s.fact}</p></div>
+        <div class="project-output"><div><small>形成的成果</small><strong>{s.result}</strong></div><div><small>接下来</small><p>{s.decision}</p></div></div>
+      </article>)}
+    </div>
+  </div>
+  <p class="example-note">示例说明任务的开展方式，非实时运行结果。专业包提供领域结构，文件夹示例展示具体工作；两者可按项目需要组合。</p>
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>('.project-explorer').forEach(root=>{
+    const tabs=Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels=Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+    function select(index:number,focus=false){tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;panels[i].hidden=i!==index});if(focus)tabs[index].focus()}
+    function followHash(){const i=panels.findIndex(panel=>'#example-'+panel.id.replace('project-','')===location.hash);if(i>=0){select(i);root.scrollIntoView({block:'start'})}}
+    followHash();window.addEventListener('hashchange',followHash);
+    tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>select(i));tab.addEventListener('keydown',event=>{let next=i;if(['ArrowRight','ArrowDown'].includes(event.key))next=(i+1)%tabs.length;else if(['ArrowLeft','ArrowUp'].includes(event.key))next=(i+tabs.length-1)%tabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else return;event.preventDefault();select(next,true)})});
+  });
+</script>
+<style>
+.projects-section{padding-top:72px;padding-bottom:56px;scroll-margin-top:90px}.examples-heading{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:28px}.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--primary)}h2{font-size:clamp(26px,3vw,38px);line-height:1.4;margin:10px 0 0;letter-spacing:-.03em}.examples-heading>p{max-width:280px;color:var(--muted);font-size:15px;line-height:1.8}.project-explorer{scroll-margin-top:90px;display:grid;grid-template-columns:250px minmax(0,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel)}.folder-list{padding:14px;background:var(--bg-2);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:4px}.folder-list button{display:flex;align-items:center;gap:12px;text-align:left;padding:13px 12px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--ink-soft);font:inherit;font-size:14px;cursor:pointer}.folder-list button[aria-selected=true]{background:var(--panel);border-color:var(--line);color:var(--primary);box-shadow:var(--shadow-float)}.folder-list small{display:block;font-size:10px;color:var(--muted);margin-top:4px}.folder-arrow{margin-left:auto}.folder-icon{width:20px;height:15px;border:1.5px solid currentColor;border-radius:2px;position:relative;flex:none}.folder-icon:before{content:'';position:absolute;left:-1.5px;top:-5px;width:10px;height:4px;border:1.5px solid currentColor;border-bottom:0;border-radius:2px 2px 0 0}.project-content{padding:32px;min-width:0}.project-content article[hidden]{display:none}.project-content h3{font-size:26px;line-height:1.4;letter-spacing:-.02em;margin:16px 0 28px}.project-work{display:grid;grid-template-columns:1fr 1fr;gap:28px}.project-work h4{font-size:15px;margin:0 0 14px}.project-files{padding:20px;background:var(--bg-2);border:1px solid var(--line);border-radius:8px}.project-files ul{padding:0;margin:0;list-style:none;display:grid;gap:12px}.project-files li{display:flex;align-items:start;gap:8px;font-size:12px;color:var(--muted);line-height:1.7;overflow-wrap:anywhere}.project-files li span{color:var(--primary)}.project-task{padding-top:8px}.project-task h4{margin:10px 0;font-size:19px}.project-task p,.project-output p{font-size:14px;color:var(--muted);line-height:1.8;margin:0}.project-fact{padding:16px 20px;background:var(--primary-soft);border-radius:8px;margin-top:24px}.project-fact span{font-size:11px;color:var(--primary)}.project-fact p{font-size:14px;line-height:1.8;margin:6px 0 0;color:var(--ink-soft)}.project-output{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:24px;border-top:1px solid var(--line);padding-top:20px}.project-output small{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}.project-output strong{font-weight:600;font-size:15px}.example-note{font-size:12px;line-height:1.8;color:var(--muted);margin-top:16px}button:focus-visible,article:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}@media(max-width:800px){.examples-heading{display:block}.examples-heading>p{max-width:none;margin-top:12px}.project-explorer{grid-template-columns:1fr}.folder-list{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:12px}.folder-list button{flex-shrink:0}.folder-arrow{display:none}.project-content{padding:24px}.project-work{grid-template-columns:1fr}.project-content h3{font-size:23px}.project-output{grid-template-columns:1fr;gap:20px}.projects-section{padding-top:48px}.project-task{padding-top:0}}
+</style>

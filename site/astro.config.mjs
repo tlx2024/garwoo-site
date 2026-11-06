@@ -8,6 +8,43 @@ import remarkSiteLinks from './scripts/remark-site-links.mjs';
 const target = siteTarget(process.env);
 const SITE = target.site;
 const BASE = target.base;
+/** @param {string} base */
+function devFaviconPlugin(base) {
+  if (!base) return [];
+  const prefix = base.replace(/\/+$/, '');
+  return [
+    {
+      name: 'dev-favicon-fallback',
+      /** @param {any} server */
+      configureServer(server) {
+        return () => {
+          server.middlewares.stack.unshift({
+            route: '',
+            /**
+             * @param {any} req
+             * @param {any} res
+             * @param {any} next
+             */
+            handle(req, res, next) {
+              const raw = req.originalUrl || req.url || '';
+              const url = raw.split('?')[0];
+              if (url.startsWith('/favicon') || url === '/apple-touch-icon.png' || url === '/site.webmanifest') {
+                res.writeHead(302, { Location: prefix + url });
+                return res.end();
+              }
+              if (url === '/' || url === '') {
+                res.writeHead(302, { Location: prefix + '/' });
+                return res.end();
+              }
+              next();
+            },
+          });
+        };
+      },
+    },
+  ];
+}
+
 
 export default defineConfig({
   site: SITE,
@@ -20,6 +57,12 @@ export default defineConfig({
     starlight({
       title: '格物 Garwoo',
       description: '格物 Garwoo 的使用指南与常见问题。',
+      logo: {
+        light: './src/assets/logo-light.png',
+        dark: './src/assets/logo-dark.png',
+        alt: '格物 Garwoo',
+        replacesTitle: true,
+      },
       favicon: '/favicon-32.png',
       defaultLocale: 'root',
       locales: { root: { label: '简体中文', lang: 'zh-CN' } },
@@ -50,5 +93,5 @@ export default defineConfig({
       ],
     }),
   ],
-  vite: { cacheDir: './.vite', resolve: { preserveSymlinks: true } },
+  vite: { cacheDir: './.vite', resolve: { preserveSymlinks: true }, plugins: devFaviconPlugin(BASE) },
 });

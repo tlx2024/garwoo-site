@@ -1,7 +1,7 @@
 ---
 // 个人版界面复刻的左栏，分组与产品前端一致。
 import Icon from './Icon.astro';
-import Mascot from './Mascot.astro';
+import { href } from '../lib/url';
 
 interface Props {
   current: string;
@@ -16,7 +16,7 @@ const groups = [
   { title: '项目', items: rows(projects.split(',').map((p): [string, string] => ['folder', p])) },
 ];
 ---
-<div class="brand"><Mascot size={18} />格物<span class="tag">个人版</span></div>
+<div class="brand"><img class="for-light" src={href('/brand/logo-light.webp')} alt="格物" /><img class="for-dark" src={href('/brand/logo-dark.webp')} alt="格物" /></div>
 {groups.map((g) => (
   <>
     {g.title && <div class="grp">{g.title}</div>}

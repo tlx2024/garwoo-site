@@ -6,7 +6,7 @@ import Icon from '../components/Icon.astro';
 ---
 <Base title="格物企业版" description="格物企业版：同一套本体放大到一座工厂，由 IAI 智能工厂中枢提供，私有化交付。" page="enterprise">
 <style is:global>
-@media (max-width:860px){.arch{display:grid;gap:8px}
+.arch{display:grid;gap:8px}
 .arch .layer{display:grid;grid-template-columns:140px 1fr;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
 .arch .layer b{font-size:14px}
 .arch .boxes{display:flex;gap:8px;flex-wrap:wrap}
@@ -17,6 +17,8 @@ import Icon from '../components/Icon.astro';
 @media (max-width:700px){.arch .layer{grid-template-columns:1fr}}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form .full{grid-column:1/-1}
+.form textarea{height:68px}
+.form button{justify-self:start}
 @media (max-width:700px){.form{grid-template-columns:1fr}}
 </style>
 <main>
@@ -106,18 +108,16 @@ import Icon from '../components/Icon.astro';
       </div>
     </section>
 
-    <section class="sec" id="contact">
+    <section class="sec" id="contact" style="padding-bottom:64px">
       <div class="grid duo even" style="align-items:start">
         <h2 style="font-size:clamp(28px,3.6vw,40px)">预约演示</h2>
         <form class="form card">
-          <fieldset disabled style="display:contents">
-            <label class="field">姓名<input></label>
-            <label class="field">公司<input></label>
-            <label class="field">手机<input type="tel"></label>
-            <label class="field">行业<select><option>通用制造</option><option>医药 GMP</option><option>研发配方</option><option>其他</option></select></label>
-            <label class="field full">产线上最费时间的是哪件事<textarea></textarea></label>
-            <button class="btn btn-primary full" type="button">预约入口尚未开放</button>
-          </fieldset>
+          <label class="field">姓名<input disabled></label>
+          <label class="field">公司<input disabled></label>
+          <label class="field">手机<input type="tel" disabled></label>
+          <label class="field">行业<select disabled><option>通用制造</option><option>医药 GMP</option><option>研发配方</option><option>其他</option></select></label>
+          <label class="field full">产线上最费时间的是哪件事<textarea disabled></textarea></label>
+          <button class="btn btn-primary" type="button" disabled>预约入口尚未开放</button>
         </form>
       </div>
     </section>
