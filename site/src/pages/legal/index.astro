@@ -1,0 +1,16 @@
+---
+import LegalDocument from '../../components/LegalDocument.astro';
+import { href } from '../../lib/url';
+---
+<LegalDocument title="法律与隐私" description="查看格物的隐私政策、用户协议和逐项出网清单。">
+  <div class="legal-notice"><p>当前展示的是待定稿文本。正式生效前须补全运营者全称、注册地址、联系方式与云端日志保存期限，确认待核事项，并发布正式版本。</p></div>
+  <h2>三份文本，各管一件事</h2>
+  <div class="legal-cards">
+    <div><h3><a href={href('/legal/privacy/')}>隐私政策</a></h3><p>处理哪些个人信息，为什么处理，保存在哪里，如何删除。</p></div>
+    <div><h3><a href={href('/legal/terms/')}>用户协议</a></h3><p>账号、内容、AI 输出、计费和停止使用的规则。</p></div>
+    <div><h3><a href={href('/egress/')}>出网清单</a></h3><p>逐条列出桌面端发送什么、发到哪、保留多久和离线行为。</p></div>
+  </div>
+  <h2>当前边界</h2>
+  <p>各平台的开放状态、安装包与获取方式以<a href={href('/download/')}>下载页</a>为准。页面中的价格均为示例，不构成收费承诺。</p>
+  <p>草稿用于说明当前实现，正式条款须经运营主体或法务审定。企业版 IAI 的私有化交付条款由对应合同与部署文档约定。</p>
+</LegalDocument>

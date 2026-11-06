@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/url';
+
+interface Props {
+  title: string;
+  description: string;
+  version?: string;
+  updated?: string;
+}
+const { title, description, version, updated } = Astro.props;
+---
+<Base title={title} description={description} page="legal">
+<style is:global>
+.legal-hero{padding-bottom:32px}
+.legal-hero h1{font-size:clamp(36px,5vw,52px)}
+.legal-hero .lede{max-width:720px}
+.legal-meta{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:20px;color:var(--muted);font-size:13px}
+.legal-nav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:24px}
+.legal-nav a{height:34px;display:inline-flex;align-items:center;padding:0 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--muted);font-size:14px}
+.legal-nav a:hover{border-color:var(--line-strong);color:var(--ink)}
+.legal-layout{max-width:960px;padding-bottom:64px}
+.legal-document{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:40px 48px;color:var(--ink-soft);font-size:15px;line-height:1.9}
+.legal-document h2{margin-top:40px;margin-bottom:14px;color:var(--ink);font-size:23px;letter-spacing:-.01em}
+.legal-document h2:first-child{margin-top:0}
+.legal-document h3{margin-top:24px;margin-bottom:10px;color:var(--ink);font-size:17px}
+.legal-document p{margin:12px 0}
+.legal-document ul,.legal-document ol{margin:12px 0;padding-left:24px}
+.legal-document li{margin:6px 0}
+.legal-document a{color:var(--primary);font-weight:500}
+.legal-document a:hover{text-decoration:underline}
+.legal-document strong{color:var(--ink);font-weight:600}
+.legal-notice{border:1px solid var(--line-strong);border-radius:10px;background:var(--panel-2);padding:16px 18px;color:var(--ink-soft)}
+.legal-notice p{margin:0}
+.legal-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 28px}
+.legal-cards > div{border:1px solid var(--line);border-radius:10px;padding:18px;background:var(--bg)}
+.legal-cards h3{margin:0 0 8px;font-size:16px}
+.legal-cards p{margin:0;color:var(--muted);font-size:14px}
+.legal-table-scroll{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.legal-document table{width:100%;min-width:640px;border-collapse:collapse;font-size:14px;line-height:1.7}
+.legal-document th,.legal-document td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.legal-document tr:last-child td{border-bottom:0}
+.legal-document th{background:var(--panel-2);color:var(--ink);font-weight:600}
+@media (max-width:640px){
+  .legal-layout{padding-bottom:44px}
+  .legal-document{padding:24px 20px;font-size:14px}
+  .legal-document h2{font-size:21px;margin-top:32px}
+  .legal-cards{grid-template-columns:1fr}
+  .legal-table-scroll{border:0;border-radius:0;overflow:visible}
+  .legal-document table,.legal-document tbody,.legal-document tr,.legal-document td{display:block;width:100%;min-width:0}
+  .legal-document thead{display:none}
+  .legal-document tr{border:1px solid var(--line);border-radius:10px;margin-bottom:12px;padding:8px 14px;background:var(--bg)}
+  .legal-document td{border:0;padding:7px 0}
+  .legal-document td[data-label]::before{content:attr(data-label);display:block;color:var(--faint);font-size:12px;margin-bottom:2px}
+}
+</style>
+<main class="legal-page">
+  <header class="wrap hero center legal-hero">
+    <h1>{title}</h1>
+    <p class="lede">{description}</p>
+    {(version || updated) && <div class="legal-meta">{version && <span>版本 {version}</span>}{updated && <span>更新于 {updated}</span>}</div>}
+    <nav class="legal-nav" aria-label="法律与隐私">
+      <a href={href('/legal/')}>法律与隐私</a>
+      <a href={href('/legal/privacy/')}>隐私政策</a>
+      <a href={href('/legal/terms/')}>用户协议</a>
+      <a href={href('/egress/')}>出网清单</a>
+    </nav>
+  </header>
+  <div class="wrap legal-layout">
+    <article class="legal-document"><slot /></article>
+  </div>
+</main>
+</Base>

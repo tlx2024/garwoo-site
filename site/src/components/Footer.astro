@@ -2,10 +2,7 @@
 import { href } from '../lib/url';
 import NextStep from './NextStep.astro';
 
-const legalPages = import.meta.glob('../pages/legal/*.astro');
-const legalLinks = [['隐私政策', 'privacy'], ['用户协议', 'terms']]
-  .filter(([, slug]) => `../pages/legal/${slug}.astro` in legalPages)
-  .map(([label, slug]) => [label, `/legal/${slug}/`]);
+const legalLinks = [['隐私政策', '/legal/privacy/'], ['用户协议', '/legal/terms/']];
 const groups = [
   { title: '产品', items: [['桌面端', '/desktop/'], ['手机伴侣', '/mobile/'], ['微信小程序', '/mobile/#weapp'], ['本体市场', '/packs/']] },
   { title: '价格', items: [['个人', '/pricing/'], ['积分', '/pricing/#credits'], ['企业', '/enterprise/']] },
