@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import CompanionOutcomes from '../components/CompanionOutcomes.astro';
 import { href } from '../lib/url';
 import { ENDPOINTS } from '../lib/target';
 
@@ -328,6 +329,7 @@ const cta = await windowsCta();
   </section>
 
   
+  <CompanionOutcomes />
   <section class="sec">
     <div class="wrap faq">
       <h2>常见问题</h2>

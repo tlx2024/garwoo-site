@@ -1,0 +1,37 @@
+---
+const views = [
+  { name: '知识维基', example: '把一份研究笔记整理成专题，保留结论、原文出处和待核对的问题。' },
+  { name: '知识图谱', example: '从一个实验批次出发，沿着关联找到用过的配方、检测记录和引用资料。' },
+  { name: '数据孪生', example: '把设备档案与导入的记录对应起来，查看这份数据里各台设备的状态。' },
+  { name: '驾驶舱', example: '把当前任务、关心的指标和相关知识放在同一处，决定接下来要看什么。' },
+];
+import { href } from '../lib/url';
+---
+<section class="wrap companion" id="outcomes" aria-labelledby="outcomes-title">
+  <div class="introduction">
+    <img src={href('/brand/garwoo-at-work.webp')} alt="嘎呜在桌前把资料归入文件夹" width="960" height="640" loading="lazy" decoding="async" />
+    <div>
+      <h2 id="outcomes-title">嘎呜陪你，把想法做成看得见的成果。</h2>
+      <p>做完一次实验，嘎呜可以帮你整理批次记录、找回资料出处。你核对后留下的发现，下次调整配方时还能接着用。</p>
+    </div>
+  </div>
+  <dl class="outcome-list">
+    {views.map(({ name, example }) => (
+      <div><dt>{name}</dt><dd>{example}</dd></div>
+    ))}
+  </dl>
+</section>
+<style>
+  .companion { padding-block: clamp(40px, 6vw, 80px); }
+  .introduction { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(24px, 5vw, 72px); }
+  .introduction img { display: block; width: 100%; height: auto; border-radius: 16px; }
+  .introduction h2 { max-width: 13em; text-wrap: balance; font-size: clamp(26px, 3vw, 40px); line-height: 1.35; }
+  .introduction p, dd { color: var(--muted); line-height: 1.85; }
+  .introduction p { margin-top: 18px; }
+  .outcome-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin: 32px 0 0; }
+  .outcome-list div { border-top: 1px solid var(--line); padding-top: 16px; }
+  dt { color: var(--primary); font-weight: 650; }
+  dd { margin: 8px 0 0; font-size: 14px; }
+  @media (max-width: 800px) { .outcome-list { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .introduction, .outcome-list { grid-template-columns: 1fr; } .outcome-list { gap: 16px; } }
+</style>
