@@ -13,12 +13,54 @@
   // 页头
   var hdr = document.getElementById('hdr');
   addEventListener('scroll', function () { hdr.classList.toggle('scrolled', scrollY > 8); }, { passive: true });
-  document.getElementById('burger').addEventListener('click', function () { hdr.classList.toggle('menu-open'); });
-  var mega = document.querySelector('.has-mega');
-  mega.querySelector('button').addEventListener('click', function () {
-    var open = mega.classList.toggle('open'); this.setAttribute('aria-expanded', open);
+  const burger = document.getElementById('burger');
+  const mega = hdr.querySelector('.has-mega');
+  const products = mega.querySelector('button');
+  const productLinks = document.getElementById('product-links');
+  const compact = matchMedia('(max-width: 960px)');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let hoverPreview = false;
+  function showProducts(open) {
+    hoverPreview = false;
+    mega.classList.toggle('open', open);
+    products.setAttribute('aria-expanded', String(open));
+    productLinks.hidden = !open;
+  }
+  function showMenu(open) {
+    hdr.classList.toggle('menu-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    if (open) products.focus();
+    else showProducts(false);
+  }
+  showProducts(false);
+  burger.addEventListener('click', () => showMenu(!hdr.classList.contains('menu-open')));
+  products.addEventListener('click', () => showProducts(productLinks.hidden || hoverPreview));
+  mega.addEventListener('pointerenter', (event) => {
+    if (!compact.matches && event.pointerType === 'mouse' && productLinks.hidden) {
+      showProducts(true);
+      hoverPreview = true;
+    }
   });
-  document.addEventListener('click', function (e) { if (!mega.contains(e.target)) mega.classList.remove('open'); });
+  mega.addEventListener('pointerleave', () => {
+    if (hoverPreview && !mega.contains(document.activeElement)) showProducts(false);
+  });
+  function dismissOutside(target) {
+    if (!hdr.contains(target)) showMenu(false);
+    else if (!mega.contains(target)) showProducts(false);
+  }
+  document.addEventListener('click', (event) => dismissOutside(event.target));
+  document.addEventListener('focusin', (event) => dismissOutside(event.target));
+  hdr.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    if (!productLinks.hidden) {
+      showProducts(false);
+      products.focus();
+    } else if (hdr.classList.contains('menu-open')) {
+      showMenu(false);
+      burger.focus();
+    }
+  });
+  compact.addEventListener('change', () => showMenu(false));
 
   // 吉祥物：点击会嘎呜
   var audio;
@@ -46,16 +88,37 @@
 
   // 分段 Tab：data-tabs 容器内的按钮 data-target 指向面板
   document.querySelectorAll('[data-tabs]').forEach(function (seg) {
-    var btns = seg.querySelectorAll('button');
-    btns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        btns.forEach(function (x) {
-          x.setAttribute('aria-selected', x === b);
-          var p = document.getElementById(x.dataset.target); if (p) p.hidden = x !== b;
-        });
-        seg.dispatchEvent(new CustomEvent('tab', { detail: b.dataset.target }));
+    const buttons = Array.from(seg.querySelectorAll('button[data-target]'));
+    function select(active) {
+      buttons.forEach((button) => {
+        const selected = button === active;
+        button.setAttribute('aria-selected', String(selected));
+        button.tabIndex = selected ? 0 : -1;
+        document.getElementById(button.dataset.target).hidden = !selected;
+      });
+    }
+    buttons.forEach((button, index) => {
+      const panel = document.getElementById(button.dataset.target);
+      button.id ||= panel.id + '-label';
+      button.setAttribute('role', 'tab');
+      button.setAttribute('aria-controls', panel.id);
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', button.id);
+      panel.tabIndex = 0;
+      button.addEventListener('click', () => {
+        select(button);
+        seg.dispatchEvent(new CustomEvent('tab', { detail: panel.id }));
+      });
+      button.addEventListener('keydown', (event) => {
+        const last = buttons.length - 1;
+        const next = { Home: 0, End: last, ArrowLeft: (index + last) % buttons.length, ArrowRight: (index + 1) % buttons.length }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        buttons[next].focus();
+        buttons[next].click();
       });
     });
+    select(buttons.find((button) => button.getAttribute('aria-selected') === 'true') || buttons[0]);
   });
 
   // 横向轮播：中间卡高亮，Tab 与左右按钮联动
@@ -68,10 +131,11 @@
       slides.forEach(function (s, i) { s.classList.toggle('dimmed', i !== best && s.classList.contains('slide')); });
       tabs.forEach(function (t, i) { t.setAttribute('aria-selected', i === best); });
     }
-    function go(i) { var s = slides[i]; if (s) rail.scrollTo({ left: s.offsetLeft - (rail.clientWidth - s.offsetWidth) / 2, behavior: 'smooth' }); }
+    function scrollBehavior() { return reduced.matches ? 'instant' : 'smooth'; }
+    function go(i) { var s = slides[i]; if (s) rail.scrollTo({ left: s.offsetLeft - (rail.clientWidth - s.offsetWidth) / 2, behavior: scrollBehavior() }); }
     tabs.forEach(function (t, i) { t.addEventListener('click', function () { go(i); }); });
-    document.querySelectorAll('[data-rail-prev="' + id + '"]').forEach(function (b) { b.addEventListener('click', function () { rail.scrollBy({ left: -rail.clientWidth * .7, behavior: 'smooth' }); }); });
-    document.querySelectorAll('[data-rail-next="' + id + '"]').forEach(function (b) { b.addEventListener('click', function () { rail.scrollBy({ left: rail.clientWidth * .7, behavior: 'smooth' }); }); });
+    document.querySelectorAll('[data-rail-prev="' + id + '"]').forEach(function (b) { b.addEventListener('click', function () { rail.scrollBy({ left: -rail.clientWidth * .7, behavior: scrollBehavior() }); }); });
+    document.querySelectorAll('[data-rail-next="' + id + '"]').forEach(function (b) { b.addEventListener('click', function () { rail.scrollBy({ left: rail.clientWidth * .7, behavior: scrollBehavior() }); }); });
     rail.addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
     addEventListener('resize', update); setTimeout(update, 50);
   });

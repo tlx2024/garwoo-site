@@ -1,0 +1,54 @@
+---
+import { href } from '../lib/url';
+
+// 用已生成的站内地址识别栏目，同时适配根域名与 Pages 子目录。
+const path = Astro.url.pathname;
+const within = (section: string) => path.startsWith(href(section));
+let heading = '想先试试哪件事？';
+let links = [
+  ['从手头的一份资料开始', '/docs/quickstart/'],
+  ['看格物怎么做一个项目', '/how/'],
+];
+if (within('/packs/') || within('/how/') || within('/desktop/')) {
+  heading = '准备好做自己的项目了？';
+  links = [['按指南建第一个项目', '/docs/quickstart/'], ['查看桌面端下载方式', '/download/']];
+} else if (within('/mobile/')) {
+  heading = '想了解手机和电脑怎样配合？';
+  links = [['看看电脑上能做什么', '/desktop/'], ['查看哪些数据会出网', '/egress/']];
+} else if (within('/download/') || within('/changelog/')) {
+  heading = '准备开始安装？';
+  links = [['了解当前版本的使用条件', '/docs/trial/'], ['跟着指南建项目', '/docs/quickstart/']];
+} else if (within('/account/') || within('/pricing/') || within('/enterprise/')) {
+  heading = '想算清模型和使用费用？';
+  links = [['查费用与账号常见问题', '/docs/faq/'], ['了解自带模型的配置', '/docs/models/']];
+} else if (within('/egress/') || within('/legal/') || within('/docs/')) {
+  heading = '还想查哪个设置？';
+  links = [['查看模型连接方式', '/docs/models/'], ['了解内测与出网同意', '/docs/trial/']];
+}
+---
+<details class="next-step">
+  <summary>
+    <img src={href('/brand/garwoo-reading.webp')} alt="" width="58" height="58" loading="lazy" />
+    <span>{heading}</span><span class="toggle" aria-hidden="true"></span>
+  </summary>
+  <nav aria-label="相关指南">
+    {links.map(([label, url]) => <a href={href(url)}>{label}<span aria-hidden="true">↗</span></a>)}
+  </nav>
+</details>
+<style>
+  .next-step { border-block-end: 1px solid var(--line); margin-block-end: 32px; padding-block-end: 12px; color: var(--ink); }
+  summary { display: flex; align-items: center; gap: 14px; cursor: pointer; font-size: clamp(16px, 2vw, 21px); font-weight: 600; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary img { flex: none; object-fit: contain; }
+  .toggle { margin-inline-start: auto; width: 30px; height: 30px; border-radius: 50%; background: var(--panel); border: 1px solid var(--line-strong); display: grid; place-items: center; }
+  .toggle::after { content: ''; width: 7px; height: 7px; border: solid var(--ink-soft); border-width: 0 1.5px 1.5px 0; transform: translateY(-2px) rotate(45deg); }
+  [open] .toggle::after { transform: translateY(2px) rotate(225deg); }
+  nav { margin-inline-start: 72px; display: flex; flex-wrap: wrap; gap: 4px 28px; }
+  nav a { display: inline-flex; align-items: center; min-height: 44px; gap: 8px; color: var(--primary); font-weight: 500; }
+  nav a:hover, nav a:focus-visible { text-decoration: underline; }
+  @media (prefers-reduced-motion: no-preference) {
+    [open] summary img { animation: look-up .36s ease-out; transform-origin: center 80%; }
+    @keyframes look-up { 50% { transform: rotate(-5deg) translateY(-2px); } }
+  }
+  @media (max-width: 600px) { nav { margin-inline-start: 0; display: grid; } }
+</style>

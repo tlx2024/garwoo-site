@@ -15,9 +15,37 @@ const cta = await windowsCta();
 .relay .card{padding:28px 16px}
 .relay .card .ic{margin:0 auto 12px}
 .relay .wire{width:80px;height:1px;background:repeating-linear-gradient(90deg,var(--line-strong) 0 6px,transparent 6px 11px);position:relative}
-.relay .wire::after{content:"";position:absolute;top:-3px;left:0;width:7px;height:7px;border-radius:50%;background:var(--primary);animation:run 2.4s linear infinite}
-@keyframes run{to{left:calc(100% - 7px)}}
 @media (max-width:760px){.relay{grid-template-columns:1fr}.relay .wire{width:1px;height:32px;margin:0 auto;background:repeating-linear-gradient(180deg,var(--line-strong) 0 6px,transparent 6px 11px)}.relay .wire::after{display:none}}
+</style>
+<style>
+  .decision .act { margin-top: 4px; }
+  .preview-picker { display: none; }
+  .upload-demo button { width: 100%; min-height: 44px; font: inherit; border: 0; background: var(--primary); color: white; border-radius: 6px; cursor: pointer; }
+  .progress-demo summary { cursor: pointer; }
+  .progress-demo details p { color: var(--muted); margin-top: 6px; }
+  .phones .phone.progress-demo { height: auto; min-height: 380px; }
+  @media (max-width: 760px) {
+    .preview-picker:not([hidden]) { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 18px; }
+    .preview-picker select { border: 1px solid var(--line-strong); border-radius: 6px; padding: 0 12px; height: 44px; color: var(--ink); background: var(--panel); font: inherit; }
+    .phones[data-view] > .phone { display: none; }
+    .phones[data-view="progress"] .progress-demo, .phones[data-view="decision"] .decision, .phones[data-view="upload"] .upload-demo { display: flex; }
+  }
+  .phones .phone.decision { height: auto; min-height: 440px; }
+  .decision img { display: block; width: 92px; height: 92px; object-fit: contain; align-self: center; margin: 4px 0; }
+  .decision .act[hidden] { display: none; }
+  .decision .act button { min-height: 44px; border-radius: 6px; background: var(--panel); color: var(--ink); border: 1px solid var(--line-strong); font: inherit; cursor: pointer; }
+  .decision .act button:last-child { background: var(--primary); color: white; border-color: transparent; }
+  .decision .act button:only-child { grid-column: 1 / -1; }
+  .decision summary { cursor: pointer; padding-block: 4px; color: var(--primary); }
+  .decision details p { margin-block-start: 6px; color: var(--muted); }
+  .decision .tile { line-height: 1.55; }
+  .decision .tile[data-done] { border-color: var(--primary); }
+  @media (prefers-reduced-motion: no-preference) {
+    .decision .tile[data-done] { animation: decide .35s ease-out; }
+    .decision:has([data-done]) img { animation: nod .4s ease-out; transform-origin: center 90%; }
+    @keyframes nod { 50% { transform: rotate(4deg); } }
+    @keyframes decide { from { transform: translateY(3px); } to { transform: none; } }
+  }
 </style>
 <main>
   <div class="wrap hero center">
@@ -32,24 +60,29 @@ const cta = await windowsCta();
 
   
   <div class="stage" style="padding-top:64px">
-    <div class="phones">
-      <div class="phone">
+    <label class="preview-picker" hidden>体验场景
+      <select aria-controls="phone-previews"><option value="progress">看进展</option><option value="decision" selected>确认写入</option><option value="upload">发到项目</option></select>
+    </label>
+    <div class="phones" id="phone-previews">
+      <div class="phone progress-demo">
         <div class="top">进展</div>
-        <div class="tile"><b>配方实验记录员</b><span class="st run">进行中</span></div>
-        <div class="tile"><b>数据校验员</b><span class="st">每天 08:00</span></div>
-        <div class="tile"><b>周报助手</b><span class="st">周五 17:00</span></div>
+        <details class="tile"><summary>配方实验记录员</summary><p>正在整理 F-02 和 F-03 的实验记录。</p><span class="st run">进行中</span></details>
+        <details class="tile"><summary>数据校验员</summary><p>按日核对检测表里的待测项。</p><span class="st">每天 08:00</span></details>
+        <details class="tile"><summary>周报助手</summary><p>汇总本周的实验进展，保留出处。</p><span class="st">周五 17:00</span></details>
       </div>
-      <div class="phone mid">
-        <div class="top">格物 <span class="st ok">我的电脑</span></div>
-        <div class="tile"><b>待你确认</b>写入 候选配方对比.md：F-02 三项达标，F-03 耐擦洗待测。</div>
-        <div class="tile"><b>出处</b><span class="cite">1</span><span class="cite">2</span></div>
-        <div class="act"><span>稍后</span><span class="p">确认</span></div>
+      <div class="phone mid decision" id="decision-demo">
+        <div class="top">写入确认 <span class="tag">交互示例</span></div>
+        <img src={href('/brand/garwoo-confirm.webp')} alt="" width="240" height="240" />
+        <div class="tile" role="status" aria-live="polite" aria-atomic="true"><b data-title>待你确认</b><span data-message>拟写入《候选配方对比.md》：F-02 三项达标，F-03 耐擦洗待测。</span></div>
+        <details class="tile"><summary>查看依据</summary><p>配方实验记录 · F-02 检测表</p><p>耐擦洗记录 · F-03 待测项</p></details>
+        <div class="act" data-choices hidden><button type="button" data-later>稍后</button><button type="button" data-confirm>确认写入</button></div>
+        <div class="act" data-retry hidden><button type="button">再试一次</button></div>
       </div>
-      <div class="phone">
-        <div class="top">发到项目</div>
+      <div class="phone upload-demo">
+        <div class="top">发到项目 <span class="tag">交互示例</span></div>
         <div class="tile" style="height:140px;display:grid;place-items:center;background:var(--bg-2)"><span class="faint"><Icon name="file" size={30} /></span></div>
-        <div class="tile"><b>水性涂料配方研发</b>B-1024 耐擦洗记录.jpg</div>
-        <div class="act" style="grid-template-columns:1fr"><span class="p">发送</span></div>
+        <div class="tile"><b>水性涂料配方研发</b>B-1024 耐擦洗记录.jpg<div role="status" data-upload-status></div></div>
+        <div class="act" style="grid-template-columns:1fr"><button type="button" data-upload hidden>模拟发送</button></div>
       </div>
     </div>
   </div>
@@ -110,4 +143,49 @@ const cta = await windowsCta();
     <div class="cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>{cta.label}</a></div>
   </div>
 </main>
+<script>
+  const previews = document.querySelector<HTMLElement>('#phone-previews')!;
+  const picker = document.querySelector<HTMLElement>('.preview-picker')!;
+  const scene = picker.querySelector('select')!;
+  function selectScene() { previews.dataset.view = scene.value; }
+  selectScene();
+  scene.addEventListener('change', selectScene);
+  picker.hidden = false;
+  const upload = previews.querySelector<HTMLButtonElement>('[data-upload]')!;
+  const uploadStatus = previews.querySelector<HTMLElement>('[data-upload-status]')!;
+  upload.hidden = false;
+  upload.addEventListener('click', () => {
+    const sent = !uploadStatus.textContent;
+    uploadStatus.textContent = sent ? '示例照片已加入项目。' : '';
+    upload.textContent = sent ? '重置示例' : '模拟发送';
+  });
+  const demo = document.querySelector<HTMLElement>('#decision-demo')!;
+  const choices = demo.querySelector<HTMLElement>('[data-choices]')!;
+  const retry = demo.querySelector<HTMLElement>('[data-retry]')!;
+  const title = demo.querySelector<HTMLElement>('[data-title]')!;
+  const message = demo.querySelector<HTMLElement>('[data-message]')!;
+  const original = message.textContent;
+  const confirm = demo.querySelector<HTMLButtonElement>('[data-confirm]')!;
+  const again = retry.querySelector('button')!;
+  choices.hidden = false;
+  function decide(accepted: boolean) {
+    title.textContent = accepted ? '示例已采纳' : '已留待确认';
+    message.textContent = accepted ? '两条结论已列入示例对比文件，保留各自的实验出处。' : '这次先保留草稿，等耐擦洗结果回来再决定。';
+    title.parentElement!.setAttribute('data-done', '');
+    choices.hidden = true;
+    retry.hidden = false;
+    again.textContent = accepted ? '再试一次' : '回到草稿';
+    again.focus({ preventScroll: true });
+  }
+  confirm.addEventListener('click', () => decide(true));
+  demo.querySelector('[data-later]')!.addEventListener('click', () => decide(false));
+  again.addEventListener('click', () => {
+    title.textContent = '待你确认';
+    message.textContent = original;
+    title.parentElement!.removeAttribute('data-done');
+    retry.hidden = true;
+    choices.hidden = false;
+    confirm.focus({ preventScroll: true });
+  });
+</script>
 </Base>

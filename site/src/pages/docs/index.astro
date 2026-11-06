@@ -12,7 +12,13 @@ import Icon from '../../components/Icon.astro';
   </div>
   <div class="wrap">
     
-    <div class="grid g3">
+    <div class="guide-search" hidden>
+      <label for="guide-query">查找指南</label>
+      <input type="search" id="guide-query" placeholder="例如：费用、模型、出网" aria-controls="guide-list" />
+      <button class="btn btn-sm" type="button" hidden>清除</button>
+    </div>
+    <p class="guide-result" role="status" aria-live="polite"></p>
+    <div class="grid g3" id="guide-list">
       <a class="card hover" href={href('/docs/quickstart/')}><div class="ic blue"><Icon name="spark" size={18} /></div><h3>快速开始</h3><p>装好之后第一天怎么用：建项目、放文件、提问、采纳。</p></a>
       <a class="card hover" href={href('/docs/models/')}><div class="ic blue"><Icon name="cpu" size={18} /></div><h3>模型配置</h3><p>官方 AI，或接 OpenAI 兼容地址、本机 Ollama。</p></a>
       <a class="card hover" href={href('/docs/trial/')}><div class="ic blue"><Icon name="book" size={18} /></div><h3>内测说明</h3><p>本机资料、账号与积分、出网同意，以及当前的发布状态。</p></a>
@@ -27,6 +33,12 @@ import Icon from '../../components/Icon.astro';
   </div>
 </main>
 <style>
+  .guide-search { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+  .guide-search label { font-weight: 600; }
+  .guide-search input { min-width: 0; width: min(100%, 305px); height: 44px; border: 1px solid var(--line-strong); border-radius: 7px; color: var(--ink); background: var(--panel); padding-inline: 12px; font: inherit; }
+  .guide-search button { min-height: 44px; }
+  .guide-search[hidden], .guide-search button[hidden], #guide-list a[hidden] { display: none; }
+  .guide-result:not(:empty) { margin-bottom: 16px; color: var(--muted); }
   .guide-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 40px; }
   .guide-heading img { width: clamp(110px, 16vw, 200px); height: auto; flex: none; }
   @media (max-width: 600px) {
@@ -34,4 +46,27 @@ import Icon from '../../components/Icon.astro';
     .guide-heading img { width: 90px; }
   }
 </style>
+<script>
+  const search = document.querySelector<HTMLElement>('.guide-search')!;
+  const query = search.querySelector('input')!;
+  const clear = search.querySelector('button')!;
+  const result = document.querySelector<HTMLElement>('.guide-result')!;
+  const cards = Array.from(document.querySelectorAll<HTMLAnchorElement>('#guide-list > a'));
+  function filterGuides() {
+    const term = query.value.trim().toLocaleLowerCase();
+    const words = term.split(/\s+/u);
+    let count = 0;
+    for (const card of cards) {
+      const text = card.textContent.toLocaleLowerCase();
+      card.hidden = !words.every(word => text.includes(word));
+      if (!card.hidden) count++;
+    }
+    result.textContent = !term ? '' : count ? `找到 ${count} 篇指南` : '没有找到相关指南，可以换个词或清除搜索。';
+    clear.hidden = !query.value;
+  }
+  query.addEventListener('input', filterGuides);
+  clear.addEventListener('click', () => { query.value = ''; filterGuides(); query.focus(); });
+  search.hidden = false;
+  filterGuides();
+</script>
 </Base>

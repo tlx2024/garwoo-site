@@ -1,7 +1,7 @@
 // 格物官网原型：知识网络背景。节点缓慢漂移、近的两点连线，光点沿连线跑过去，鼠标靠近时节点被吸过来。
 // 只挂在 .hero 和 .final 上；不可见时暂停，prefers-reduced-motion 时只画一帧。
 (function () {
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var motion = matchMedia('(prefers-reduced-motion: reduce)');
   var hosts = document.querySelectorAll('.hero, .final');
   if (!hosts.length) return;
 
@@ -85,7 +85,11 @@
       step(dt); if (Math.random() < dt / 700) spawn(); draw();
       raf = requestAnimationFrame(frame);
     }
-    function start() { if (reduce || raf || !vis) return; t0 = 0; raf = requestAnimationFrame(frame); }
+    function start() { if (motion.matches || raf || !vis) return; t0 = 0; raf = requestAnimationFrame(frame); }
+    motion.addEventListener('change', function () {
+      if (motion.matches) { cancelAnimationFrame(raf); raf = 0; draw(); }
+      else start();
+    });
 
     theme(); size(); for (var i = 0; i < 40; i++) step(16);
     new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) { draw(); start(); } }).observe(host);

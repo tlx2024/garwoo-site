@@ -27,6 +27,12 @@ import Icon from '../components/Icon.astro';
 .eg .s{margin-top:6px}
 .eg .no-{color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
 .eg tr:target td{background:var(--primary-soft)}
+.eg tr{scroll-margin-top:86px}
+.jump-list{margin:0 0 16px;padding:8px 12px;border:1px solid var(--line);border-radius:8px}
+.jump-list summary{cursor:pointer;width:fit-content;padding:6px 0;font-weight:500}
+.jump-list nav{display:flex;flex-wrap:wrap;gap:0 20px;padding:4px 0}
+.jump-list a{display:inline-flex;align-items:center;min-height:44px;color:var(--primary)}
+.jump-list a:hover,.jump-list a:focus-visible{text-decoration:underline}
 .meta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:20px;font-size:14px;color:var(--muted)}
 .meta b{color:var(--ink);font-weight:600}
 ul.plain{margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)}
@@ -60,6 +66,10 @@ ul.plain{margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)}
 
     <section class="sec">
       <div class="sec-head split"><h2>逐条清单</h2><span class="faint" style="font-size:14px">只有表中这 {items.length} 件事会让数据离开你的电脑</span></div>
+      <details class="jump-list">
+        <summary>按功能定位</summary>
+        <nav aria-label="出网功能">{items.map(item => <a href={'#' + item.id}>{brand(item.fn)}</a>)}</nav>
+      </details>
       <div class="table-scroll">
         <table class="eg">
           <thead><tr><th>功能</th><th>发送什么</th><th>发到哪</th><th>云端保留</th><th>费用</th><th>离线时</th></tr></thead>

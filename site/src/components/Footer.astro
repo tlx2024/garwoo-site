@@ -1,16 +1,22 @@
 ---
 import { href } from '../lib/url';
+import NextStep from './NextStep.astro';
 
+const legalPages = import.meta.glob('../pages/legal/*.astro');
+const legalLinks = [['隐私政策', 'privacy'], ['用户协议', 'terms']]
+  .filter(([, slug]) => `../pages/legal/${slug}.astro` in legalPages)
+  .map(([label, slug]) => [label, `/legal/${slug}/`]);
 const groups = [
   { title: '产品', items: [['桌面端', '/desktop/'], ['手机伴侣', '/mobile/'], ['微信小程序', '/mobile/#weapp'], ['本体市场', '/packs/']] },
   { title: '价格', items: [['个人', '/pricing/'], ['积分', '/pricing/#credits'], ['企业', '/enterprise/']] },
   { title: '资源', items: [['文档', '/docs/'], ['工作方式', '/how/'], ['账号中心', '/account/'], ['更新日志', '/changelog/'], ['下载', '/download/']] },
   { title: '企业', items: [['企业版', '/enterprise/'], ['预约演示', '/enterprise/#contact']] },
-  { title: '法律', items: [['隐私政策', '/legal/privacy/'], ['用户协议', '/legal/terms/'], ['出网清单', '/egress/'], ['关于', '/about/'], ['品牌', '/brand/']] },
+  { title: '法律', items: [...legalLinks, ['出网清单', '/egress/'], ['关于', '/about/'], ['品牌', '/brand/']] },
 ];
 ---
 <footer class="site-footer">
   <div class="wrap">
+    <NextStep />
     <div class="fgrid">
       <div>
         <a class="logo" href={href('/')}>
