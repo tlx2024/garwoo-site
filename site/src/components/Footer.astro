@@ -1,21 +1,23 @@
 ---
 import { href } from '../lib/url';
-import Mascot from './Mascot.astro';
 
 const groups = [
   { title: '产品', items: [['桌面端', '/desktop/'], ['手机伴侣', '/mobile/'], ['微信小程序', '/mobile/#weapp'], ['本体市场', '/packs/']] },
   { title: '价格', items: [['个人', '/pricing/'], ['积分', '/pricing/#credits'], ['企业', '/enterprise/']] },
-  { title: '资源', items: [['文档', '/docs/'], ['工作方式', '/how/'], ['更新日志', '/changelog/'], ['下载', '/download/']] },
+  { title: '资源', items: [['文档', '/docs/'], ['工作方式', '/how/'], ['账号中心', '/account/'], ['更新日志', '/changelog/'], ['下载', '/download/']] },
   { title: '企业', items: [['企业版', '/enterprise/'], ['预约演示', '/enterprise/#contact']] },
-  { title: '法律', items: [['出网清单', '/egress/'], ['关于', '/about/'], ['品牌', '/brand/']] },
+  { title: '法律', items: [['隐私政策', '/legal/privacy/'], ['用户协议', '/legal/terms/'], ['出网清单', '/egress/'], ['关于', '/about/'], ['品牌', '/brand/']] },
 ];
 ---
 <footer class="site-footer">
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <a class="logo" href={href('/')}><Mascot />格物<span class="en">Garwoo</span></a>
-        <p class="slogan">格物致知，嘎呜开工。</p>
+        <a class="logo" href={href('/')}>
+          <img class="for-light" src={href('/brand/logo-light.webp')} alt="格物 Garwoo" />
+          <img class="for-dark" src={href('/brand/logo-dark.webp')} alt="格物 Garwoo" />
+        </a>
+        <p class="slogan">嘎呜一声，格物开工。</p>
       </div>
       {groups.map((g) => (
         <div>

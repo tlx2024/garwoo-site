@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Mascot from '../components/Mascot.astro';
+import { href } from '../lib/url';
+import { ENDPOINTS, accountHref } from '../lib/target';
+
+const features = [
+  {
+    icon: 'users',
+    title: '账号与安全',
+    desc: '使用手机号验证码或微信快速登录。密码与敏感凭据加密保管，支持多端会话管理。',
+  },
+  {
+    icon: 'desktop',
+    title: '设备授权管理',
+    desc: '查看当前已绑定的 Windows 电脑、Android 手机与微信小程序，支持单点解绑或一键吊销其他会话。',
+  },
+  {
+    icon: 'cpu',
+    title: '官方 AI 额度',
+    desc: '透明管理官方 AI 积分。花钱前先明确额度预算与每步消耗，离线与自带模型不消耗积分。',
+  },
+  {
+    icon: 'shield',
+    title: '隐私权与数据导出',
+    desc: '资料与知识库留在本机。支持随时申请一键打包导出全部云端账号数据或提交注销。',
+  },
+];
+---
+
+<Base
+  title="账号中心 · 格物 Garwoo"
+  description="格物个人账号管理：登录、设备授权、官方 AI 积分与隐私数据导出。"
+  page="account"
+>
+  <main class="page-body">
+    <div class="wrap" style="padding-top:48px;padding-bottom:64px;max-width:960px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <div>
+          <span class="pill" style="margin-bottom:12px">格物个人账号</span>
+          <h1 style="font-size:36px;font-weight:700;letter-spacing:-0.02em;margin-top:8px">账号管理与设备中心</h1>
+          <p class="muted" style="font-size:16px;line-height:1.6;margin-top:12px;max-width:640px">
+            一个账号，管理你的桌面客户端、手机伴侣与官方 AI 积分。资料与知识库留在你的电脑，云端只记录你的登录授权与积分流水。
+          </p>
+        </div>
+        <div style="width:96px;height:96px">
+          <Mascot size={96} />
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:36px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <div>
+          <h2 style="font-size:20px;font-weight:600">快速进入账号中心</h2>
+          <p class="muted" style="margin-top:6px;font-size:14px">
+            {ENDPOINTS.account ? '云端账号服务已连通，点击前往格物账号中心完成登录或管理设备。' : '支持在个人版客户端中直接授权登录，或前往网页端管理你的个人账号。'}
+          </p>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-primary" href={accountHref('login')}>立即登录 / 注册</a>
+          <a class="btn" href={accountHref('account')}>管理我的设备与积分</a>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:32px">
+        {features.map((f) => (
+          <div class="card" style="padding:24px">
+            <div class="ic" style="margin-bottom:14px"><Icon name={f.icon} size={20} /></div>
+            <h3 style="font-size:17px;font-weight:600">{f.title}</h3>
+            <p class="muted" style="margin-top:8px;font-size:14px;line-height:1.6">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="card" style="margin-top:32px;padding:24px;background:var(--panel-2)">
+        <h3 style="font-size:15px;font-weight:600">多端登录说明</h3>
+        <ul style="margin-top:12px;padding-left:20px;font-size:14px;line-height:1.8;color:var(--ink-soft)">
+          <li><strong>桌面端（Windows）</strong>：在应用设置中点击“登录官网账号”，将自动唤起浏览器完成设备授权并回传凭据。</li>
+          <li><strong>手机伴侣（Android）</strong>：支持原生短信验证码快捷登录与扫码配对。</li>
+          <li><strong>微信小程序</strong>：一键授权微信身份登录，支持与手机号账户绑定并随时解绑。</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+        <a class="muted" href={href('/download/')}>← 返回下载页面</a>
+        <a class="muted" href={href('/egress/')}>查看出网清单 →</a>
+      </div>
+    </div>
+  </main>
+</Base>
