@@ -5,9 +5,10 @@ import Icon from '../../components/Icon.astro';
 ---
 <Base title="文档" description="格物文档：快速开始、模型配置、内测说明、常见问题和企业部署。" page="docs">
 <main>
-  <div class="wrap hero center" style="padding-bottom:48px">
-    <h1>文档</h1>
-    <p class="lede">从装好到用起来，需要的都在这五篇里。</p>
+  <div class="wrap hero guide-heading">
+    <div><h1>文档</h1>
+    <p class="lede">第一次用格物？从快速开始建一个项目，再按需查阅模型、费用与资料设置。</p></div>
+    <img src={href('/brand/garwoo-reading.webp')} width="360" height="360" alt="嘎呜托着脸，翻阅一本带蓝色书签的指南。" />
   </div>
   <div class="wrap">
     
@@ -21,9 +22,16 @@ import Icon from '../../components/Icon.astro';
     </div>
   </div>
   <div class="final">
-    <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
     <h2>没找到想看的？</h2>
     <div class="cta"><a class="btn btn-primary btn-lg" href={href('/how/')}>看工作方式</a><a class="btn btn-lg" href={href('/enterprise/#contact')}>联系我们</a></div>
   </div>
 </main>
+<style>
+  .guide-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 40px; }
+  .guide-heading img { width: clamp(110px, 16vw, 200px); height: auto; flex: none; }
+  @media (max-width: 600px) {
+    .guide-heading { gap: 8px; }
+    .guide-heading img { width: 90px; }
+  }
+</style>
 </Base>
