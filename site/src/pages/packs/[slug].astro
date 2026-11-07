@@ -16,18 +16,41 @@ const rows = [
   ['体积', `${(p.size / 1024).toFixed(1)} KB`],
   ['来源', '随客户端内置'],
 ];
+const DOMAIN_STYLE: Record<string, { bg: string; color: string; border: string; icon: string }> = {
+  '组织经营': {
+    bg: 'rgba(0, 82, 217, 0.08)',
+    color: 'var(--blue)',
+    border: 'rgba(0, 82, 217, 0.2)',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg>`
+  },
+  '研发实验': {
+    bg: 'rgba(5, 150, 105, 0.09)',
+    color: '#059669',
+    border: 'rgba(5, 150, 105, 0.22)',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6.3L4.8 18.4A2 2 0 0 0 6.6 21h10.8a2 2 0 0 0 1.8-2.6L14 8.3V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg>`
+  },
+  '离散制造': {
+    bg: 'rgba(217, 119, 6, 0.10)',
+    color: '#d97706',
+    border: 'rgba(217, 119, 6, 0.24)',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg>`
+  }
+};
+const ds = DOMAIN_STYLE[p.domain] || DOMAIN_STYLE['组织经营'];
 import { windowsCta } from '../../data/status';
 const cta = await windowsCta();
 ---
 <Base og="og-packs" title={p.title} description={`${p.title}：${p.sub}。版本、许可、包内容计数、安装时授予的权限和更新说明。`} page="packs">
 <style is:global>
-.pk-head{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
-.pk-head .crumb{font-size:14px;color:var(--muted);margin-bottom:16px;display:block}
-.pk-head h1{font-size:clamp(34px,4.6vw,52px);letter-spacing:-.025em;font-weight:600}
-.pk-head .sub{margin-top:12px;font-size:18px;color:var(--muted);max-width:640px}
+.pk-head{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;max-width:980px;margin:0 auto}
+.pk-head .crumb{font-size:14px;color:var(--muted);margin-bottom:16px;display:inline-flex;align-items:center;gap:6px}
+.pk-title-row{display:flex;align-items:center;gap:18px}
+.pk-ico{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid transparent}
+.pk-head h1{font-size:clamp(30px,4vw,44px);letter-spacing:-.025em;font-weight:600}
+.pk-head .sub{margin-top:14px;font-size:17px;color:var(--muted);max-width:640px;line-height:1.65}
 .pk-head .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
 .pk-cta{display:flex;gap:10px;flex-wrap:wrap}
-.pk-body{display:grid;grid-template-columns:1.3fr .7fr;gap:56px;margin-top:72px;align-items:start}
+.pk-body{display:grid;grid-template-columns:1.3fr .7fr;gap:48px;margin:56px auto 0;align-items:start;max-width:980px}
 .pk-body h2{font-size:clamp(22px,2.6vw,28px)}
 .pk-body p{margin-top:14px;color:var(--ink-soft);font-size:16px}
 .pk-body ul{margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)}
@@ -47,7 +70,10 @@ const cta = await windowsCta();
     <div class="pk-head">
       <div>
         <a class="crumb link" href={href('/packs/')} style="font-size:14px">本体市场</a>
-        <h1>{p.title}</h1>
+        <div class="pk-title-row">
+          <div class="pk-ico" style={`background:${ds.bg};color:${ds.color};border-color:${ds.border}`} set:html={ds.icon} />
+          <h1>{p.title}</h1>
+        </div>
         <p class="sub">{p.sub}</p>
         <div class="tags">
           <span class="tag blue">官方精选 · {PACK_VERSION}</span>
