@@ -1,11 +1,10 @@
-# NOT VERIFIED. Do not use before the domain and ICP filing are ready (G0) and a server is chosen.
 # Usage (from the garwoo-site repo root):
 #   powershell -NoProfile -File deploy/deploy.ps1 -DryRun    # build + gates only, no upload
-#   powershell -NoProfile -File deploy/deploy.ps1            # build + deploy
-# Builds the www site (SITE_MODE=www), uploads it to the web host, swaps the web root with one
-# rollback copy and reloads nginx only after `nginx -t` passes.
+#   powershell -NoProfile -File deploy/deploy.ps1            # build + deploy to betterme-prod
+# Builds the www site (SITE_MODE=www), uploads it to the web host, installs nginx config,
+# swaps the web root with one rollback copy and reloads nginx only after `nginx -t` passes.
 param(
-    [string]$Remote = '',
+    [string]$Remote = 'betterme-prod',
     [string]$WebRoot = '/var/www/garwoo-www',
     [string]$WwwOrigin = $(if ($env:WWW_ORIGIN) { $env:WWW_ORIGIN } else { 'https://www.garwoo.cn' }),
     [string]$AccountOrigin = $env:ACCOUNT_ORIGIN,
@@ -52,7 +51,7 @@ Invoke-Native 'tar' { tar -czf $archive -C $dist . }
 $stage = "/tmp/garwoo-www-deploy-$(Get-Date -Format yyyyMMddHHmmss)"
 try {
     Invoke-Native 'ssh mkdir' { ssh $Remote "mkdir -p $stage" }
-    $files = @($archive, (Join-Path $PSScriptRoot 'remote-install.sh'))
+    $files = @($archive, (Join-Path $PSScriptRoot 'remote-install.sh'), (Join-Path $PSScriptRoot 'garwoo.conf'))
     Invoke-Native 'scp' { scp @files "${Remote}:$stage/" }
     Invoke-Native 'remote install' { ssh $Remote "bash $stage/remote-install.sh $stage $WebRoot" }
 } finally {
