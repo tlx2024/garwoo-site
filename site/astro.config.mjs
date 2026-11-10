@@ -63,7 +63,7 @@ export default defineConfig({
         alt: '格物 Garwoo',
         replacesTitle: true,
       },
-      favicon: '/favicon-32.png',
+      favicon: '/favicon-32.png?v=2',
       defaultLocale: 'root',
       locales: { root: { label: '简体中文', lang: 'zh-CN' } },
       customCss: ['./src/styles/docs.css'],
