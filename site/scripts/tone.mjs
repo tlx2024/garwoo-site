@@ -55,7 +55,12 @@ export function toneProblems(text, { terms = true } = {}) {
 
 /** 排版：逐个文本节点检查，中文与拉丁字母、数字之间留空格，中文后不跟半角标点。 */
 export function typographyProblems(html) {
-  const nodes = html.replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, '\n').replace(/<[^>]+>/g, '\n').split('\n');
+  const nodes = html
+    .replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, '\n')
+    .replace(/<[^>]+>/g, '\n')
+    // 备案号属于法定固定标识，不强行拆分空格
+    .replace(/[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]ICP备\d+号(-\d+)?/gi, '')
+    .split('\n');
   const rules = [
     ['中文与字母数字之间缺空格', /[一-鿿][A-Za-z0-9]|[A-Za-z0-9][一-鿿]/],
     ['中文旁的半角标点', /[一-鿿][,;:?!]|[一-鿿]\.(?=\s|$)|[,;:?!][一-鿿]/],
