@@ -4,7 +4,11 @@ import { fileURLToPath } from 'node:url';
 import { siteTarget } from '../site-target.mjs';
 
 const mode = process.argv[2];
-const env = { ...process.env, SITE_MODE: mode };
+const env = {
+  ACCOUNT_ORIGIN: process.env.ACCOUNT_ORIGIN ?? 'https://account.iai.xianjian.ltd',
+  ...process.env,
+  SITE_MODE: mode,
+};
 siteTarget(env); // Reject malformed origins before producing any artifact.
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 for (const args of [

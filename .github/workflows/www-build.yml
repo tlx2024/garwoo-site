@@ -33,12 +33,12 @@ jobs:
         env:
           SITE_MODE: www
           WWW_ORIGIN: ${{ inputs.www_origin }}
-          ACCOUNT_ORIGIN: ${{ inputs.account_origin }}
+          ACCOUNT_ORIGIN: ${{ inputs.account_origin || 'https://account.iai.xianjian.ltd' }}
           DOWNLOAD_ORIGIN: ${{ inputs.download_origin }}
       - run: npm run build:www
         env:
           WWW_ORIGIN: ${{ inputs.www_origin }}
-          ACCOUNT_ORIGIN: ${{ inputs.account_origin }}
+          ACCOUNT_ORIGIN: ${{ inputs.account_origin || 'https://account.iai.xianjian.ltd' }}
           DOWNLOAD_ORIGIN: ${{ inputs.download_origin }}
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
