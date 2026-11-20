@@ -26,17 +26,10 @@ const chapters = [
   <section class="story-hero wrap" aria-labelledby="headline">
     <div class="hero-text">
       <h1 id="headline">格物 <span>帮你构建自己专业领域</span></h1>
-      <p class="hero-lede">用专业包搭起领域结构，把资料放进项目，让智能体按分工开展任务。结果带着出处回到项目里，下一次接着用。</p>
       <div class="actions">
         <a class="btn btn-primary btn-lg" href="#domains">选择领域</a>
         <a class="btn btn-lg" href="#goal">看案例</a>
       </div>
-      <ul class="hero-facts" aria-label="格物的做法">
-        <li>资料留在你的电脑上</li>
-        <li>回答带出处</li>
-        <li>改动先等你确认</li>
-        <li>可接自己的模型</li>
-      </ul>
     </div>
     <figure class="hero-art" role="img" aria-label="嘎呜拉着项目资料夹出发">
       <canvas class="hero-cord" aria-hidden="true"></canvas>
@@ -55,7 +48,6 @@ const chapters = [
 
     <section class="choice-section wrap" id="domains" aria-labelledby="domains-heading">
       <h2 id="domains-heading">你想先做哪件事？</h2>
-      <p class="section-sub">三个领域各有一个完整任务。选一个，跟着嘎呜从目标走到回填。</p>
       <fieldset class="choices">
         <legend class="sr-only">选择一个领域查看完整任务</legend>
         {homeCases.map((item) => (
