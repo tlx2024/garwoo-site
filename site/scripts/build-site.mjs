@@ -5,7 +5,7 @@ import { siteTarget } from '../site-target.mjs';
 
 const mode = process.argv[2];
 const env = {
-  ACCOUNT_ORIGIN: process.env.ACCOUNT_ORIGIN ?? 'https://account.iai.xianjian.ltd',
+  ACCOUNT_ORIGIN: process.env.ACCOUNT_ORIGIN ?? 'https://account.garwoo.com',
   ...process.env,
   SITE_MODE: mode,
 };
