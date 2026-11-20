@@ -35,17 +35,6 @@ body[data-page="home"] .site-footer {
       radial-gradient(ellipse 50% 46% at 46% 46%, color-mix(in srgb,var(--garwoo-cyan) 10%,transparent), transparent),
       radial-gradient(ellipse 46% 46% at 54% 54%, color-mix(in srgb,var(--primary) 13%,transparent), transparent);
   }
-  .hero-art::after {
-    content:"";
-    position:absolute;
-    inset:16% 9% 13% 6%;
-    z-index:-1;
-    pointer-events:none;
-    transform:rotate(-12deg);
-    background:radial-gradient(ellipse,
-      transparent 69.3%, color-mix(in srgb,var(--primary) 12%,transparent) 69.7%, transparent 70.1%,
-      transparent 87.2%, color-mix(in srgb,var(--primary) 9%,transparent) 87.6%, transparent 88%);
-  }
   .hero-character { position:absolute; left:2%; top:-4%; width:85%; height:auto; }
   .hero-folder { position:absolute; right:1%; bottom:8%; width:26%; height:auto; }
   .hero-cord { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
@@ -184,7 +173,7 @@ body[data-page="home"] .site-footer {
   from { opacity:.48; transform:translateY(9px); }
 }
 
-/* Hero backdrop: drifting colour, a dotted field, the knowledge network from bg.js, and a few floating task chips.
+/* Hero backdrop: drifting colour, a dotted field, the knowledge network from bg.js.
    Everything is decorative and sits behind or beside the hero art, so the guide journey measurements are unchanged. */
 .home-story {
   .hero-stage { position:relative; overflow:hidden; isolation:isolate; }
@@ -205,36 +194,12 @@ body[data-page="home"] .site-footer {
     mask-image:radial-gradient(ellipse 70% 80% at 70% 45%,#000,transparent 75%);
     opacity:.8;
   }
-  .hero-chip {
-    position:absolute; z-index:1; display:inline-flex; align-items:center; gap:8px; padding:7px 12px;
-    background:var(--panel); border:1px solid var(--line-strong); border-radius:999px; box-shadow:var(--shadow-float);
-    color:var(--ink-soft); font-size:.78rem; font-weight:660; white-space:nowrap; pointer-events:none;
-  }
-  .hero-chip i { width:7px; height:7px; border-radius:50%; background:var(--primary-strong); }
-  .chip-source { right:-4%; top:31%; }
-  .chip-check { right:-1%; top:6%; }
-  .chip-check i { background:var(--warn-fg); }
-  .chip-done { left:8%; bottom:3%; }
-  .chip-done i { background:var(--ok-fg); }
   @media (prefers-reduced-motion:no-preference) {
     .hero-stage::before { animation:hero-drift 18s ease-in-out infinite alternate; }
-    .hero-chip { animation:hero-bob 6.5s ease-in-out infinite; }
-    .chip-check { animation-delay:-2.2s; animation-duration:7.4s; }
-    .chip-done { animation-delay:-4.1s; animation-duration:8.2s; }
-  }
-  @media (max-width:700px) {
-    .hero-chip { font-size:.7rem; padding:5px 9px; }
-    .chip-source { right:0; top:28%; }
-    .chip-check { right:0; top:2%; }
-    .chip-done { left:4%; bottom:0; }
   }
 }
 
 @keyframes hero-drift {
   from { transform:translate3d(-2%,0,0) scale(1); }
   to { transform:translate3d(3%,-3%,0) scale(1.06); }
-}
-@keyframes hero-bob {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-9px); }
 }
