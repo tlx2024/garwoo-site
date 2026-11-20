@@ -7,3 +7,5 @@ site/public/fonts/NotoSansSC-subset.woff2
 Thumbs.db
 site/.vite/
 site/.cache/
+.playwright-cli/
+output/
