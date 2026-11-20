@@ -1,9 +1,6 @@
 ---
 import '../styles/home-story.css';
 import { homeCases } from '../data/home-cases';
-import { PACKS } from '../data/packs';
-import { PROJECT_STORIES } from '../data/project-stories';
-import Icon from './Icon.astro';
 import { windowsCta } from '../data/status';
 import { href } from '../lib/url';
 
@@ -17,19 +14,6 @@ const stages = [
   ['finish', '完成闭环'],
 ] as const;
 
-const pillars = [
-  ['cube', '本体', '先把这一行的结构弄清楚：有哪些对象，怎么关联，守什么规矩。起步包给出现成的，也可以让 AI 起草，逐条采纳。', '/packs/', '看起步包'],
-  ['library', '资料与出处', '把记录、规范和数据放进项目。回答带出处，没查到就说没查到。', '/docs/quickstart/', '建第一个项目'],
-  ['bot', '智能体与日程', '按职责分工。会改动文件或对象的操作，先等你确认。', '/how/', '看工作方式'],
-  ['lock', '资料留在本机', '知识库、原件和本体在你的电脑上。哪些内容会发出去，有逐条清单。', '/egress/', '查看出网清单'],
-] as const;
-const faqBrief = [
-  ['格物收费吗？', '客户端免费。用官方 AI 需要账号与积分，价格见价格页。页面上的金额是示例，注册与购买尚未开放。'],
-  ['不买会员还能用吗？', '能。本机的浏览、编辑、检索、备份和导出都不依赖会员，也可以接自己的模型。'],
-  ['资料保存在什么地方？', '在你的电脑上。云端不存本地知识库、原文档和本体结构。'],
-  ['能接入产线和业务系统吗？', '个人版不接。接入 MES、SCADA、ERP，以及权限、审批、审计，通过企业版私有化交付。'],
-] as const;
-
 const chapters = [
   { id: 'goal', label: stages[1][1], title: 'goal', picture: 'cover' },
   { id: 'organize', label: stages[2][1], title: 'evidence', picture: 'evidenceArt' },
@@ -38,6 +22,7 @@ const chapters = [
 ---
 
 <div class="home-story">
+  <div class="hero-stage">
   <section class="story-hero wrap" aria-labelledby="headline">
     <div class="hero-text">
       <h1 id="headline">格物 <span>帮你构建自己专业领域</span></h1>
@@ -57,8 +42,12 @@ const chapters = [
       <canvas class="hero-cord" aria-hidden="true"></canvas>
       <img class="hero-character" src={art('guide-brand-hero.webp?v=2')} width="768" height="768" alt="" fetchpriority="high" />
       <img class="hero-folder" src={art('guide-project-folder.webp')} width="280" height="280" alt="" />
+      <span class="hero-chip chip-source" aria-hidden="true"><i></i>出处 · 目标.md</span>
+      <span class="hero-chip chip-check" aria-hidden="true"><i></i>耐擦洗 待补测</span>
+      <span class="hero-chip chip-done" aria-hidden="true"><i></i>已回填 B-1024</span>
     </figure>
   </section>
+  </div>
 
   <div class="story-flow">
     <nav class="flow-nav" aria-label="任务流程">
@@ -192,59 +181,7 @@ const chapters = [
         <img class="dock-guide dock-art" src={art('guide-brand-docked.webp?v=2')} width="768" height="768" alt="" loading="lazy" />
       </figure>
     </section>
-    <div class="wrap story-return"><a class="plain-link" href="#top" data-story-replay>回到顶部重看一遍</a></div>
-
-    <section class="wrap explore" id="inside" aria-labelledby="inside-heading">
-      <header class="explore-head"><span class="eyebrow">打开一个项目</span><h2 id="inside-heading">一个项目里有什么</h2></header>
-      <div class="pillars">
-        {pillars.map(([icon, title, text, to, label]) => (
-          <article class="card pillar">
-            <span class="ic blue"><Icon name={icon} size={18} /></span>
-            <h3>{title}</h3>
-            <p>{text}</p>
-            <a class="link" href={href(to)}>{label}</a>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="wrap explore" id="starter-packs" aria-labelledby="packs-heading">
-      <header class="explore-head"><span class="eyebrow">起步包</span><h2 id="packs-heading">先装一个领域，再放自己的资料</h2>
-        <p>起步包提供这一行的对象、出处文章、能力问题和智能体。装好以后，按自己的项目增删。</p></header>
-      <div class="pack-row">
-        {PACKS.map((pack) => (
-          <a class="card hover pack-card" href={href(`/packs/${pack.slug}/`)}>
-            <span class="tag blue">{pack.domain}</span>
-            <h3>{pack.title}</h3>
-            <p>{pack.sub}</p>
-            <dl><div><dt>类型</dt><dd>{pack.counts[0]}</dd></div><div><dt>出处文章</dt><dd>{pack.counts[2]}</dd></div><div><dt>智能体</dt><dd>{pack.counts[4]}</dd></div></dl>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <section class="wrap explore" id="project-gallery" aria-labelledby="gallery-heading">
-      <header class="explore-head"><span class="eyebrow">七个文件夹，七种工作</span><h2 id="gallery-heading">换一个行当，任务怎么开展</h2>
-        <p>示例资料是合成的，说明任务的开展方式，不是实时运行结果。</p></header>
-      <ul class="gallery">
-        {PROJECT_STORIES.map((story) => (
-          <li><a href={href(`/how/#example-${story.id}`)}>
-            <strong>{story.name}</strong>
-            <span class="gallery-goal">{story.goal}</span>
-            <span class="gallery-role">{story.role}</span>
-          </a></li>
-        ))}
-        <li class="gallery-more"><a href={href('/how/#examples')}><strong>全部示例</strong><span class="gallery-goal">打开一个文件夹，看资料、分工和成果</span><span class="gallery-role">前往工作方式 →</span></a></li>
-      </ul>
-    </section>
-
-    <section class="wrap explore" id="brief-faq" aria-labelledby="faq-heading">
-      <header class="explore-head"><span class="eyebrow">常见问题</span><h2 id="faq-heading">下载之前，先问清这几件事</h2></header>
-      <div class="brief-faq">
-        {faqBrief.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
-      </div>
-      <p class="brief-more"><a class="link" href={href('/docs/faq/')}>查看全部常见问题</a></p>
-    </section>
+    <div class="wrap story-return"><a class="plain-link" href="#top" data-story-replay>回到顶部</a></div>
   </div>
 
   <canvas class="journey-cord" aria-hidden="true" hidden></canvas>

@@ -2,7 +2,7 @@
 // 只挂在 .hero 和 .final 上；不可见时暂停，prefers-reduced-motion 时只画一帧。
 (function () {
   var motion = matchMedia('(prefers-reduced-motion: reduce)');
-  var hosts = document.querySelectorAll('.hero, .final');
+  var hosts = document.querySelectorAll('.hero, .final, .hero-stage');
   if (!hosts.length) return;
 
   function rgb(v) {
