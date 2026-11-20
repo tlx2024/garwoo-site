@@ -6,7 +6,6 @@ import { href } from '../lib/url';
 
 const { label: downloadLabel } = await windowsCta();
 const art = (file: string) => href(`/home/${file}`);
-const guideArt = (file: string) => art(file) + '?v=2';
 const stages = [
   ['domains', '选择领域'],
   ['goal', '设定目标'],
@@ -25,18 +24,16 @@ const chapters = [
 <div class="home-story">
   <section class="story-hero wrap" aria-labelledby="headline">
     <div class="hero-text">
-      <p class="eyebrow">嘎呜一声，格物开工。</p>
-      <h1 id="headline">让 AI 帮你构建<span>自己的专业领域</span></h1>
-      <p class="hero-description">用本体把目标、资料和结果连起来。</p>
+      <h1 id="headline">格物 <span>帮你构建自己专业领域</span></h1>
       <div class="actions">
         <a class="btn btn-primary btn-lg" href="#domains">选择领域</a>
         <a class="btn btn-lg" href="#goal">看案例</a>
       </div>
     </div>
     <figure class="hero-art" role="img" aria-label="嘎呜拉着项目资料夹出发">
-      <img class="hero-character" src={guideArt('guide-clay-unified-still.webp')} width="320" height="320" alt="" fetchpriority="high" />
-      <img class="hero-folder" src={art('guide-project-folder.webp')} width="280" height="280" alt="" />
       <canvas class="hero-cord" aria-hidden="true"></canvas>
+      <img class="hero-character" src={art('guide-brand-hero.webp')} width="320" height="320" alt="" fetchpriority="high" />
+      <img class="hero-folder" src={art('guide-project-folder.webp')} width="280" height="280" alt="" />
     </figure>
   </section>
 
@@ -168,15 +165,15 @@ const chapters = [
       </div>
       <figure class="footer-dock" role="img" aria-label="嘎呜放下资料夹">
         <img class="dock-folder dock-art" src={art('guide-project-folder.webp')} width="280" height="280" alt="" />
-        <img class="dock-guide dock-art" src={guideArt('guide-clay-docked.webp')} width="320" height="320" alt="" loading="lazy" />
+        <img class="dock-guide dock-art" src={art('guide-brand-docked.webp')} width="320" height="320" alt="" loading="lazy" />
       </figure>
     </section>
     <div class="wrap story-return"><a class="plain-link" href="#top" data-story-replay>回到顶部</a></div>
   </div>
 
-  <img class="journey-folder" src={art('guide-project-folder.webp')} width="280" height="280" alt="" aria-hidden="true" hidden />
-  <canvas class="journey-guide" data-src={guideArt('guide-clay-footer-atlas.webp')} width="320" height="320" aria-hidden="true" hidden></canvas>
   <canvas class="journey-cord" aria-hidden="true" hidden></canvas>
+  <img class="journey-folder" src={art('guide-project-folder.webp')} width="280" height="280" alt="" aria-hidden="true" hidden />
+  <canvas class="journey-guide" data-src={art('guide-brand-atlas.webp')} width="320" height="320" aria-hidden="true" hidden></canvas>
   <span class="journey-note" aria-hidden="true" hidden></span>
 </div>
 

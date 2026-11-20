@@ -1,5 +1,8 @@
 import guideSheet from '../data/home-guide.json'
 
+const ARRIVAL_TRAVEL_MS = 1100
+const LANDING_PLAYBACK_RATE = .72
+
 const story = document.querySelector('.home-story')
 if (story) {
   const root = document.documentElement
@@ -60,6 +63,7 @@ if (story) {
   let clipClock = 0
   let landingClock = -1
   let parked = false
+  let arrivalProgress = 0
   let lastSpriteFrame = -1
   let paintRequest = 0
   let visualY = scrollY
@@ -128,7 +132,7 @@ if (story) {
     }
     let frame
     if (landingClock >= 0) {
-      landingClock += elapsed
+      landingClock += elapsed * LANDING_PLAYBACK_RATE
       frame = intro + walk + Math.min(land-1,Math.floor(landingClock/landingDuration*land))
       parked = landingClock >= landingDuration
     } else if (clipClock < introDuration) {
@@ -137,8 +141,9 @@ if (story) {
       frame = intro + Math.floor(((clipClock-introDuration)%walkDuration)/walkDuration*walk)
     }
     if (frame !== lastSpriteFrame) {
-      guideContext.clearRect(0,0,pixels,pixels)
-      guideContext.drawImage(atlas,frame%columns*pixels,Math.floor(frame/columns)*pixels,pixels,pixels,0,0,pixels,pixels)
+      guideContext.clearRect(0, 0, guideSprite.width, guideSprite.height)
+      guideContext.drawImage(atlas, frame % columns * pixels, Math.floor(frame / columns) * pixels, pixels, pixels,
+        0, 0, guideSprite.width, guideSprite.height)
       lastSpriteFrame = frame
     }
     return guideSheet.grips[frame]
@@ -176,7 +181,12 @@ if (story) {
 
     const enabled = motionOn()
     const departing = clamp((visualY - height * .09) / Math.max(180, railTop - bar - height * .09),0,1)
-    const arriving = clamp((visualY - begin) / Math.max(1,end - begin),0,1)
+    // Give the descent its own pace even when the page scrolls quickly.
+    const desiredArrival = clamp((target - begin) / Math.max(1,end - begin),0,1)
+    const arrivalStep = dt / ARRIVAL_TRAVEL_MS
+    const settling = enabled && desiredArrival - arrivalProgress > arrivalStep
+    arrivalProgress = settling ? arrivalProgress + arrivalStep : desiredArrival
+    const arriving = arrivalProgress
     if (parked && target < begin) {
       parked = false
       landingClock = -1
@@ -191,12 +201,12 @@ if (story) {
     story.classList.toggle('story-arrived',target >= end)
     guideSprite.hidden = folderSprite.hidden = cord.hidden = !show
     note.hidden = !show || departing < .98 || arriving > .22 || current === 0
-    if (visualY !== target) requestDraw()
+    if (visualY !== target || settling) requestDraw()
     if (!show) return
     // Let the intro finish, then stop the sprite when the visitor stops scrolling.
     // Landing still plays once when the dock is in view.
     const isMoving = clipClock < guideSheet.introDuration + guideSheet.walkDuration
-      || now - idleSince < 700 || atDestination
+      || now - idleSince < 700 || settling || atDestination
     if (isMoving && !document.hidden) requestDraw()
 
     const next = Math.min(current + 1,railX.length - 1)

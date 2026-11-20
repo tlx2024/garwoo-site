@@ -15,7 +15,7 @@ const jsonLd = {
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'CNY', description: '客户端免费，官方 AI 按积分计费' },
 };
 ---
-<Base og="og-home" jsonLd={jsonLd} description="用本体把目标、资料和结果连起来。跟着嘎呜走一遍公司、实验室或工厂的任务，从设定目标到回填结果。" page="home">
+<Base og="og-home" jsonLd={jsonLd} description="跟着嘎呜走一遍公司、实验室或工厂的任务，从设定目标到回填结果。" page="home">
   <script define:vars={{ examplesPage: href('/how/') }}>
     function forwardExampleLink() {
       if (/^#examples$|^#example-[a-z0-9-]+$/.test(location.hash)) {
