@@ -10,7 +10,7 @@ Node 22，进入 `site/` 后执行 `npm ci`、`npm test`、`npm run check`。Win
 
 - `npm run build:pages`：GitHub Pages 预览，子路径 `/garwoo-site/`，产物 `dist/pages/`。`robots.txt` 为 `Disallow: /`。
 - `SITE_PREVIEW=true WWW_ORIGIN=https://www.garwoo.example npm run build:www`：生产形态（根路径 `/`），占位域名只允许用于评审；产物 `dist/www/`。
-- `WWW_ORIGIN=https://www.garwoo.cn npm run build:www`：正式域名构建。域名与 ICP 备案（品牌迁移方案 G0）完成前不要上线。
+- `WWW_ORIGIN=https://garwoo.com npm run build:www`：正式域名构建。域名与 ICP 备案（品牌迁移方案 G0）完成前不要上线。
 - PowerShell：先设置 `$env:SITE_MODE='www'` 和 `$env:WWW_ORIGIN='…'`，再执行命令。
 
 `ACCOUNT_ORIGIN`、`DOWNLOAD_ORIGIN` 只接受 HTTPS 源地址，尚未开放时留空。所有站内链接用部署无关的根路径：Astro 里调用 `href()`，Markdown 链接由构建插件补当前 base。
@@ -31,13 +31,15 @@ Node 22，进入 `site/` 后执行 `npm ci`、`npm test`、`npm run check`。Win
 
 `deploy/deploy.ps1` 与 `deploy/remote-install.sh` 是从 `iai-pages` 改来的，尚未在真实主机上验证，G5 之前不使用。吉祥物与字标素材（设计稿 v2）不授权复用。
 
+官网主域名为 `https://garwoo.com`。`www.garwoo.com`、`garwoo.cn` 和 `www.garwoo.cn` 跳转到同一主站，保留路径及查询参数。部署时确认 TLS 证书覆盖这四个主机名。
+
 ## 上线前必须完成
 
 当前站点是预览形态（`robots.txt` 与 `<meta name="robots">` 都不让收录），以下事项没做完之前不要用正式域名构建发布：
 
 - **真实截图。** 页面里的产品界面是 HTML 画的示意，不是真实截图。产品内显示名改为“格物”之前，客户端界面仍写着旧名称，截图会与官网品牌不符；对话类截图还要用真实模型的回答。
 - **品牌规范。** 吉祥物与字标已换成设计稿 v2；最小尺寸、安全边距、禁用示例等规范还没定稿，品牌页上的色值是从素材里取样的近似值。
-- **域名与备案。** `garwoo.cn` 的 ICP 备案号、页脚备案位。
+- **域名与备案。** 核对 `garwoo.com` 的 ICP 备案与页脚备案信息。
 - **预约演示、注册与购买。** 目前没有提交端点，企业页的预约表单是禁用状态，不放登录入口。
 - **联系方式与运营主体。** 关于页写“备案完成后公布”。
 

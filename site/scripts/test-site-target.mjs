@@ -36,7 +36,7 @@ test('www artifact uses root paths and its own output directory', () => {
   assert.equal(result.outDir, './dist/www');
 });
 test('production www origin is accepted without the preview switch', () => {
-  assert.equal(siteTarget({ SITE_MODE: 'www', WWW_ORIGIN: 'https://www.garwoo.cn' }).site, 'https://www.garwoo.cn');
+  assert.equal(siteTarget({ SITE_MODE: 'www', WWW_ORIGIN: 'https://garwoo.com' }).site, 'https://garwoo.com');
   assert.throws(() => siteTarget({ SITE_MODE: 'www', WWW_ORIGIN: 'https://www.garwoo.example' }), /placeholder/);
 });
 test('www build cannot silently inherit Pages settings', () => {

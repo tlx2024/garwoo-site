@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       www_origin:
-        description: Official HTTPS www origin
+        description: Official HTTPS site origin
+        default: https://garwoo.com
         required: true
       account_origin:
         description: Verified account origin (leave blank until ready)

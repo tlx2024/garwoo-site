@@ -27,7 +27,7 @@ for (const [name, [title, sub]] of Object.entries(cards)) {
   <g transform="translate(750 135)">${mascot}</g>
   <text x="80" y="290" font-family="${FONT}" font-size="84" font-weight="700" fill="#ffffff">${title}</text>
   <text x="80" y="370" font-family="${FONT}" font-size="32" fill="#dbe6ff">${sub}</text>
-  <text x="80" y="560" font-family="${FONT}" font-size="26" fill="#bcd0ff">garwoo.cn</text>
+  <text x="80" y="560" font-family="${FONT}" font-size="26" fill="#bcd0ff">garwoo.com</text>
 </svg>`;
   await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toFile(path.join(out, `${name}.png`));
   console.log(`og/${name}.png`);

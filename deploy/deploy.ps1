@@ -6,7 +6,7 @@
 param(
     [string]$Remote = 'betterme-prod',
     [string]$WebRoot = '/var/www/garwoo-www',
-    [string]$WwwOrigin = $(if ($env:WWW_ORIGIN) { $env:WWW_ORIGIN } else { 'https://www.garwoo.cn' }),
+    [string]$WwwOrigin = $(if ($env:WWW_ORIGIN) { $env:WWW_ORIGIN } else { 'https://garwoo.com' }),
     [string]$AccountOrigin = $env:ACCOUNT_ORIGIN,
     [string]$DownloadOrigin = $env:DOWNLOAD_ORIGIN,
     [switch]$DryRun
