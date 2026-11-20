@@ -79,7 +79,7 @@ export default defineConfig({
       sidebar: [
         {
           label: '文档',
-          items: [{ label: '文档首页', link: '/docs/' }, 'docs/quickstart', 'docs/models', 'docs/trial', 'docs/faq'],
+          items: [{ label: '文档首页', link: '/docs/' }, 'docs/quickstart', 'docs/concepts', 'docs/first-project', 'docs/models', 'docs/trial', 'docs/troubleshooting', 'docs/faq', 'docs/glossary'],
         },
         {
           label: '官网',

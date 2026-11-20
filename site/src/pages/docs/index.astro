@@ -20,8 +20,12 @@ import Icon from '../../components/Icon.astro';
     <p class="guide-result" role="status" aria-live="polite"></p>
     <div class="grid g3" id="guide-list">
       <a class="card hover" href={href('/docs/quickstart/')}><div class="ic blue"><Icon name="spark" size={18} /></div><h3>快速开始</h3><p>装好之后第一天怎么用：建项目、放文件、提问、采纳。</p></a>
+      <a class="card hover" href={href('/docs/concepts/')}><div class="ic blue"><Icon name="cube" size={18} /></div><h3>核心概念</h3><p>项目、本体、起步包、智能体、出处，以及它们怎样配合。</p></a>
+      <a class="card hover" href={href('/docs/first-project/')}><div class="ic blue"><Icon name="flask" size={18} /></div><h3>第一个项目</h3><p>以配方研发为例，从建项目到补测回填走一遍。</p></a>
       <a class="card hover" href={href('/docs/models/')}><div class="ic blue"><Icon name="cpu" size={18} /></div><h3>模型配置</h3><p>官方 AI，或接 OpenAI 兼容地址、本机 Ollama。</p></a>
       <a class="card hover" href={href('/docs/trial/')}><div class="ic blue"><Icon name="book" size={18} /></div><h3>内测说明</h3><p>本机资料、账号与积分、出网同意，以及当前的发布状态。</p></a>
+      <a class="card hover" href={href('/docs/troubleshooting/')}><div class="ic blue"><Icon name="search" size={18} /></div><h3>使用中的问题</h3><p>回答说没查到、官方 AI 暂停、找不到下载链接怎么办。</p></a>
+      <a class="card hover" href={href('/docs/glossary/')}><div class="ic"><Icon name="library" size={18} /></div><h3>术语表</h3><p>项目、本体、对象、智能体、出处等常用词。</p></a>
       <a class="card hover" href={href('/docs/faq/')}><div class="ic blue"><Icon name="quote" size={18} /></div><h3>常见问题</h3><p>费用、联网、数据放在哪里。</p></a>
       <a class="card hover" href={href('/enterprise/')}><div class="ic blue"><Icon name="building" size={18} /></div><h3>企业部署</h3><p>私有化交付的组件、交付物与安装步骤。</p></a>
       <a class="card hover" href={href('/egress/')}><div class="ic"><Icon name="shield" size={18} /></div><h3>出网清单</h3><p>逐条列出什么会发出去。</p></a>
