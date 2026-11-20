@@ -61,9 +61,10 @@ body[data-page="home"] .site-footer {
   h2 { font-size:clamp(2rem,3.6vw,3.18rem); line-height:1.23; letter-spacing:-.049em; text-wrap:balance; }
   .chapter h2 { margin-top:9px; }
   .choices { border:0; padding:0; margin-top:26px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; min-width:0; }
-  .choice { display:flex; flex-direction:column; align-items:flex-start; position:relative; min-width:0; padding:0 5px 16px; border-bottom:2px solid transparent; cursor:pointer; }
+  .choice { display:flex; flex-direction:column; align-items:flex-start; position:relative; min-width:0; padding:8px 12px 14px; border:1px solid transparent; border-radius:calc(var(--art-radius) + 2px); cursor:pointer; transition:border-color .15s, background-color .15s; }
+  .choice:hover { background:color-mix(in srgb,var(--primary) 4%,transparent); }
   .choice input:focus-visible + .choice-art { outline:2px solid var(--primary-strong); outline-offset:2px; }
-  .choice:has(input:checked) { border-bottom-color:var(--primary-strong); }
+  .choice:has(input:checked) { border-color:var(--primary-strong); background:color-mix(in srgb,var(--primary) 6%,transparent); }
   .choice-art { width:100%; height:clamp(110px,16vw,214px); border-radius:var(--art-radius); display:grid; place-items:center; background:radial-gradient(ellipse,var(--art-wash),transparent 69%); }
   .choice-art img { width:clamp(100px,14vw,194px); height:auto; }
   .choice-name { font-weight:710; font-size:clamp(1.12rem,2.05vw,1.58rem); }
@@ -120,6 +121,7 @@ body[data-page="home"] .site-footer {
   .start { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,.72fr); align-items:center; gap:20px var(--chapter-gap); padding-block:var(--section-space) 16px; }
   .start-links { display:flex; flex-wrap:wrap; gap:6px 20px; margin-top:20px; color:var(--muted); font-size:.88rem; }
   .start-links a:hover { color:var(--primary-strong); }
+  .story-return .replay { padding:8px 16px; border:1px solid var(--line-strong); border-radius:999px; background:var(--panel); }
   .story-return { display:flex; justify-content:flex-end; padding-block-end:24px; }
   .footer-dock { width:min(100%,430px); aspect-ratio:1.55; position:relative; justify-self:center; isolation:isolate; }
   .footer-dock::before { content:""; position:absolute; inset:24% 7% 0; z-index:-1; background:radial-gradient(ellipse,var(--art-wash),transparent 68%); }
