@@ -101,9 +101,10 @@
   .next-round strong { color:var(--ink-soft); font-size:1.03rem; }
   .next-round p { max-width:42em; color:var(--muted); font-size:.93rem; }
   .site-tail { background:var(--bg-2); }
-  .start { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,.72fr); align-items:center; gap:20px var(--chapter-gap); padding-block:var(--section-space) 44px; }
+  .start { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,.72fr); align-items:center; gap:20px var(--chapter-gap); padding-block:var(--section-space) 16px; }
   .start-links { display:flex; flex-wrap:wrap; gap:6px 20px; margin-top:20px; color:var(--muted); font-size:.88rem; }
   .start-links a:hover { color:var(--primary-strong); }
+  .story-return { display:flex; justify-content:flex-end; padding-block-end:24px; }
   .footer-dock { width:min(100%,360px); aspect-ratio:1.65; position:relative; justify-self:center; isolation:isolate; }
   .footer-dock::before { content:""; position:absolute; inset:24% 7% 0; z-index:-1; background:radial-gradient(ellipse,var(--art-wash),transparent 68%); }
   .dock-guide,.dock-folder { position:absolute; height:auto; }

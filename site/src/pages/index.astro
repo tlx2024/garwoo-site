@@ -1,9 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import HomeStory from '../components/HomeStory.astro';
-import ProjectExplorer from '../components/ProjectExplorer.astro';
-import CompanionOutcomes from '../components/CompanionOutcomes.astro';
 import { ENDPOINTS } from '../lib/target';
+import { href } from '../lib/url';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -17,21 +16,16 @@ const jsonLd = {
 };
 ---
 <Base og="og-home" jsonLd={jsonLd} description="用本体把目标、资料和结果连起来。跟着嘎呜走一遍公司、实验室或工厂的任务，从设定目标到回填结果。" page="home">
-<main id="main">
-  <HomeStory />
-  <ProjectExplorer />
-  <CompanionOutcomes />
-  <section class="sec"><div class="wrap faq"><h2>开始前，你可能想问</h2><div>
-    <details open><summary>专业包里有什么？</summary><p>这里的专业包就是本体包，内置的称为起步包。它包含领域中的对象与规则、示例资料和智能体配置。装入后，你可以检查、调整，再加入自己的资料开展任务。</p></details>
-    <details><summary>智能体具体能做什么？</summary><p>按配置好的职责，使用已授权的技能查询、比较资料，起草成果或执行任务。七个项目示例展示了各自的输入、分工与成果，具体执行范围取决于可用技能。</p></details>
-    <details><summary>装上工厂包就能操作设备吗？</summary><p>起步包先提供设备、工序与规程的示例结构。真实设备需要适配接口、配置权限并完成现场验收，不能仅靠安装包直接控制。</p></details>
-    <details><summary>每个文件夹都是一个专业包吗？</summary><p>专业包提供可复用的领域结构，文件夹保存项目资料。七个文件夹展示不同任务如何开展，可以用来理解工作方式，再按需配置本体与智能体。</p></details>
-  </div></div>
-    <div class="wrap return-top"><a href="#top" data-story-replay>回到顶部</a></div>
-  </section>
-</main>
-<style>
-  .return-top { text-align:end; margin-top:24px; }
-  .return-top a { color:var(--primary-strong); text-decoration:underline; text-underline-offset:4px; }
-</style>
+  <script define:vars={{ examplesPage: href('/how/') }}>
+    function forwardExampleLink() {
+      if (/^#examples$|^#example-[a-z0-9-]+$/.test(location.hash)) {
+        location.replace(examplesPage + location.hash);
+      }
+    }
+    forwardExampleLink();
+    addEventListener('hashchange', forwardExampleLink);
+  </script>
+  <main id="main">
+    <HomeStory />
+  </main>
 </Base>

@@ -2,6 +2,7 @@
 import { href } from '../lib/url';
 import NextStep from './NextStep.astro';
 
+const isHome = Astro.url.pathname === href('/');
 const legalLinks = [['隐私政策', '/legal/privacy/'], ['用户协议', '/legal/terms/']];
 const groups = [
   { title: '产品', items: [['桌面端', '/desktop/'], ['手机伴侣', '/mobile/'], ['微信小程序', '/mobile/#weapp'], ['本体市场', '/packs/']] },
@@ -13,7 +14,7 @@ const groups = [
 ---
 <footer class="site-footer">
   <div class="wrap">
-    <NextStep />
+    {!isHome && <NextStep />}
     <div class="fgrid">
       <div>
         <a class="logo" href={href('/')}>

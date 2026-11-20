@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import DecisionStory from '../components/DecisionStory.astro';
+import ProjectExplorer from '../components/ProjectExplorer.astro';
 import { windowsCta } from '../data/status';
 const cta = await windowsCta();
 ---
@@ -21,7 +22,7 @@ const cta = await windowsCta();
     </div>
   </section>
   <DecisionStory />
-  <div class="wrap"><a class="link" href={href('/#examples')}>看看另外六种任务怎么开展 ↗</a></div>
+  <ProjectExplorer />
   <section class="wrap working-notes">
     <div><h2>这次查清的，下次接着用。</h2><p>资料可整理成有出处的 Wiki，已确认的方法可以复用。新问题暴露出的缺口，由 AI 提议，你决定是否采纳。</p></div>
     <div><h3>资料与本体留在本机</h3><p>使用官方 AI、云端识别或聊天通道时，按出网清单说明发送内容。</p><a class="link" href={href('/egress/')}>查看出网清单 ↗</a></div>
