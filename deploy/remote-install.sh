@@ -14,8 +14,9 @@ NEW="${WEB_ROOT}.new-${STAMP}"
 OLD="${WEB_ROOT}.bak"
 
 sudo mkdir -p "$NEW"
-sudo tar -xzf "$STAGE/www.tgz" -C "$NEW"
+sudo tar --no-same-owner -xzf "$STAGE/www.tgz" -C "$NEW"
 test -f "$NEW/index.html" || { echo "index.html missing in archive" >&2; sudo rm -rf "$NEW"; exit 1; }
+sudo chmod -R u=rwX,go=rX "$NEW"
 
 had_conf=0
 if sudo test -f "$CONF_DEST"; then
@@ -49,7 +50,6 @@ fi
 sudo rm -rf "$OLD"
 if [ -d "$WEB_ROOT" ]; then sudo mv "$WEB_ROOT" "$OLD"; fi
 sudo mv "$NEW" "$WEB_ROOT"
-sudo chmod -R a+rX "$WEB_ROOT"
 
 if ! sudo systemctl reload nginx; then
   echo "nginx reload failed; rolling back" >&2
