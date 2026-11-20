@@ -9,12 +9,12 @@ const features = [
   {
     icon: 'users',
     title: '账号与安全',
-    desc: '使用手机号验证码或微信快速登录。密码与敏感凭据加密保管，支持多端会话管理。',
+    desc: '桌面端通过浏览器授权登录。手机号、微信登录随手机伴侣与微信小程序开放，目前规划中。',
   },
   {
     icon: 'desktop',
     title: '设备授权管理',
-    desc: '查看当前已绑定的 Windows 电脑、Android 手机与微信小程序，支持单点解绑或一键吊销其他会话。',
+    desc: '查看已绑定的 Windows 电脑，支持解绑单个设备或吊销其他会话。手机与小程序设备随各自版本开放后加入。',
   },
   {
     icon: 'cpu',
@@ -30,7 +30,7 @@ const features = [
 ---
 
 <Base
-  title="账号中心 · 格物 Garwoo"
+  title="账号中心"
   description="格物个人账号管理：登录、设备授权、官方 AI 积分与隐私数据导出。"
   page="account"
 >
@@ -76,8 +76,8 @@ const features = [
         <h3 style="font-size:15px;font-weight:600">多端登录说明</h3>
         <ul style="margin-top:12px;padding-left:20px;font-size:14px;line-height:1.8;color:var(--ink-soft)">
           <li><strong>桌面端（Windows）</strong>：在应用设置中点击“登录官网账号”，将自动唤起浏览器完成设备授权并回传凭据。</li>
-          <li><strong>手机伴侣（Android）</strong>：支持原生短信验证码快捷登录与扫码配对。</li>
-          <li><strong>微信小程序</strong>：一键授权微信身份登录，支持与手机号账户绑定并随时解绑。</li>
+          <li><strong>手机伴侣（Android）</strong>：规划中，开放后支持短信验证码登录与扫码配对。</li>
+          <li><strong>微信小程序</strong>：规划中，开放后支持微信授权登录。</li>
         </ul>
       </div>
 
