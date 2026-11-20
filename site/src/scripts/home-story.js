@@ -1,4 +1,4 @@
-import guideSheet from '../data/home-guide.json'
+import { GUIDE_CLIPS, POSTER_GRIP, createMascotPainter, mascotPose } from './home-mascot.js'
 
 const ARRIVAL_TRAVEL_MS = 1100
 const LANDING_PLAYBACK_RATE = .72
@@ -23,7 +23,7 @@ if (story) {
       const rect = image.getBoundingClientRect()
       return [rect.left - frame.left + rect.width * x, rect.top - frame.top + rect.height * y]
     }
-    const [x1, y1] = anchor(mascot, ...guideSheet.poster)
+    const [x1, y1] = anchor(mascot, ...POSTER_GRIP)
     const [x2, y2] = anchor(folder, .754, .560)
     const drift = Math.max(12, Math.abs(x2 - x1) * .27)
     context.setTransform(ratio,0,0,ratio,0,0)
@@ -58,13 +58,14 @@ if (story) {
   const pen = cord.getContext('2d')
   const domains = [...story.querySelectorAll('input[name="domain"]')]
   let layout
-  let ready = false
-  let atlas
+  let texture
+  let paintMascot
   let clipClock = 0
   let landingClock = -1
   let parked = false
   let arrivalProgress = 0
-  let lastSpriteFrame = -1
+  let lastSpriteFrame
+  let grip = POSTER_GRIP
   let paintRequest = 0
   let visualY = scrollY
   let speed = 0
@@ -76,7 +77,7 @@ if (story) {
   const clamp = (number, low, high) => Math.min(high, Math.max(low, number))
   const lerp = (first, next, ratio) => first + (next - first) * ratio
   const ease = value => value * value * (3 - 2 * value)
-  const motionOn = () => ready && !reduced.matches && !!pen && !!guideContext
+  const motionOn = () => !!paintMascot && !reduced.matches
 
   function requestDraw() {
     if (!paintRequest) paintRequest = requestAnimationFrame(drawJourney)
@@ -123,30 +124,30 @@ if (story) {
     return {x:point.x + dx * Math.cos(angle) - dy * Math.sin(angle),y:point.y + dx * Math.sin(angle) + dy * Math.cos(angle)}
   }
 
-  function paintCharacter(dt, atDestination) {
+  function paintCharacter(dt, atDestination, projectedSize) {
     const elapsed = Math.min(dt,45) / 1000
-    const { introDuration,walkDuration,landingDuration,intro,walk,land,columns,pixels } = guideSheet
+    const { intro, walk, land } = GUIDE_CLIPS
     if (landingClock < 0) {
       clipClock += elapsed
-      if (atDestination && clipClock >= introDuration && (clipClock-introDuration)%walkDuration < elapsed + .02) landingClock = 0
+      if (atDestination && clipClock >= intro.duration && (clipClock - intro.duration) % walk.duration < elapsed + .02) landingClock = 0
     }
-    let frame
     if (landingClock >= 0) {
       landingClock += elapsed * LANDING_PLAYBACK_RATE
-      frame = intro + walk + Math.min(land-1,Math.floor(landingClock/landingDuration*land))
-      parked = landingClock >= landingDuration
-    } else if (clipClock < introDuration) {
-      frame = Math.min(intro-1,Math.floor(clipClock/introDuration*intro))
-    } else {
-      frame = intro + Math.floor(((clipClock-introDuration)%walkDuration)/walkDuration*walk)
+      parked = landingClock >= land.duration
     }
-    if (frame !== lastSpriteFrame) {
-      guideContext.clearRect(0, 0, guideSprite.width, guideSprite.height)
-      guideContext.drawImage(atlas, frame % columns * pixels, Math.floor(frame / columns) * pixels, pixels, pixels,
-        0, 0, guideSprite.width, guideSprite.height)
-      lastSpriteFrame = frame
+
+    const phase = landingClock >= 0 ? 'land' : clipClock < intro.duration ? 'intro' : 'walk'
+    const time = phase === 'land' ? landingClock : phase === 'intro' ? clipClock : (clipClock - intro.duration) % walk.duration
+    const { duration, frames } = GUIDE_CLIPS[phase]
+    const frame = Math.min(frames - 1, Math.floor(time / duration * frames))
+    const screenPixels = projectedSize * Math.min(2, devicePixelRatio || 1)
+    const pixels = clamp(Math.ceil(screenPixels / 128) * 128, 128, 1024)
+    const frameKey = `${phase}:${frame}:${pixels}`
+    if (frameKey !== lastSpriteFrame) {
+      grip = paintMascot(mascotPose(phase, frame * duration / frames), pixels)
+      lastSpriteFrame = frameKey
     }
-    return guideSheet.grips[frame]
+    return grip
   }
 
   function drawJourney(now) {
@@ -205,7 +206,7 @@ if (story) {
     if (!show) return
     // Let the intro finish, then stop the sprite when the visitor stops scrolling.
     // Landing still plays once when the dock is in view.
-    const isMoving = clipClock < guideSheet.introDuration + guideSheet.walkDuration
+    const isMoving = clipClock < GUIDE_CLIPS.intro.duration + GUIDE_CLIPS.walk.duration
       || now - idleSince < 700 || settling || atDestination
     if (isMoving && !document.hidden) requestDraw()
 
@@ -240,9 +241,9 @@ if (story) {
     load.size = lerp(load.size,layout.dockFolder.size,folderLanding)
     load.tilt *= 1 - folderLanding
 
-    const [holdX,holdY,gripped] = paintCharacter(isMoving ? dt : 0, atDestination)
-    const walkStart = guideSheet.introDuration - guideSheet.walkDuration
-    const pull = gripped * (1 - t) * (.64 + .36 * Math.sin((clipClock - walkStart) / guideSheet.walkDuration * Math.PI * 2))
+    const [holdX,holdY,gripped] = paintCharacter(isMoving ? dt : 0, atDestination, character.size)
+    const walkStart = GUIDE_CLIPS.intro.duration - GUIDE_CLIPS.walk.duration
+    const pull = gripped * (1 - t) * (.64 + .36 * Math.sin((clipClock - walkStart) / GUIDE_CLIPS.walk.duration * Math.PI * 2))
     load.x -= pull * (phone.matches ? 10 : 18)
     load.y -= pull * 3
     load.tilt -= pull * 5
@@ -284,10 +285,13 @@ if (story) {
   }
 
   function loadAnimatedGuide() {
-    if (reduced.matches || !pen || !guideContext || atlas) return
-    atlas = new Image()
-    atlas.src = guideSprite.dataset.src
-    atlas.decode().then(() => { ready = true; requestDraw() },() => {})
+    if (reduced.matches || !pen || !guideContext || texture) return
+    texture = new Image()
+    texture.src = guideSprite.dataset.src
+    texture.decode().then(() => {
+      paintMascot = createMascotPainter(guideSprite, guideContext, texture)
+      requestDraw()
+    }, () => {})
   }
 
   addEventListener('scroll',requestDraw,{passive:true})
