@@ -1,0 +1,183 @@
+---
+import '../styles/home-story.css';
+import { homeCases } from '../data/home-cases';
+import { windowsCta } from '../data/status';
+import { href } from '../lib/url';
+
+const { label: downloadLabel } = await windowsCta();
+const art = (file: string) => href(`/home/${file}`);
+const stages = [
+  ['domains', '选择领域'],
+  ['goal', '设定目标'],
+  ['organize', '整理资料'],
+  ['review', '核对结果'],
+  ['finish', '完成闭环'],
+] as const;
+
+const chapters = [
+  { id: 'goal', label: stages[1][1], title: 'goal', picture: 'cover' },
+  { id: 'organize', label: stages[2][1], title: 'evidence', picture: 'evidenceArt' },
+  { id: 'review', label: stages[3][1], title: 'review', picture: 'reviewArt' },
+] as const;
+---
+
+<div class="home-story">
+  <section class="story-hero wrap" aria-labelledby="headline">
+    <div class="hero-text">
+      <p class="eyebrow">嘎呜一声，格物开工。</p>
+      <h1 id="headline">让 AI 帮你构建<span>自己的专业领域</span></h1>
+      <p class="hero-description">用本体把目标、资料和结果连起来。</p>
+      <div class="actions">
+        <a class="btn btn-primary btn-lg" href="#domains">选择领域</a>
+        <a class="btn btn-lg" href="#goal">看案例</a>
+      </div>
+    </div>
+    <figure class="hero-art" role="img" aria-label="嘎呜拉着项目资料夹出发">
+      <img class="hero-character" src={art('guide-clay-unified-still.webp')} width="320" height="320" alt="" fetchpriority="high" />
+      <img class="hero-folder" src={art('guide-project-folder.webp')} width="280" height="280" alt="" />
+      <canvas class="hero-cord" aria-hidden="true"></canvas>
+    </figure>
+  </section>
+
+  <div class="story-flow">
+    <nav class="flow-nav" aria-label="任务流程">
+      <ol class="wrap stage-rail">
+        {stages.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}
+      </ol>
+    </nav>
+
+    <section class="choice-section wrap" id="domains" aria-labelledby="domains-heading">
+      <h2 id="domains-heading">你想先做哪件事？</h2>
+      <fieldset class="choices">
+        <legend class="sr-only">选择一个领域查看完整任务</legend>
+        {homeCases.map((item) => (
+          <label class="choice">
+            <input class="sr-only" type="radio" name="domain" id={`field-${item.key}`}
+              checked={item.key === 'lab'} data-record={item.record}
+              data-pending={item.checks.find((row) => row[3] === 'warn')?.[2]} />
+            <span class="choice-art">
+              <img src={art(`domain-${item.key}.webp`)} width="320" height="320" alt="" loading="lazy" decoding="async" />
+            </span>
+            <span class="choice-name">{item.domain}</span>
+          </label>
+        ))}
+      </fieldset>
+      <div class="case-summary" id="workflow" aria-live="polite">
+        {homeCases.map((item) => (
+          <div class="task-lead" data-case={item.key}>
+            <div>
+              <div class="chapter-heading">
+                <a class="pack-link" href={href(`/packs/${item.packSlug}/`)}>{item.pack}</a>
+                <span class="case-number">{item.id}</span>
+              </div>
+              <h3>{item.question}</h3>
+            </div>
+            <a class="plain-link" href="#goal">查看任务</a>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {chapters.map((chapter) => (
+      <section class="chapter wrap" id={chapter.id} aria-label={chapter.label}>
+        {homeCases.map((item) => (
+          <article class="chapter-variant" data-case={item.key}>
+            <div class="chapter-content">
+              <div class="chapter-copy">
+                <div class="chapter-heading"><span>{chapter.label}</span><span class="case-number">{item.id}</span></div>
+                <h2>{item[chapter.title]}</h2>
+              </div>
+              <div class="chapter-detail">
+                {chapter.id === 'goal' && (
+                  <dl class="metrics">
+                    {item.criteria.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
+                  </dl>
+                )}
+                {chapter.id === 'organize' && (
+                  <>
+                    <ol class="trace-chain" aria-label="资料关联顺序">
+                      {item.chain.map((label) => <li>{label}</li>)}
+                    </ol>
+                    <ul class="records">
+                      {item.files.map(([file, use]) => <li><strong>{file}</strong><span>{use}</span></li>)}
+                    </ul>
+                  </>
+                )}
+                {chapter.id === 'review' && (
+                  <>
+                    <table class="review-table">
+                      <caption class="sr-only">示例结果核对表</caption>
+                      <thead><tr><th scope="col">检查项</th><th scope="col">现有依据</th><th scope="col">状态</th></tr></thead>
+                      <tbody>
+                        {item.checks.map(([label, value, status, tone]) => (
+                          <tr><th scope="row">{label}</th><td>{value}</td><td class={tone}>{status}</td></tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div class="handoff"><strong>{item.by}</strong><span>{item.reviewSource}</span></div>
+                  </>
+                )}
+              </div>
+            </div>
+            <figure class="chapter-picture">
+              <img src={art(item[chapter.picture][0])} alt={item[chapter.picture][1]}
+                width="960" height="640" loading="lazy" decoding="async" />
+              {chapter.id === 'goal' && <figcaption>{item.goalSource}</figcaption>}
+            </figure>
+          </article>
+        ))}
+      </section>
+    ))}
+
+    <section class="chapter finish" id="finish" aria-label="完成闭环">
+      <div class="wrap">
+        {homeCases.map((item) => (
+          <article class="chapter-variant" data-case={item.key}>
+            <div class="chapter-copy">
+              <div class="chapter-heading"><span>完成闭环</span><span class="case-number">{item.id}</span></div>
+              <h2>{item.finish}</h2>
+            </div>
+            <ol class="return-flow">
+              {item.steps.map(([label, title]) => <li><span class="label">{label}</span><h3>{title}</h3></li>)}
+            </ol>
+            <p class="saved">{item.saved}</p>
+            <div class="next-round">
+              <strong>下一轮</strong><p>{item.reuse}</p><a class="plain-link" href="#goal">回到目标</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <div class="site-tail">
+    <section class="wrap start" id="arrival" aria-labelledby="start-heading">
+      <div>
+        <h2 id="start-heading">开始自己的任务</h2>
+        <div class="actions">
+          <a class="btn btn-primary btn-lg" href={href('/download/')}>{downloadLabel}</a>
+          <a class="btn btn-lg" href={href('/packs/')}>本体市场</a>
+        </div>
+        <nav class="start-links" aria-label="了解格物">
+          <a href={href('/desktop/')}>桌面端</a>
+          <a href={href('/egress/')}>资料与出网</a>
+          <a href={href('/enterprise/')}>企业版</a>
+          <a href="#examples">七个项目示例</a>
+        </nav>
+      </div>
+      <figure class="footer-dock" role="img" aria-label="嘎呜放下资料夹">
+        <img class="dock-folder dock-art" src={art('guide-project-folder.webp')} width="280" height="280" alt="" />
+        <img class="dock-guide dock-art" src={art('guide-clay-docked.webp')} width="320" height="320" alt="" loading="lazy" />
+      </figure>
+    </section>
+  </div>
+
+  <img class="journey-folder" src={art('guide-project-folder.webp')} width="280" height="280" alt="" aria-hidden="true" hidden />
+  <canvas class="journey-guide" data-src={art('guide-clay-footer-atlas.webp')} width="320" height="320" aria-hidden="true" hidden></canvas>
+  <canvas class="journey-cord" aria-hidden="true" hidden></canvas>
+  <span class="journey-note" aria-hidden="true" hidden></span>
+</div>
+
+<script>
+  import '../scripts/home-story.js';
+</script>

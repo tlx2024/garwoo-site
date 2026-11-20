@@ -24,7 +24,7 @@ const links = [
   { page: 'docs', label: '文档', to: '/docs/' },
 ];
 ---
-<div class="announce">格物个人版{cta.status}中<a href={href('/download/')}>{cta.label} →</a></div>
+<div class="announce" id="top">格物个人版{cta.status}中<a href={href('/download/')}>{cta.label} →</a></div>
 <header class="site-header" id="hdr">
   <div class="wrap nav">
     <a class="logo" href={href('/')} aria-label="格物首页">
@@ -62,5 +62,9 @@ const links = [
   }
   @media (max-width: 960px) {
     #site-menu { max-height: calc(100dvh - 100px); overflow-y: auto; }
+  }
+  @media (max-width: 480px) {
+    .nav { gap: 12px; }
+    .logo img { height: auto; max-width: min(159px, 27vw); }
   }
 </style>
