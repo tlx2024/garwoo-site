@@ -183,3 +183,55 @@ body[data-page="home"] .site-footer {
 @keyframes home-chapter-enter {
   from { opacity:.48; transform:translateY(9px); }
 }
+
+/* Additional home content. The new sections sit after the arrival dock, so the guide journey measurements are unchanged. */
+.home-story {
+  .hero-lede { margin-top:20px; max-width:30em; color:var(--muted); font-size:clamp(.98rem,1.3vw,1.1rem); line-height:1.8; }
+  .hero-facts { list-style:none; display:flex; flex-wrap:wrap; gap:8px 18px; margin:22px 0 0; padding:0; color:var(--ink-soft); font-size:.86rem; font-weight:620; }
+  .hero-facts li { display:flex; align-items:center; gap:7px; }
+  .hero-facts li::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--primary-strong); flex:none; }
+  .section-sub { margin-top:10px; color:var(--muted); font-size:1rem; }
+  .explore { padding-block:var(--section-space) 0; }
+  .explore:last-of-type { padding-bottom:var(--section-space); }
+  .explore-head { max-width:46em; margin-bottom:26px; }
+  .explore-head .eyebrow { color:var(--primary-strong); font-size:.82rem; font-weight:700; }
+  .explore h2 { margin-top:8px; font-size:clamp(1.6rem,2.8vw,2.3rem); }
+  .explore-head p { margin-top:10px; color:var(--muted); font-size:1rem; line-height:1.8; }
+  .pillars { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+  .pillar { display:flex; flex-direction:column; align-items:flex-start; }
+  .pillar p { flex:1; margin-bottom:14px; line-height:1.75; }
+  .pack-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+  .pack-card { display:flex; flex-direction:column; align-items:flex-start; }
+  .pack-card h3 { margin-top:14px; }
+  .pack-card p { flex:1; line-height:1.7; }
+  .pack-card dl { display:grid; grid-template-columns:repeat(3,auto); gap:4px 24px; margin-top:18px; padding-top:14px; border-top:1px solid var(--line); width:100%; justify-content:start; }
+  .pack-card dt { color:var(--muted); font-size:.76rem; }
+  .pack-card dd { font-size:1.15rem; font-weight:700; color:var(--ink); }
+  .gallery { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+  .gallery li { border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .gallery a { display:flex; flex-direction:column; gap:6px; height:100%; padding:20px 18px; }
+  .gallery a:hover { background:var(--primary-soft); }
+  .gallery strong { color:var(--primary-strong); font-size:.84rem; }
+  .gallery-goal { font-size:1.02rem; font-weight:660; line-height:1.5; }
+  .gallery-role { color:var(--muted); font-size:.82rem; margin-top:auto; padding-top:8px; }
+  .brief-faq details { border-bottom:1px solid var(--line); padding:17px 0; }
+  .brief-faq details:first-child { border-top:1px solid var(--line); }
+  .brief-faq summary { cursor:pointer; font-weight:640; list-style:none; display:flex; justify-content:space-between; gap:16px; }
+  .brief-faq summary::-webkit-details-marker { display:none; }
+  .brief-faq summary::after { content:"+"; color:var(--faint); }
+  .brief-faq details[open] summary::after { content:"−"; }
+  .brief-faq p { margin-top:10px; color:var(--muted); line-height:1.8; max-width:46em; }
+  .brief-more { margin-top:18px; }
+  @media (max-width:1000px) {
+    .pillars, .gallery { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .pack-row { grid-template-columns:1fr; }
+  }
+  @media (max-width:700px) {
+    .hero-lede { margin-top:14px; }
+    .hero-facts { margin-top:16px; gap:6px 14px; }
+    .pillars, .gallery { grid-template-columns:1fr; }
+  }
+}
+
+.home-story .gallery-more a { background:var(--primary-soft); }
+.home-story .gallery-more .gallery-role { color:var(--primary-strong); font-weight:700; }
