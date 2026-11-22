@@ -23,6 +23,8 @@ Node 22，进入 `site/` 后执行 `npm ci`、`npm test`、`npm run check`。Win
 
 ## 与产品仓的关系
 
+起步包的版本、体积、计数、许可、最低客户端和权限来自产品目录的公开字段副本 `site/src/data/pack-catalog.json`。更新时核对产品目录及目标制品，正文把目录版本与当前可获取的客户端内置版本分开说明。构建会检查包详情展示的目录版本与副本一致。
+
 - 产品仓不依赖本仓，也不读本仓源码；它只在 `repos.json` 里钉版本。
 - 出网清单由产品仓拥有（`contracts/personal-egress.json`），本仓的 `site/src/data/personal-egress.json` 是副本，由产品仓 `scripts/repos/repos.py check` 校验一致。
 - 术语、禁用词和口吻以产品仓的统一话术总表为准。本仓的禁用词表是它的副本，话术总表变化时手动同步。

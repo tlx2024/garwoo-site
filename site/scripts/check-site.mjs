@@ -68,6 +68,8 @@ else {
 // Windows release exists nothing may still say the beta is invitation-only, and an unsigned build must say so.
 const releasesDir = path.join(dist, 'releases');
 const published = fs.existsSync(releasesDir) ? fs.readdirSync(releasesDir).filter((f) => f.endsWith('.json')) : [];
+const downloadPage = fs.readFileSync(path.join(dist, 'download', 'index.html'), 'utf8');
+const changelogPage = fs.readFileSync(path.join(dist, 'changelog', 'index.html'), 'utf8');
 const manifests = {};
 for (const file of published) {
   const manifest = JSON.parse(fs.readFileSync(path.join(releasesDir, file), 'utf8'));
@@ -75,17 +77,27 @@ for (const file of published) {
   if (manifest.public !== true) problems.push(`releases/${file}: only public manifests are published`);
   if (file !== `${manifest.platform}.json`) problems.push(`releases/${file}: name does not match platform ${manifest.platform}`);
   manifests[manifest.platform] = manifest;
+  const anchor = manifest.platform === 'android' ? 'android-v' : 'v';
+  if (!changelogPage.includes(`id="${anchor}${manifest.version}"`))
+    problems.push(`releases/${file}: published version is missing from the changelog`);
 }
 if (manifests.windows) {
   const stale = /邀请内测|申请内测|尚未公开发布/;
   for (const file of htmlFiles) {
     if (stale.test(visibleText(fs.readFileSync(path.join(dist, file), 'utf8')))) problems.push(`${file}: still says the Windows beta is closed although a public release is published`);
   }
-  const page = fs.readFileSync(path.join(dist, 'download', 'index.html'), 'utf8');
-  if (!page.includes(manifests.windows.sha256)) problems.push('download: the Windows SHA-256 is not shown');
-  if (manifests.windows.signature.status === 'NotSigned' && !visibleText(page).includes('没有代码签名')) problems.push('download: an unsigned build must say it has no code signature');
+  if (!downloadPage.includes(manifests.windows.sha256)) problems.push('download: the Windows SHA-256 is not shown');
+  if (manifests.windows.signature.status === 'NotSigned' && !visibleText(downloadPage).includes('没有代码签名')) problems.push('download: an unsigned build must say it has no code signature');
+} else if (!downloadPage.includes(`href="${target.base}/docs/trial/"`)) {
+  problems.push('download: the invitation fallback must link to the trial instructions');
 }
-if (manifests.android && !fs.readFileSync(path.join(dist, 'download', 'index.html'), 'utf8').includes(manifests.android.cert_sha256))
+if (manifests.android && !downloadPage.includes(manifests.android.cert_sha256))
   problems.push('download: the Android signing certificate fingerprint is not shown');
+const packCatalog = JSON.parse(fs.readFileSync(path.join(root, 'src', 'data', 'pack-catalog.json'), 'utf8'));
+for (const [slug, { version }] of Object.entries(packCatalog.packs)) {
+  const page = path.join(dist, 'packs', slug, 'index.html');
+  if (!fs.existsSync(page) || !visibleText(fs.readFileSync(page, 'utf8')).includes(`官方精选 · ${version}`))
+    problems.push(`packs/${slug}: the page does not show catalog version ${version}`);
+}
 if (problems.length) throw new Error([...new Set(problems)].join('\n'));
 console.log(`[site] ${target.mode}: ${htmlFiles.length} pages; product claims, links and robots passed`);
