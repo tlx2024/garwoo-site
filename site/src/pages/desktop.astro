@@ -7,29 +7,29 @@ import AppSide from '../components/AppSide.astro';
 import { windowsCta } from '../data/status';
 const cta = await windowsCta();
 ---
-<Base title="桌面端" description="格物桌面端：项目就是你电脑上的文件夹，本体、出处、智能体与日程都在本机。" page="desktop">
+<Base title="桌面端" description="在格物桌面端关联本机资料，核对项目出处、委派智能体并查看结果。" page="desktop">
 <main>
   <div class="wrap hero center">
     <h1>桌面端</h1>
     <p class="lede">把专业包、项目资料和智能体放在一起。<br>从一个文件夹开始，开展你的专业工作。</p>
     <div class="cta">
       <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="win" size={16} /></span>{cta.label}</a>
-      <a class="btn btn-lg" href={href('/how/#examples')}>看七个项目示例</a>
+      <a class="btn btn-lg" href={href('/docs/first-project/')}>看第一个项目</a>
     </div>
   </div>
 
   
   <div class="stage">
     <div class="inner">
-      <div class="app" aria-label="文件视图">
+      <div class="app" aria-label="项目文件界面示意">
         <div class="app-top"><AppTop title="文件 · 格物" /></div>
         <div class="app-body">
           <nav class="app-side"><AppSide current="专利审查" projects="水性涂料配方研发,专利审查,泵站维护,项目周报" /></nav>
           <div class="app-main">
             <div class="app-head">
               <h4>专利审查 · 冷却流量控制</h4>
-              <div class="path">D:\格物示例\专利审查</div>
-              <div class="tabs"><span>对话</span><span class="on">文件</span><span>对象</span><span>智能体与日程</span></div>
+              <div class="path">界面示意 · 专利审查示例</div>
+              <div class="tabs"><span>对话</span><span class="on">文件</span><span>资料库</span><span>智能体</span><span>历史</span></div>
             </div>
             <div class="app-chat" style="gap:8px">
               <div class="objrow"><div><b>CN-EX-2026-0412 冷却液流量自适应控制装置.md</b><div class="k">专利 · 权利要求 1–5</div></div><span class="st ok">已入库</span></div>
@@ -52,8 +52,24 @@ const cta = await windowsCta();
   </div>
 
   <div class="wrap">
+    <section class="sec" id="project-workflow">
+      <div class="sec-head"><h2>在项目里把一件事做完</h2><p>以下为新版桌面演示。可获取的版本和资格以下载页为准。</p></div>
+      <div class="grid g3">
+        <div class="card" style="padding:20px"><h3>选要用的资料</h3><p>关联电脑上的文件夹，在「文件」查看原件，把需要查证的条目收进「资料库」。</p></div>
+        <div class="card" style="padding:20px"><h3>提问并核对出处</h3><p>在项目对话里提问，从回答打开资料版本。也可以带着当前项目范围查看对象、Wiki、图谱、驾驶舱和孪生。</p></div>
+        <div class="card" style="padding:20px"><h3>委派后回看结果</h3><p>把补测清单交给项目智能体。需要写入时先确认，完成后从项目历史查看回写和对话纪要。</p></div>
+      </div>
+      <a class="link" style="margin-top:20px" href={href('/docs/first-project/')}>按步骤走一遍</a>
+    </section>
+    <section class="sec" id="personal-assistant">
+      <div class="sec-head"><h2>用个人助理跟进跨项目的事</h2><p>用「对话」交办，在「待处理」看需要你确认的事项，到「人和事」或「记录」查找上下文。选定目标项目后，结果会回到对应任务，项目历史可打开纪要。</p></div>
+      <figure style="margin:0">
+        <img class="card" src={href('/screens/desktop-personal-assistant.webp')} alt="个人助理的对话、待处理、人和事与记录页签，以及配方研发示例项目" width="1440" height="530" loading="lazy" decoding="async" style="width:100%;height:auto" />
+        <figcaption class="muted" style="margin-top:10px">个人助理候选界面，采集于 2026-11-22，使用配方研发演示项目。可用版本见下载页。</figcaption>
+      </figure>
+    </section>
     <div class="feature">
-      <div class="ft"><h2>句句有出处</h2><p>点开引用，回到原文那一条。没查到就说没查到。</p></div>
+      <div class="ft"><h2>从资料找到依据</h2><p>把要用的文件收进项目资料库。打开回答的引用，核对原文和版本。</p></div>
       <div class="fv reveal">
         <div class="panel">
           <div class="bub-a">权利要求 1 的回水温度上限 <b>85 ℃</b><span class="cite">1</span>，高于规范 4.2 条的 80 ℃<span class="cite">2</span>。另有供液压力下限、管路设计耐压两处与规范冲突。</div>

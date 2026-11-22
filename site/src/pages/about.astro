@@ -55,7 +55,7 @@ const cta = await windowsCta();
           <div class="card"><h3>答案有出处</h3><p>回答带出处。没查到就说没查到，不把缺口写成结论。</p></div>
           <div class="card"><h3>改动先确认</h3><p>会改动文件或对象的操作，先等你确认。AI 起草的本体，采纳之前不生效。</p></div>
           <div class="card"><h3>资料留在本机</h3><p>知识库、原件和本体在你的电脑上。会发出去的内容，逐条列在出网清单里。</p></div>
-          <div class="card"><h3>状态照实写</h3><p>能力只标邀请内测、私有化交付、规划中。没有依据的不写，价格标明是示例。</p></div>
+          <div class="card"><h3>状态照实写</h3><p>各平台按制品和实际开放状态标注，价格示例就地说明。</p></div>
         </div>
       </div>
     </section>
@@ -67,10 +67,10 @@ const cta = await windowsCta();
           <table class="ab-status">
             <tbody>
               <tr><th scope="row">Windows 桌面端</th><td>{cta.status}</td></tr>
-              <tr><th scope="row">手机伴侣、微信小程序</th><td>规划中</td></tr>
+              <tr><th scope="row">手机伴侣</th><td><a class="link" href={href('/mobile/#platforms')}>查看各平台状态</a></td></tr>
               <tr><th scope="row">macOS</th><td>规划中</td></tr>
               <tr><th scope="row">企业版（IAI）</th><td>私有化交付</td></tr>
-              <tr><th scope="row">注册与购买</th><td>未开放，价格是示例</td></tr>
+              <tr><th scope="row">购买</th><td>未开放，价格是示例</td></tr>
             </tbody>
           </table>
         </div>
@@ -80,7 +80,7 @@ const cta = await windowsCta();
     <section class="about reveal">
       <h2>运营与联系</h2>
       <div class="tx">
-        <p>网站已完成 ICP 备案，备案号见页脚。企业版咨询请通过<a class="link" style="display:inline" href={href('/enterprise/#contact')}>预约演示</a>留言。</p>
+        <p>网站已完成 ICP 备案，备案号见页脚。企业版咨询请通过<a class="link" style="display:inline" href={href('/enterprise/#contact')}>企业部署与咨询</a>查看联系方式。</p>
       </div>
     </section>
   </div>

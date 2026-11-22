@@ -2,10 +2,12 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import Icon from '../components/Icon.astro';
-import { windowsCta } from '../data/status';
+import { platformStatus, windowsCta } from '../data/status';
+import { ENDPOINTS } from '../lib/target';
 const cta = await windowsCta();
+const android = await platformStatus('android');
 ---
-<Base title="手机伴侣" description="格物手机伴侣与微信小程序（规划中）：离开电脑也能看进展、确认写操作。" page="mobile">
+<Base title="手机伴侣" description="用手机连接格物桌面端，查看项目、发送资料。了解浏览器、Android、微信小程序和 iOS 的开放状态。" page="mobile">
 <style is:global>
 .phones{display:flex;justify-content:center;align-items:flex-end;gap:36px}
 .phones .phone{border-bottom:0;border-bottom-left-radius:0;border-bottom-right-radius:0;height:380px}
@@ -52,9 +54,8 @@ const cta = await windowsCta();
     <h1>手机伴侣</h1>
     <p class="lede">电脑在办事，你在路上也能确认。</p>
     <div class="cta">
-      <span class="tag" style="align-self:center">规划中</span>
       <a class="btn btn-primary btn-lg" href={href('/download/')}><span><Icon name="desktop" size={17} /></span>先装桌面端</a>
-      <a class="btn btn-lg" href="#weapp"><span><Icon name="wechat" size={17} /></span>微信小程序</a>
+      <a class="btn btn-lg" href="#platforms">看各平台状态</a>
     </div>
   </div>
 
@@ -88,6 +89,25 @@ const cta = await windowsCta();
   </div>
 
   <div class="wrap">
+    <section class="sec" id="platforms">
+      <div class="sec-head"><h2>用哪一端配对</h2><p>先安装个人版桌面端，用获准账号登录手机，再在电脑上确认配对。</p></div>
+      <div class="grid g2">
+        <div class="card" style="padding:20px"><h3>手机浏览器</h3><p>获准账号可试用。账号暂未开放时，联系邀请方确认资格。</p>{ENDPOINTS.account && <a class="link" href={`${ENDPOINTS.account}/m/`}>打开手机伴侣</a>}</div>
+        <div class="card" style="padding:20px"><h3>Android</h3><p>{android.label}</p><a class="link" href={href('/download/')}>查看获取方式</a></div>
+        <div class="card" style="padding:20px"><h3>微信小程序</h3><p>规划中。</p><a class="link" href="#weapp">查看当前能力</a></div>
+        <div class="card" style="padding:20px"><h3>iOS</h3><p>原生版本规划中。获准账号可以先试用手机浏览器入口。</p></div>
+      </div>
+      <p class="muted" style="margin-top:18px">未完成配对时，回桌面检查设备授权。换手机或不再使用时，在桌面的手机设置里吊销旧设备。</p>
+    </section>
+    <section class="sec" id="discover">
+      <div class="sec-head"><h2>打开手机，接着看项目</h2><p>以下为新版发现页演示，实际可见功能取决于桌面版本、项目权限与手机端开放档。</p></div>
+      <div class="grid g2">
+        <div class="card" style="padding:20px"><h3>问答</h3><p>对项目提问。可以从设备、测点或 Wiki 带入引用，再自行确认发送。</p></div>
+        <div class="card" style="padding:20px"><h3>发现</h3><p>查看项目的越限读数和待确认资料。在 Wiki 里打开它引用的文档版本。新版浏览器与 Android 候选版支持三维预览，无法渲染时显示平面。</p></div>
+        <div class="card" style="padding:20px"><h3>收件箱</h3><p>查收项目事项与电脑回执。可确认的操作由账号开放档决定。</p></div>
+        <div class="card" style="padding:20px"><h3>我的</h3><p>查看配对状态，管理本机缓存和离线待发内容。</p></div>
+      </div>
+    </section>
     <section class="sec">
       <div class="grid g3">
         <div class="card media reveal"><div class="cover"><div class="panel" style="max-width:240px">
@@ -105,7 +125,7 @@ const cta = await windowsCta();
 
     
     <section class="sec">
-      <div class="sec-head center"><h2>资料不离开你的电脑</h2></div>
+      <div class="sec-head center"><h2>手机与电脑之间加密传输</h2></div>
       <div class="relay">
         <div class="card"><div class="ic"><Icon name="phone" size={18} /></div><b>手机</b></div>
         <span class="wire"></span>
@@ -113,14 +133,15 @@ const cta = await windowsCta();
         <span class="wire"></span>
         <div class="card"><div class="ic"><Icon name="desktop" size={18} /></div><b>你的电脑</b></div>
       </div>
-      <p class="muted" style="text-align:center;margin-top:20px">中继只看得到连接时刻和密文长度；电脑离线时，密文最多暂存七天。</p>
+      <p class="muted" style="text-align:center;margin-top:20px">中继处理连接时刻、设备路由和密文长度。电脑离线时，文字和链接可加密暂存最多七天，附件留在手机待发。发起问答时需配对电脑在线。</p>
+      <p style="text-align:center;margin-top:12px"><a class="link" href={href('/egress/#mobile_relay')}>查看配对与中继的数据去向</a></p>
     </section>
 
     <section class="sec" id="weapp">
       <div class="grid duo even">
         <div>
           <h2 style="font-size:clamp(28px,3.6vw,40px)">微信小程序</h2>
-          <p class="muted" style="font-size:16px;margin-top:12px">不用装应用，扫码配对。</p>
+          <p class="muted" style="font-size:16px;margin-top:12px">小程序工程预览使用平面孪生。正式开放时间以发布公告为准。</p>
           <span class="tag" style="margin-top:20px">规划中</span>
         </div>
         <div class="fv" style="padding:40px">

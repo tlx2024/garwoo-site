@@ -1,0 +1,73 @@
+{
+  "catalogVersion": 2,
+  "packs": {
+    "personal-opc": {
+      "version": "1.2.0",
+      "publishedAt": "2026-10-31",
+      "publisher": "IAI 官方",
+      "license": "CC-BY-4.0",
+      "minApp": "0.2.0",
+      "size": 99165,
+      "counts": {
+        "types": 13,
+        "examples": 34,
+        "sources": 9,
+        "questions": 13,
+        "agents": 5,
+        "cockpits": 1,
+        "methods": 2,
+        "decisions": 4
+      },
+      "permissions": [
+        "data:read",
+        "ontology:model"
+      ]
+    },
+    "formulation-team": {
+      "version": "1.2.0",
+      "publishedAt": "2026-10-31",
+      "publisher": "IAI 官方",
+      "license": "CC-BY-4.0",
+      "minApp": "0.2.0",
+      "size": 163602,
+      "counts": {
+        "types": 10,
+        "examples": 153,
+        "sources": 14,
+        "questions": 10,
+        "agents": 3,
+        "cockpits": 1,
+        "methods": 2,
+        "decisions": 4
+      },
+      "permissions": [
+        "rnd:data:read",
+        "rnd:data:write",
+        "rnd:formula:view",
+        "rnd:project:manage"
+      ]
+    },
+    "contact-lens-factory": {
+      "version": "1.2.0",
+      "publishedAt": "2026-10-31",
+      "publisher": "IAI 官方",
+      "license": "CC-BY-4.0",
+      "minApp": "0.2.0",
+      "size": 105675,
+      "counts": {
+        "types": 7,
+        "examples": 28,
+        "sources": 12,
+        "questions": 12,
+        "agents": 3,
+        "cockpits": 1,
+        "methods": 2,
+        "decisions": 4
+      },
+      "permissions": [
+        "alarm:read",
+        "field:report"
+      ]
+    }
+  }
+}

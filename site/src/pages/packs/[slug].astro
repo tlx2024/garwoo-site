@@ -1,17 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { href } from '../../lib/url';
-import { PACKS, PACK_VERSION, PACK_DATE, PACK_PUBLISHER, PACK_LICENSE, COUNT_LABELS } from '../../data/packs';
+import { PACKS, COUNT_LABELS } from '../../data/packs';
 
 export function getStaticPaths() {
   return PACKS.map((pack) => ({ params: { slug: pack.slug }, props: { pack } }));
 }
 const { pack: p } = Astro.props;
 const rows = [
-  ['版本', PACK_VERSION],
-  ['更新日期', PACK_DATE],
-  ['发布方', PACK_PUBLISHER],
-  ['许可', PACK_LICENSE],
+  ['目录版本', p.version],
+  ['更新日期', p.publishedAt],
+  ['发布方', p.publisher],
+  ['许可', p.license],
   ['最低客户端', p.minApp],
   ['体积', `${(p.size / 1024).toFixed(1)} KB`],
   ['来源', '随客户端内置'],
@@ -76,12 +76,12 @@ const cta = await windowsCta();
         </div>
         <p class="sub">{p.sub}</p>
         <div class="tags">
-          <span class="tag blue">官方精选 · {PACK_VERSION}</span>
+          <span class="tag blue">官方精选 · {p.version}</span>
           <span class="tag">{p.domain}</span>
           {p.tags.map((t) => <span class="tag">{t}</span>)}
         </div>
       </div>
-      <div class="pk-cta"><a class="btn btn-primary btn-lg" href={href('/download/')}>在格物中安装</a></div>
+      <div class="pk-cta"><a class="btn btn-primary btn-lg" href={href('/docs/quickstart/#定领域')}>查看安装步骤</a></div>
     </div>
   </div>
 
@@ -92,16 +92,16 @@ const cta = await windowsCta();
         <section>
           <h2>包里有什么</h2>
           <div class="grid g3" id="counts" style="margin-top:20px">
-            {p.counts.map((n, i) => <div class="card cnt"><b>{n}</b><span>{COUNT_LABELS[i]}</span></div>)}
+            {(Object.keys(COUNT_LABELS) as (keyof typeof COUNT_LABELS)[]).map(key => <div class="card cnt"><b>{p.counts[key]}</b><span>{COUNT_LABELS[key]}</span></div>)}
           </div>
           <ul>{p.hl.map((h) => <li>{h}</li>)}</ul>
         </section>
         <section>
           <h2>安装时授予的权限</h2>
           <p>{p.grants}</p>
-          <div class="perm">{p.perm.map((x) => <code>{x}</code>)}</div>
+          <div class="perm">{p.permissions.map((x) => <code>{x}</code>)}</div>
         </section>
-        <section><h2>更新说明</h2><div>{p.chg.map((c) => <p>{c}</p>)}</div></section>
+        <section><h2>更新说明</h2><p>目录 {p.version} 增加关键决策。Windows 0.2.1 内测版随附目录 1.1.0，安装与升级以客户端内显示的版本为准。</p><div>{p.chg.map((c) => <p>{c}</p>)}</div></section>
       </div>
       <aside class="card">
         <h3>信息</h3>

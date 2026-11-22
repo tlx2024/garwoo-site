@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
-import { RELEASES } from '../data/changelog';
+import { releaseAnchor, releaseNotes } from '../data/changelog';
 import { windowsCta } from '../data/status';
 const cta = await windowsCta();
+const releases = await releaseNotes();
 ---
-<Base title="更新日志" description={`格物每个发行版本的更新说明：新增、改进和升级注意。最新版本 ${RELEASES[0].version}。`} page="changelog">
+<Base title="更新日志" description="格物已记录的版本变更、当前公开发行与升级注意事项。" page="changelog">
 <style is:global>
 .rel{display:grid;grid-template-columns:180px minmax(0,1fr);gap:32px}
 .rel + .rel{margin-top:56px;padding-top:56px;border-top:1px solid var(--line)}
@@ -23,14 +24,14 @@ const cta = await windowsCta();
 <main>
   <div class="wrap hero center" style="padding-bottom:48px">
     <h1>更新日志</h1>
-    <p class="lede">只列发行版本，只写你能感知到的变化。</p>
+    <p class="lede">查看版本变更。当前可获取的版本和安装方式见<a class="link" href={href('/download/')}>下载页</a>。</p>
   </div>
 
   <div class="wrap">
     
-    {RELEASES.map((r) => (
-      <section class="rel" id={`v${r.version}`}>
-        <div class="v"><b>{r.version}</b>{r === RELEASES[0] && <em class="latest">最新</em>}<span>{r.date} · {r.platform}</span></div>
+    {releases.map((r) => (
+      <section class="rel" id={releaseAnchor(r)}>
+        <div class="v"><b>{r.version}</b>{r.label && <em class="latest">{r.label}</em>}<span>{r.date} · {r.platform}</span></div>
         <article class="card body">
           {r.sections.map((g) => (
             <>

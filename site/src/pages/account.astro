@@ -9,7 +9,7 @@ const features = [
   {
     icon: 'users',
     title: '账号与安全',
-    desc: '桌面端通过浏览器授权登录。手机号、微信登录随手机伴侣与微信小程序开放，目前规划中。',
+    desc: '桌面端通过浏览器授权。网页端可用的登录方式以格物账号中心为准。',
   },
   {
     icon: 'desktop',
@@ -41,7 +41,7 @@ const features = [
           <span class="pill" style="margin-bottom:12px">格物个人账号</span>
           <h1 style="font-size:36px;font-weight:700;letter-spacing:-0.02em;margin-top:8px">账号管理与设备中心</h1>
           <p class="muted" style="font-size:16px;line-height:1.6;margin-top:12px;max-width:640px">
-            一个账号，管理你的桌面客户端、手机伴侣与官方 AI 积分。资料与知识库留在你的电脑，云端只记录你的登录授权与积分流水。
+            一个账号，管理你的桌面客户端、手机伴侣与官方 AI 积分。资料与知识库留在你的电脑。账号身份、设备授权和积分流水由云端服务管理。
           </p>
         </div>
         <div style="width:96px;height:96px">
@@ -56,10 +56,10 @@ const features = [
             {ENDPOINTS.account ? '云端账号服务已连通，点击前往格物账号中心完成登录或管理设备。' : '支持在个人版客户端中直接授权登录，或前往网页端管理你的个人账号。'}
           </p>
         </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn btn-primary" href={accountHref('login')}>立即登录 / 注册</a>
+        {ENDPOINTS.account && <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-primary" href={accountHref('login')}>前往登录</a>
           <a class="btn" href={accountHref('account')}>管理我的设备与积分</a>
-        </div>
+        </div>}
       </div>
 
       <div class="grid g2" style="margin-top:32px">
@@ -76,8 +76,7 @@ const features = [
         <h3 style="font-size:15px;font-weight:600">多端登录说明</h3>
         <ul style="margin-top:12px;padding-left:20px;font-size:14px;line-height:1.8;color:var(--ink-soft)">
           <li><strong>桌面端（Windows）</strong>：在应用设置中点击“登录官网账号”，将自动唤起浏览器完成设备授权并回传凭据。</li>
-          <li><strong>手机伴侣（Android）</strong>：规划中，开放后支持短信验证码登录与扫码配对。</li>
-          <li><strong>微信小程序</strong>：规划中，开放后支持微信授权登录。</li>
+          <li><strong>手机伴侣</strong>：浏览器入口面向获准账号，其他平台的状态见<a href={href('/mobile/#platforms')}>手机伴侣</a>。</li>
         </ul>
       </div>
 

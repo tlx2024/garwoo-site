@@ -2,13 +2,11 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import egress from '../data/personal-egress.json';
-import { platformStatus } from '../data/status';
 
 // 出网清单契约的副本：官网只换品牌称呼，其余原文照搬。
 const brand = (text: string) => text.replace(/（account\.iai\.example）/g, '').replace(/IAI\s?/g, '格物');
 const items = egress.egressItems.filter((item) => item.id !== 'local_only');
-const windows = await platformStatus('windows');
-const status = (value: string) => (value === 'available' ? { cls: 'st ok', label: windows.label } : { cls: 'st', label: '规划中' });
+const status = (value: string) => (value === 'available' ? { cls: 'st ok', label: '按功能设置' } : { cls: 'st', label: '待开放' });
 const columns = [['发送什么', 'what'], ['发到哪', 'where'], ['云端保留', 'retention'], ['费用', 'cost'], ['离线时', 'offline']] as const;
 import Icon from '../components/Icon.astro';
 ---
@@ -65,7 +63,7 @@ ul.plain{margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)}
     </section>
 
     <section class="sec">
-      <div class="sec-head split"><h2>逐条清单</h2><span class="faint" style="font-size:14px">只有表中这 {items.length} 件事会让数据离开你的电脑</span></div>
+      <div class="sec-head split"><h2>逐条清单</h2><span class="faint" style="font-size:14px">版本 {egress.version} · {items.length} 项</span></div>
       <details class="jump-list">
         <summary>按功能定位</summary>
         <nav aria-label="出网功能">{items.map(item => <a href={'#' + item.id}>{brand(item.fn)}</a>)}</nav>
@@ -106,7 +104,7 @@ ul.plain{margin:14px 0 0;padding-left:18px;line-height:2;color:var(--ink-soft)}
 
   <div class="final">
     <img class="mascot" src={href('/brand/mascot.webp')} alt="" width="512" height="512" />
-    <h2>接自己的模型，问答不经过格物。</h2>
+    <h2>自己的模型直接接收你发送的请求。</h2>
     <div class="cta"><a class="btn btn-primary btn-lg" href={href('/desktop/')}>看桌面端</a><a class="btn btn-lg" href={href('/pricing/')}>查看价格</a></div>
   </div>
 </main>

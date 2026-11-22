@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import { href } from '../lib/url';
 import AppTop from '../components/AppTop.astro';
 import Icon from '../components/Icon.astro';
 ---
@@ -15,18 +14,13 @@ import Icon from '../components/Icon.astro';
 .arch .layer.core b{color:var(--primary)}
 .arch .layer.core .boxes span{background:var(--primary-soft);border-color:transparent;color:var(--primary)}
 @media (max-width:700px){.arch .layer{grid-template-columns:1fr}}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form .full{grid-column:1/-1}
-.form textarea{height:68px}
-.form button{justify-self:start}
-@media (max-width:700px){.form{grid-template-columns:1fr}}
 </style>
 <main>
   
   <div class="wrap hero">
-    <h1>格物企业版<br><span class="muted">同一套本体，放大到一座工厂</span></h1>
-    <p class="lede">由 IAI 智能工厂中枢提供，私有化交付。</p>
-    <div class="cta"><a class="btn btn-primary btn-lg" href="#contact">预约演示</a><a class="btn btn-lg" href="#arch">看架构</a></div>
+    <h1>格物企业版<br><span class="muted">在工厂内部部署的企业智能体与知识系统</span></h1>
+    <p class="lede">由 IAI 智能工厂中枢提供，私有化交付。格物个人版与企业版共用本体框架，企业按岗位、系统和审批要求独立配置。</p>
+    <div class="cta"><a class="btn btn-primary btn-lg" href="#contact">查看咨询方式</a><a class="btn btn-lg" href="#arch">看架构</a></div>
   </div>
 
   <div class="stage">
@@ -57,6 +51,7 @@ import Icon from '../components/Icon.astro';
 
     <section class="sec" id="arch">
       <div class="sec-head"><h2>向下接系统，向上给岗位</h2></div>
+      <p class="muted" style="margin-bottom:20px">个人版成果进入企业前，需要核对本体包与目标权限，由企业管理员采纳。现场接入与写操作按项目验收开放。</p>
       <div class="arch">
         <div class="layer"><b>入口</b><div class="boxes"><span>网页</span><span>企业客户端</span><span>钉钉</span><span>企业微信</span></div></div>
         <div class="layer"><b>智能体</b><div class="boxes"><span>智能体中心</span><span>审批</span><span>执行账本</span></div></div>
@@ -109,16 +104,10 @@ import Icon from '../components/Icon.astro';
     </section>
 
     <section class="sec" id="contact" style="padding-bottom:64px">
-      <div class="grid duo even" style="align-items:start">
-        <h2 style="font-size:clamp(28px,3.6vw,40px)">预约演示</h2>
-        <form class="form card">
-          <label class="field">姓名<input disabled></label>
-          <label class="field">公司<input disabled></label>
-          <label class="field">手机<input type="tel" disabled></label>
-          <label class="field">行业<select disabled><option>通用制造</option><option>医药 GMP</option><option>研发配方</option><option>其他</option></select></label>
-          <label class="field full">产线上最费时间的是哪件事<textarea disabled></textarea></label>
-          <button class="btn btn-primary" type="button" disabled>预约入口尚未开放</button>
-        </form>
+      <div class="sec-head"><h2>企业部署与咨询</h2><p>访问 IAI 企业站，查看现场接入、部署形态和咨询信息。</p></div>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://www.iai.xianjian.ltd/enterprise/deployment/">查看部署方案</a>
+        <a class="btn" href="https://www.iai.xianjian.ltd/enterprise/contact/">查看咨询方式</a>
       </div>
     </section>
   </div>

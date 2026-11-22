@@ -24,7 +24,7 @@ const links = [
   { page: 'docs', label: '文档', to: '/docs/' },
 ];
 ---
-<div class="announce" id="top">格物个人版{cta.status}中<a href={href('/download/')}>{cta.label} →</a></div>
+<div class="announce" id="top">格物个人版 · {cta.status}<a href={href('/download/')}>{cta.label} →</a></div>
 <header class="site-header" id="hdr">
   <div class="wrap nav">
     <a class="logo" href={href('/')} aria-label="格物首页">
@@ -50,7 +50,7 @@ const links = [
         <span class="for-dark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg></span>
       </button>
       <a class="btn btn-sm" href={accountHref('account')}>账号</a>
-      <a class="btn btn-primary btn-sm" href={href('/download/')}>下载</a>
+      <a class="btn btn-primary btn-sm" href={href('/download/')}>{cta.label}</a>
       <button class="icon-btn burger" id="burger" aria-label="菜单" aria-expanded="false" aria-controls="site-menu"><Icon name="menu" size={18} /></button>
     </div>
   </div>

@@ -1,12 +1,35 @@
 // 更新日志：只列发行版本，只写用户能感知到的变化。开发里程碑不进日志。每个版本以 git tag 为准。
+import { platformStatus } from './status';
+import { PLATFORMS } from '../lib/releases';
+
+export const releaseAnchor = (release: ReleaseNote) =>
+  (release.platform === 'Android' ? 'android-v' : 'v') + release.version;
+
+export async function releaseNotes(): Promise<ReleaseNote[]> {
+  const active = await Promise.all(PLATFORMS.map(async platform => {
+    const { manifest, label } = await platformStatus(platform);
+    if (!manifest) return null;
+    const name = platform === 'windows' ? 'Windows' : 'Android';
+    const recorded = RELEASES.find(r => r.version === manifest.version && r.platform === name);
+    return {
+      version: manifest.version, platform: name, date: manifest.published_at.slice(0, 10), label,
+      sections: recorded?.sections ?? [{ title: '更新内容', items: manifest.notes }],
+    };
+  }));
+  const published = active.filter(entry => entry !== null);
+  const historical = RELEASES.filter(r => !published.some(a => releaseAnchor(a) === releaseAnchor(r)));
+  return [...published, ...historical].sort((a, b) => b.date.localeCompare(a.date));
+}
+
 export type ReleaseNote = {
   version: string;
   date: string;
   platform: string;
+  label?: string;
   sections: { title: string; items: string[] }[];
 };
 
-export const RELEASES: ReleaseNote[] = [
+const RELEASES: ReleaseNote[] = [
   {
     "version": "0.2.1",
     "date": "2026-10-31",

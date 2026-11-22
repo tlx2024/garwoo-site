@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/url';
 import Icon from '../components/Icon.astro';
-import { PACKS, EXAMPLES, PACK_VERSION } from '../data/packs';
+import { PACKS, EXAMPLES } from '../data/packs';
 
 const domainBadge: Record<string, string> = {
   '离散制造': 'emerald',
@@ -16,6 +16,8 @@ const domainDesc: Record<string, string> = {
   '离散制造': '面向制造现场与工厂产线，快速搭建设备、工位、SOP 与质量追溯本体。',
 };
 
+const featured = PACKS.find(p => p.slug === 'personal-opc')!;
+const formulation = PACKS.find(p => p.slug === 'formulation-team')!;
 const domains = ['组织经营', '研发实验', '离散制造'] as const;
 ---
 <Base og="og-packs" title="本体市场" description="从专业包开始构建自己的领域。查看一人公司、配方研发组、隐形眼镜工厂起步包，以及七种项目任务示例。" page="packs">
@@ -121,12 +123,12 @@ a.mk-row:hover .mk-act{border-color:var(--primary);background:var(--primary);col
         </div>
       </div>
       <div class="txt">
-        <span class="eyebrow"><Icon name="spark" size={13} /> 官方精选 · {PACK_VERSION}</span>
+        <span class="eyebrow"><Icon name="spark" size={13} /> 官方精选 · {featured.version}</span>
         <h2>一人公司起步包</h2>
         <p>创始人、虚拟部门、委托契约、流程与交付成果，装入后即可由一人与 AI 代理协同经营。</p>
-        <p class="meta">13 个类型 · 34 个示例对象 · 9 篇出处 · 5 位智能体</p>
+        <p class="meta">{featured.counts.types} 个类型 · {featured.counts.examples} 个示例对象 · {featured.counts.sources} 篇出处 · {featured.counts.agents} 位智能体</p>
         <div class="cta">
-          <a class="btn btn-primary btn-sm" style="border-radius:999px;padding:0 16px" href={href('/download/')}>+ 在格物中安装</a>
+          <a class="btn btn-primary btn-sm" style="border-radius:999px;padding:0 16px" href={href('/docs/quickstart/#定领域')}>查看安装步骤</a>
           <a class="btn btn-sm" style="border-radius:999px;padding:0 16px" href={href('/packs/personal-opc/')}>查看包内容</a>
         </div>
       </div>
@@ -158,13 +160,13 @@ a.mk-row:hover .mk-act{border-color:var(--primary);background:var(--primary);col
                     <div class="mk-meta">
                       <span>{p.domain}</span>
                       <span>·</span>
-                      <span>{p.counts[0]} 个类型</span>
+                      <span>{p.counts.types} 个类型</span>
                       <span>·</span>
-                      <span>{p.counts[1]} 个示例对象</span>
+                      <span>{p.counts.examples} 个示例对象</span>
                       <span>·</span>
-                      <span>{p.counts[4]} 位智能体</span>
+                      <span>{p.counts.agents} 位智能体</span>
                       <span>·</span>
-                      <span>v {PACK_VERSION}</span>
+                      <span>v {p.version}</span>
                     </div>
                   </div>
                   <span class="mk-act">+ 查看详情</span>
@@ -179,7 +181,7 @@ a.mk-row:hover .mk-act{border-color:var(--primary);background:var(--primary);col
         <div class="mk-shelf-hd">
           <div>
             <h2>任务示例</h2>
-            <p>围绕具体业务任务组织的行业项目示例，展示本体、文件、出处与智能体如何配合。</p>
+            <p>在支持内置示例的客户端，可从新建项目入口导入这七个示例。示例日程默认暂停。</p>
           </div>
         </div>
         <div class="mk-rows">
@@ -211,9 +213,9 @@ a.mk-row:hover .mk-act{border-color:var(--primary);background:var(--primary);col
         </div>
         <div class="fv" style="min-height:280px;padding:28px">
           <div class="panel">
-            <div class="hd">配方研发组起步包 · {PACK_VERSION}</div>
+            <div class="hd">配方研发组起步包 · {formulation.version}</div>
             <div class="row"><span>类型</span><b>10</b></div>
-            <div class="row"><span>示例对象</span><b>153</b></div>
+            <div class="row"><span>示例对象</span><b>{formulation.counts.examples}</b></div>
             <div class="row"><span>出处文章</span><b>14</b></div>
             <div class="row"><span>智能体</span><b>3</b></div>
             <div class="row"><span>发布到市场</span><span class="tag">规划中</span></div>

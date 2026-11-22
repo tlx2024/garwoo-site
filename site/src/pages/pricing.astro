@@ -33,7 +33,7 @@ const cta = await windowsCta();
         <button aria-selected="true" data-target="tab-personal">个人</button>
         <button aria-selected="false" data-target="tab-ent">企业</button>
       </div>
-      <span class="tag">示例价格 · 注册与购买未开放</span>
+      <span class="tag">示例价格 · 购买未开放</span>
     </div>
   </div>
 
@@ -73,7 +73,7 @@ const cta = await windowsCta();
           <li><span><Icon name="check" size={15} /></span>先用快到期的批次</li>
           <li><span><Icon name="check" size={15} /></span>可用、预留、消费随时可查</li>
         </ul>
-        <a class="btn" href="#credits">购买</a>
+        <a class="btn" href="#credits">查看积分示例</a>
       </div>
     </div>
 
@@ -127,7 +127,7 @@ const cta = await windowsCta();
             <tr><td>智能体与日程</td><td>自带模型</td><td class="yes">✓</td><td class="yes">✓</td></tr>
             <tr><td>聊天通道</td><td class="no">—</td><td>微信、飞书、钉钉</td><td>钉钉、企业微信</td></tr>
             <tr class="grp"><td colspan="4">协作与治理</td></tr>
-            <tr><td>手机伴侣</td><td>规划中</td><td>规划中</td><td>规划中</td></tr>
+            <tr><td>手机伴侣</td><td colspan="3"><a class="link" href={href('/mobile/#platforms')}>查看各平台状态与试用资格</a></td></tr>
             <tr><td>系统接入（MES / SCADA / ERP）</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr><td>权限、审批、审计</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
           </tbody>
@@ -149,7 +149,7 @@ const cta = await windowsCta();
         <li><span><Icon name="check" size={15} /></span>本机模型（vLLM / Ollama）</li>
       </ul>
       <p class="muted" style="font-size:14px">报价随接入范围、部署形态与交付清单确定。</p>
-      <a class="btn btn-primary" style="width:fit-content;margin-top:20px" href={href('/enterprise/#contact')}>预约演示</a>
+      <a class="btn btn-primary" style="width:fit-content;margin-top:20px" href={href('/enterprise/#contact')}>查看企业咨询方式</a>
     </div>
   </div>
 
