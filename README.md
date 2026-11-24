@@ -35,6 +35,8 @@ Node 22，进入 `site/` 后执行 `npm ci`、`npm test`、`npm run check`。Win
 
 官网主域名为 `https://garwoo.com`。`www.garwoo.com`、`garwoo.cn` 和 `www.garwoo.cn` 跳转到同一主站，保留路径及查询参数。部署时确认 TLS 证书覆盖这四个主机名。
 
+安装包放在下载域 `https://download.garwoo.com`：`/<平台>/<版本>/<文件>` 是安装包，`/releases/<平台>.json` 是当前清单。站点配置是 `deploy/download.conf`，首次或修改后执行 `deploy/setup-download.ps1`（证书沿用 `garwoo-cloud`）。安装包与清单由产品仓的 `release_tool.py publish-server` 上传，清单里下载域地址在前、GitHub Release 在后。构建时先读下载域的清单，404 再查 GitHub Releases，所以发布新版本后要重新构建并部署官网。
+
 ## 上线前必须完成
 
 当前站点是预览形态（`robots.txt` 与 `<meta name="robots">` 都不让收录），以下事项没做完之前不要用正式域名构建发布：

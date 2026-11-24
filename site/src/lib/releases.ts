@@ -2,7 +2,9 @@
 //
 // 数据来源（按优先级）：
 //   1. 环境变量 RELEASES_DIR：本地目录，里面放 windows-manifest.json / android-manifest.json，用于本地预览和测试；
-//   2. 本仓库 GitHub Releases API（公开仓库，匿名即可；CI 里带上 GITHUB_TOKEN 放宽限流）：
+//   2. 下载域（DOWNLOAD_ORIGIN，正式为 https://download.garwoo.com）的 /releases/<平台>.json，
+//      由产品仓 release_tool.py publish-server 写入；返回 404 表示该平台还没在下载域发布，接着查 GitHub；
+//   3. 本仓库 GitHub Releases API（公开仓库，匿名即可；CI 里带上 GITHUB_TOKEN 放宽限流）：
 //      取最新的、已发布（非草稿）且带清单附件的 Release。
 // CI（CI=true）下取数失败直接让构建失败，避免发布后官网误显示旧状态；本地取数失败只告警，按“没有清单”处理。
 import fs from 'node:fs';
@@ -72,6 +74,28 @@ async function fromGithub(platform: Platform): Promise<Manifest | null> {
   return checkManifest(await response.json(), platform, asset.browser_download_url);
 }
 
+/** undefined：下载域上没有这个平台（404），由调用方继续查 GitHub；null：出错（严格模式下已抛出）。 */
+async function fromDownload(origin: string, platform: Platform): Promise<Manifest | null | undefined> {
+  const address = `${origin}/releases/${platform}.json`;
+  let response: Response;
+  try {
+    response = await fetch(address, { redirect: 'error' });
+  } catch (error) {
+    return fail(`cannot read ${address}: ${(error as Error).message}`);
+  }
+  if (response.status === 404) return undefined;
+  if (!response.ok) return fail(`${address} answered ${response.status}`);
+  return checkManifest(await response.json(), platform, address);
+}
+
+async function fromOrigins(platform: Platform): Promise<Manifest | null> {
+  if (ENDPOINTS.download) {
+    const hosted = await fromDownload(ENDPOINTS.download, platform);
+    if (hosted !== undefined) return hosted;
+  }
+  return fromGithub(platform);
+}
+
 function fromDirectory(dir: string, platform: Platform): Manifest | null {
   const file = path.join(dir, `${platform}-manifest.json`);
   if (!fs.existsSync(file)) return null;
@@ -83,7 +107,7 @@ const cache = new Map<Platform, Promise<Manifest | null>>();
 /** 某平台当前的发布清单；没有就返回 null（页面沿用手写状态）。 */
 export function loadManifest(platform: Platform): Promise<Manifest | null> {
   if (!cache.has(platform)) {
-    cache.set(platform, process.env.RELEASES_DIR ? Promise.resolve(fromDirectory(process.env.RELEASES_DIR, platform)) : fromGithub(platform));
+    cache.set(platform, process.env.RELEASES_DIR ? Promise.resolve(fromDirectory(process.env.RELEASES_DIR, platform)) : fromOrigins(platform));
   }
   return cache.get(platform)!;
 }

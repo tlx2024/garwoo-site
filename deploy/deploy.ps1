@@ -8,7 +8,7 @@ param(
     [string]$WebRoot = '/var/www/garwoo-www',
     [string]$WwwOrigin = $(if ($env:WWW_ORIGIN) { $env:WWW_ORIGIN } else { 'https://garwoo.com' }),
     [string]$AccountOrigin = $env:ACCOUNT_ORIGIN,
-    [string]$DownloadOrigin = $env:DOWNLOAD_ORIGIN,
+    [string]$DownloadOrigin = $(if ($env:DOWNLOAD_ORIGIN) { $env:DOWNLOAD_ORIGIN } else { 'https://download.garwoo.com' }),
     [switch]$DryRun
 )
 $ErrorActionPreference = 'Stop'
