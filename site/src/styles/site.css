@@ -136,6 +136,11 @@ button{font:inherit;color:inherit}
 .hero h1 .p{color:var(--primary)}
 .hero .lede{font-size:18px;color:var(--muted);margin-top:20px;max-width:540px}
 .hero .cta{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
+.brand-hero h1{font-size:clamp(3.5rem,6.4vw,6rem);font-weight:700;line-height:1;letter-spacing:-.06em}
+.brand-hero h1 span{display:block;margin-top:.5em;color:var(--primary-strong);font-size:clamp(1.35rem,2.9vw,2.6rem);line-height:1.25;letter-spacing:-.04em;text-wrap:balance}
+.brand-hero .lede{max-width:32em;margin-top:22px;color:var(--muted);font-size:clamp(1rem,1.3vw,1.125rem);line-height:1.7;text-wrap:pretty}
+.brand-hero :is(.cta,.actions){margin-top:28px}
+@media (max-width:700px){.brand-hero h1{font-size:clamp(3rem,13vw,4.5rem)}.brand-hero h1 span{font-size:clamp(1.3rem,6.4vw,2.2rem)}.brand-hero .lede{margin-top:14px}.brand-hero :is(.cta,.actions){margin-top:20px}}
 .hero.center{text-align:center}
 .hero.center .lede{margin-left:auto;margin-right:auto}
 .hero.center .cta{justify-content:center}

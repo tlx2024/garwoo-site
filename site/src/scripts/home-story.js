@@ -8,40 +8,10 @@ if (story) {
   const root = document.documentElement
   const header = document.getElementById('hdr')
   const art = story.querySelector('.hero-art')
-  const mascot = art.querySelector('.hero-character')
-  const folder = art.querySelector('.hero-folder')
-  const canvas = art.querySelector('canvas')
-  const context = canvas.getContext('2d')
-
-  function paintCord() {
-    if (!context) return
-    const frame = art.getBoundingClientRect()
-    const ratio = Math.min(2, devicePixelRatio)
-    canvas.width = Math.round(frame.width * ratio)
-    canvas.height = Math.round(frame.height * ratio)
-    const anchor = (image, x, y) => {
-      const rect = image.getBoundingClientRect()
-      return [rect.left - frame.left + rect.width * x, rect.top - frame.top + rect.height * y]
-    }
-    const [x1, y1] = anchor(mascot, ...POSTER_GRIP)
-    const [x2, y2] = anchor(folder, .754, .560)
-    const drift = Math.max(12, Math.abs(x2 - x1) * .27)
-    context.setTransform(ratio,0,0,ratio,0,0)
-    context.beginPath()
-    context.moveTo(x1, y1)
-    context.bezierCurveTo(x1 + drift, y1 + drift * .5, x2 - drift, y2 + drift * .67, x2, y2)
-    context.lineCap = 'round'
-    for (const [width, color, dash] of [[5,'#7d542c',[]],[3.6,'#c99151',[]],[1.1,'#fff0bd',[1.5,3]]]) {
-      context.lineWidth = width
-      context.strokeStyle = color
-      context.setLineDash(dash)
-      context.stroke()
-    }
-  }
-
-  if ('ResizeObserver' in window) new ResizeObserver(paintCord).observe(art)
-  else addEventListener('resize',paintCord,{passive:true})
-  paintCord()
+  // The journey departs from the mascot resting in the hero card and picks up
+  // the folder at the "资料" node, so the hand-off from the banner has no jump.
+  const mascot = art.querySelector('.network-mascot img')
+  const source = art.querySelector('.node-source')
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)')
   const phone = matchMedia('(max-width:700px)')
@@ -99,7 +69,7 @@ if (story) {
     const begin = Math.min(finish.bottom + scrollY - bar - rail.offsetHeight - 62, end - Math.min(250,height * .29))
     story.style.setProperty('--nav', `${bar}px`)
     layout = { width,height,bar,railTop,
-      hero:box(mascot), folder:box(folder),
+      hero:box(mascot), folder:{ ...box(source), size:Math.min(box(mascot).size * .42, phone.matches ? 30 : 40) },
       destination, dockFolder:box(dockFolder), begin, end,
       railX:railLinks.map(link => link.getBoundingClientRect().left + (phone.matches ? 24 : 29)),
       milestones:chapters.map(chapter => chapter.getBoundingClientRect().top + scrollY - Math.max(bar + rail.offsetHeight + 8, height * .30)),
@@ -198,6 +168,7 @@ if (story) {
     }
     const atDestination = arriving >= 1 && target >= end
     const show = enabled && !parked && target < destination.y + destination.size
+    story.style.setProperty('--depart',departing.toFixed(3))
     story.classList.toggle('motion-ready',show)
     story.classList.toggle('story-arrived',target >= end)
     guideSprite.hidden = folderSprite.hidden = cord.hidden = !show
@@ -249,6 +220,9 @@ if (story) {
     load.tilt -= pull * 5
     position(guideSprite,character)
     position(folderSprite,load)
+    // The folder and cord fade in as the mascot leaves the card.
+    const pickUp = landingClock >= 0 ? 1 : ease(clamp(departing * 3.2,0,1))
+    folderSprite.style.opacity = pickUp.toFixed(3)
 
     const last = anchor(load,.754,.560)
     const hold = anchor(character,holdX,holdY)
@@ -260,7 +234,7 @@ if (story) {
     const dx = last.x - first.x
     const sag = Math.min(19,Math.hypot(dx,last.y - first.y) * .13)
     pen.clearRect(0,0,width,height)
-    pen.globalAlpha = landingClock >= 0 ? gripped : 1
+    pen.globalAlpha = landingClock >= 0 ? gripped : pickUp
     pen.beginPath()
     pen.moveTo(first.x,first.y)
     pen.bezierCurveTo(first.x + dx * .28,first.y + sag,last.x - dx * .27,last.y + sag,last.x,last.y)

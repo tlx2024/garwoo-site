@@ -1,8 +1,8 @@
 // 格物官网原型：知识网络背景。节点缓慢漂移、近的两点连线，光点沿连线跑过去，鼠标靠近时节点被吸过来。
-// 只挂在 .hero 和 .final 上；不可见时暂停，prefers-reduced-motion 时只画一帧。
+// 只挂在 .hero 和 .final 上（首页 banner 不挂，动效只留在卡片里）；不可见时暂停，prefers-reduced-motion 时只画一帧。
 (function () {
   var motion = matchMedia('(prefers-reduced-motion: reduce)');
-  var hosts = document.querySelectorAll('.hero, .final, .hero-stage');
+  var hosts = document.querySelectorAll('.hero, .final');
   if (!hosts.length) return;
 
   function rgb(v) {

@@ -14,6 +14,14 @@ const stages = [
   ['finish', '完成闭环'],
 ] as const;
 
+const nodes = [
+  { key: 'source', title: '资料', note: '12 份文件', x: 110, y: 160 },
+  { key: 'object', title: '对象关系', note: '24 个对象', x: 330, y: 370 },
+  { key: 'goal', title: '目标', note: '本周计划', x: 535, y: 150 },
+  { key: 'action', title: '行动', note: '可执行', x: 535, y: 250 },
+  { key: 'result', title: '结果', note: '有出处', x: 535, y: 350 },
+] as const;
+
 const chapters = [
   { id: 'goal', label: stages[1][1], title: 'goal', picture: 'cover' },
   { id: 'organize', label: stages[2][1], title: 'evidence', picture: 'evidenceArt' },
@@ -23,18 +31,38 @@ const chapters = [
 
 <div class="home-story">
   <div class="hero-stage">
-  <section class="story-hero wrap" aria-labelledby="headline">
+  <section class="story-hero wrap brand-hero" aria-labelledby="headline">
     <div class="hero-text">
       <h1 id="headline">格物 <span>构建你自己的专业领域</span></h1>
+      <p class="lede">把资料整理成本体与对象，再按目标排出能核对出处的行动。</p>
       <div class="actions">
         <a class="btn btn-primary btn-lg" href="#domains">选择领域</a>
         <a class="btn btn-lg" href="#goal">看案例</a>
       </div>
     </div>
-    <figure class="hero-art" role="img" aria-label="嘎呜拉着项目资料夹出发">
-      <canvas class="hero-cord" aria-hidden="true"></canvas>
-      <img class="hero-character" src={art('guide-brand-hero.webp?v=2')} width="768" height="768" alt="" fetchpriority="high" />
-      <img class="hero-folder" src={art('guide-project-folder.webp')} width="280" height="280" alt="" />
+    <figure class="hero-art" role="img" aria-label="资料经本体整理成对象关系，再落到目标、行动与结果的示意">
+      <div class="hero-network" aria-hidden="true">
+        <div class="network-kicker">PERSONAL PROJECT / 01</div>
+        <div class="network-title">示例项目：配方研发</div>
+        <svg class="network-lines" viewBox="0 0 620 440" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle class="network-orbit orbit-a" cx="330" cy="235" r="78" />
+          <circle class="network-orbit orbit-b" cx="330" cy="235" r="112" />
+          <path class="network-line line-a" d="M110 160C205 160 235 235 330 235" />
+          <path class="network-line line-b" d="M330 235C430 235 440 150 535 150" />
+          <path class="network-line line-c" d="M330 235C430 235 450 250 535 250" />
+          <path class="network-line line-d" d="M330 235C430 235 440 350 535 350" />
+          <path class="network-line line-e" d="M330 235L330 370" />
+          <path class="network-line line-f" d="M125 290C125 235 110 215 110 160" />
+        </svg>
+        {nodes.map((node) => (
+          <div class={`network-node node-${node.key}`} style={`--x:${node.x};--y:${node.y}`}>
+            <span class="node-dot"></span><b>{node.title}</b><small>{node.note}</small>
+          </div>
+        ))}
+        <div class="network-core"><span>格物</span><small>本体</small></div>
+        <div class="network-mascot"><img src={art('guide-brand-hero.webp?v=2')} width="768" height="768" alt="" fetchpriority="high" /></div>
+        <div class="network-status"><i></i>正在按本体整理项目资料</div>
+      </div>
     </figure>
   </section>
   </div>
@@ -170,7 +198,7 @@ const chapters = [
         <img class="dock-guide dock-art" src={art('guide-brand-docked.webp?v=2')} width="768" height="768" alt="" loading="lazy" />
       </figure>
     </section>
-    <div class="wrap story-return"><a class="plain-link replay" href="#top" data-story-replay>↑ 回到顶部</a></div>
+    <div class="wrap story-return"><a class="plain-link replay" href="#hdr" data-story-replay>↑ 回到顶部</a></div>
   </div>
 
   <canvas class="journey-cord" aria-hidden="true" hidden></canvas>
