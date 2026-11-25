@@ -7,6 +7,7 @@ import { siteTarget } from '../site-target.mjs';
 import { artifactProblems } from './artifact-policy.mjs';
 import { toneProblems, typographyProblems, visibleText } from './tone.mjs';
 import { manifestProblems } from '../src/lib/manifest.mjs';
+import { LEGAL, legalPagePlaceholders, legalProblems } from '../src/data/legal.mjs';
 
 const target = siteTarget(process.env);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -18,6 +19,7 @@ for (const file of walk(dist).filter(file => /\.(html|js|mjs|css|json|xml|txt|sv
   const text = fs.readFileSync(path.join(dist, file), 'utf8');
   for (const problem of artifactProblems(text, target)) problems.push(`${file}: ${problem}`);
 }
+problems.push(...legalProblems(LEGAL).map((problem) => `src/data/legal.mjs: ${problem}`));
 const titles = new Map();
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(dist, file), 'utf8');
@@ -26,6 +28,8 @@ for (const file of htmlFiles) {
   for (const problem of toneProblems(visibleText(html), { terms: !/^egress\//.test(file) && !/^docs\/./.test(file) }))
     problems.push(`${file}: ${problem}`);
   for (const problem of typographyProblems(html)) problems.push(`${file}: ${problem}`);
+  if (/^legal\//.test(file))
+    for (const problem of legalPagePlaceholders(LEGAL, visibleText(html))) problems.push(`${file}: ${problem}`);
   {
     const title = html.match(/<title>([^<]*)<\/title>/)?.[1];
     const description = html.match(/<meta name="description" content="([^"]*)"/)?.[1];

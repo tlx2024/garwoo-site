@@ -1,14 +1,15 @@
 ---
 import LegalDocument from '../../components/LegalDocument.astro';
 import { href } from '../../lib/url';
+import { LEGAL, fill } from '../../data/legal.mjs';
 ---
 <LegalDocument
   title="用户协议"
-  description="说明格物的账号、内容、AI 输出、计费与停止使用规则，正式条款待审定。"
-  version="2026.11.06-draft.1"
-  updated="2026-11-06"
+  description="说明格物的账号、内容、AI 输出、计费与停止使用规则。"
+  version={LEGAL.version}
+  updated={LEGAL.updated}
 >
-  <div class="legal-notice"><p>这是待定稿文本。正式版本：【版本号】；生效日期：【日期】；运营者：【公司全称】。主体信息、正式责任条款与争议解决方式待审定，本页草稿版本不代表正式生效。</p></div>
+  <div class="legal-notice"><p>{LEGAL.draft && '这是待定稿文本。'}生效日期：{fill(LEGAL.effective, '日期')}；运营者：{fill(LEGAL.operator, '公司全称')}。{LEGAL.draft && '主体信息、正式责任条款与争议解决方式待审定，本页草稿版本不代表正式生效。'}</p></div>
 
   <h2>适用范围</h2>
   <p>本协议适用于格物桌面端、账号服务、官网和 Android 版格物伴侣。使用需要账号的功能前，请阅读本协议与<a href={href('/legal/privacy/')}>隐私政策</a>，并在登录页主动勾选同意。不同意时，请不要登录或使用需要账号的功能。</p>
@@ -62,9 +63,11 @@ import { href } from '../../lib/url';
   <p>本体市场中的起步包和示例项目按各自随包说明使用。你修改后的项目内容仍由你管理，第三方组件继续适用其原有许可。</p>
 
   <h2>变更、暂停与终止</h2>
-  <p>版本更新、功能调整或安全维护可能影响部分能力。重要协议变更会在公开服务前通过登录流程或页面提示重新展示，当前已登录设备的重新提示能力仍在完善。</p>
+  <p>版本更新、功能调整或安全维护可能影响部分能力。重要协议变更会提高版本号，登录时须重新阅读并同意；已登录的设备在下次登录时核对。</p>
   <p>你可以随时停止使用、退出设备或申请注销。违反本协议、危害服务或其他用户时，我们可以限制相关功能或暂停账号，并保留必要记录用于核对与追责。</p>
 
-  <h2>正式条款待补内容</h2>
-  <p>运营者：【公司全称】；地址：【注册地址】；联系邮箱：【邮箱】；正式责任限制、适用法律与争议解决方式：【待运营主体或法务审定】。公开服务前应补全并发布，不以本草稿要求你放弃法定权利。</p>
+  <h2>运营者、责任与争议解决</h2>
+  <p>运营者：{fill(LEGAL.operator, '公司全称')}；地址：{fill(LEGAL.address, '注册地址')}；联系邮箱：{fill(LEGAL.email, '邮箱')}。</p>
+  <p>{fill(LEGAL.disputes, '责任限制、适用法律与争议解决，待运营主体或法务审定')}</p>
+  <p>本协议不要求你放弃法定权利。</p>
 </LegalDocument>
