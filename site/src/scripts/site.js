@@ -6,6 +6,19 @@ import { translations } from '../data/translations';
   // 主题
   var root = document.documentElement;
   var locale = new URLSearchParams(location.search).get('lang') || 'en';
+  var reverseTranslations = Object.fromEntries(Object.entries(translations).map(function (entry) { return [entry[1], entry[0]]; }));
+  Object.assign(reverseTranslations, {
+    Products: '产品', Desktop: '桌面端', 'Mobile companion': '手机伴侣', 'WeChat mini program': '微信小程序', 'Pack market': '本体市场',
+    Enterprise: '企业版', Pricing: '价格', 'How it works': '工作方式', Docs: '文档', Account: '账号', Menu: '菜单',
+    'Learn about the beta': '了解内测', 'One bark, and Garwoo gets to work.': '嘎呜一声，格物开工。', Product: '产品', Resources: '资源', Legal: '法律',
+    Personal: '个人', Credits: '积分', Changelog: '更新日志', About: '关于', Brand: '品牌', 'Privacy policy': '隐私政策', 'Terms of use': '用户协议',
+    'Data & network access': '资料与出网', 'Deployment & consulting': '部署与咨询',
+    Garwoo: '格物', 'Build your own professional domain': '构建你自己的专业领域',
+    'Turn evidence into ontologies and objects, then map goals to actions with traceable sources.': '把资料整理成本体与对象，再按目标排出能核对出处的行动。',
+    'Choose a domain': '选择领域', 'See an example': '看案例', 'What do you want to work on first?': '你想先做哪件事？',
+    'View the task': '查看任务', 'Close the loop': '完成闭环', 'Start your own task': '开始自己的任务', 'See your first project': '看第一个项目',
+    'Set a goal': '设定目标', 'Organize evidence': '整理资料', 'Review results': '核对结果', 'Close the loop': '完成闭环',
+  });
   function translateEnglish() {
     var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     var node;
@@ -23,7 +36,25 @@ import { translations } from '../data/translations';
       });
     });
   }
-  if (locale === 'en') translateEnglish();
+  function translateChinese() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var node;
+    while ((node = walker.nextNode())) {
+      if (node.parentElement && /^(SCRIPT|STYLE|NOSCRIPT|CODE|PRE)$/.test(node.parentElement.tagName)) continue;
+      var value = node.nodeValue || '';
+      var trimmed = value.trim();
+      if (!trimmed || !reverseTranslations[trimmed]) continue;
+      node.nodeValue = value.replace(trimmed, reverseTranslations[trimmed]);
+    }
+    document.querySelectorAll('[alt], [aria-label], [title], [placeholder], [content]').forEach(function (element) {
+      ['alt', 'aria-label', 'title', 'placeholder', 'content'].forEach(function (name) {
+        var value = element.getAttribute(name);
+        if (value && reverseTranslations[value.trim()]) element.setAttribute(name, reverseTranslations[value.trim()]);
+      });
+    });
+    document.documentElement.lang = 'zh-CN';
+  }
+  if (locale === 'en') translateEnglish(); else translateChinese();
   document.querySelectorAll('[data-language-switch]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       event.preventDefault();
