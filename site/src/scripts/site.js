@@ -6,6 +6,10 @@ import { translations } from '../data/translations';
   // 主题
   var root = document.documentElement;
   var locale = new URLSearchParams(location.search).get('lang') || 'en';
+  document.querySelectorAll('[data-language-switch]').forEach(function (link) {
+    link.textContent = locale === 'zh' ? 'English' : '中文';
+    link.setAttribute('aria-label', locale === 'zh' ? 'Switch to English' : '切换到中文');
+  });
   var reverseTranslations = Object.fromEntries(Object.entries(translations).map(function (entry) { return [entry[1], entry[0]]; }));
   Object.assign(reverseTranslations, {
     Products: '产品', Desktop: '桌面端', 'Mobile companion': '手机伴侣', 'WeChat mini program': '微信小程序', 'Pack market': '本体市场',
