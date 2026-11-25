@@ -1,8 +1,29 @@
+import { translations } from '../data/translations';
+
 // 格物官网交互：主题、页头、吉祥物、分段 Tab、横向轮播、黏性分步、进场动画。页头页脚由 Astro 渲染。
 (function () {
   'use strict';
   // 主题
   var root = document.documentElement;
+  var locale = new URLSearchParams(location.search).get('lang') || 'en';
+  function translateEnglish() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var node;
+    while ((node = walker.nextNode())) {
+      if (node.parentElement && /^(SCRIPT|STYLE|NOSCRIPT|CODE|PRE)$/.test(node.parentElement.tagName)) continue;
+      var value = node.nodeValue || '';
+      var trimmed = value.trim();
+      if (!trimmed || !translations[trimmed]) continue;
+      node.nodeValue = value.replace(trimmed, translations[trimmed]);
+    }
+    document.querySelectorAll('[alt], [aria-label], [title], [placeholder], [content]').forEach(function (element) {
+      ['alt', 'aria-label', 'title', 'placeholder', 'content'].forEach(function (name) {
+        var value = element.getAttribute(name);
+        if (value && translations[value.trim()]) element.setAttribute(name, translations[value.trim()]);
+      });
+    });
+  }
+  if (locale === 'en') translateEnglish();
   document.querySelectorAll('[data-language-switch]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       event.preventDefault();
