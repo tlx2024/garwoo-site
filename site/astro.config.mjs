@@ -86,7 +86,7 @@ export default defineConfig({
           items: [
             { label: 'Back to homepage', translations: { 'zh-CN': '返回首页' }, link: '/' },
             { label: 'How it works', translations: { 'zh-CN': '工作方式' }, link: '/how/' },
-            { label: 'Data & network access', translations: { 'zh-CN': '出网清单' }, link: '/egress/' },
+            { label: 'Data and network access', translations: { 'zh-CN': '出网清单' }, link: '/egress/' },
             { label: 'Changelog', translations: { 'zh-CN': '更新日志' }, link: '/changelog/' },
           ],
         },

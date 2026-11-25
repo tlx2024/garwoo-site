@@ -16,6 +16,7 @@ const overrides = {
   '格物 Garwoo': 'Garwoo',
   '格物首页': 'Garwoo home',
   '切换明暗': 'Toggle theme',
+  '。': '.',
   '从本体出发，把一个领域的问题做成方案。': 'Turn a domain problem into a plan with an ontology.',
   '跟随一项任务，从设定目标到记录结果。': 'Follow a task from goal to recorded result.',
   '构建你自己的专业领域': 'Build your own professional domain',
@@ -106,7 +107,7 @@ function writePage({ file, source, route, marketing }, locale) {
     const attributes = Object.fromEntries(node.attrs.map(attr => [attr.name, attr]));
     if (node === html && marketing) attributes.lang.value = language;
     if (marketing && !chinese) {
-      for (const name of ['alt', 'aria-label', 'title', 'placeholder', 'content', 'data-record', 'data-pending']) {
+      for (const name of ['alt', 'aria-label', 'title', 'placeholder', 'content', 'data-label', 'data-record', 'data-pending']) {
         if (attributes[name]) attributes[name].value = translate(attributes[name].value);
       }
     }

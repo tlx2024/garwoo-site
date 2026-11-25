@@ -21,7 +21,7 @@ The official AI service, cloud OCR, messaging integrations, and confirmed diagno
 
 ## Connect a production line or business system
 
-MES, SCADA, and ERP integrations, along with permissions, approvals, and audit controls, are available through private deployment of [Garwoo Enterprise](/enterprise/).
+MES, SCADA, and ERP integrations, along with permissions, approvals, and audit controls, are available through private deployment of the [IAI Smart Factory Hub](/enterprise/).
 
 ## Find further help
 

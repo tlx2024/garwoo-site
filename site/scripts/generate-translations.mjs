@@ -1,9 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { translations } from '../src/data/translations.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const dist = path.join(root, 'dist', 'pages');
+const dist = path.join(root, 'dist', 'pages', 'zh');
 const output = path.join(root, 'src', 'data', 'translations.ts');
 const han = /[\u3400-\u9fff]/;
 
@@ -34,8 +35,9 @@ for (const file of files) {
   }
 }
 
-const entries = [...phrases];
-const translated = new Map();
+// Keep reviewed English copy when seeding translations for new Chinese phrases.
+const translated = new Map(Object.entries(translations));
+const entries = [...phrases].filter(phrase => !translated.has(phrase));
 let cursor = 0;
 async function worker() {
   while (cursor < entries.length) {
@@ -59,4 +61,4 @@ await Promise.all(Array.from({ length: 8 }, worker));
 
 const object = Object.fromEntries([...translated.entries()].sort(([a], [b]) => a.localeCompare(b)));
 await fs.writeFile(output, `// Generated from the rendered site. Chinese remains the source locale.\nexport const translations: Record<string, string> = ${JSON.stringify(object, null, 2)};\n`);
-console.log(`[translations] ${entries.length} phrases → ${path.relative(root, output)}`);
+console.log(`[translations] ${entries.length} new phrases → ${path.relative(root, output)}`);

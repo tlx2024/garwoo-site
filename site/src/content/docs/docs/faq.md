@@ -29,4 +29,4 @@ The [download page](/download/) lists the current version, access instructions, 
 
 ## Can Garwoo connect to production lines and business systems?
 
-MES, SCADA, and ERP integrations, along with permissions, approvals, and audit controls, are available through private deployment of [Garwoo Enterprise](/enterprise/).
+MES, SCADA, and ERP integrations, along with permissions, approvals, and audit controls, are available through private deployment of the [IAI Smart Factory Hub](/enterprise/).

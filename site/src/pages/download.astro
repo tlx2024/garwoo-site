@@ -50,7 +50,7 @@ const releases = await releaseNotes();
         {wm ? (
           <>
             <div class="facts">
-              <p class="muted">{wm.version} · {win.label} · {day(wm.published_at)} · {mb(wm.size)}</p>
+              <p class="muted">{wm.version} · <span>{win.label}</span> · {day(wm.published_at)} · {mb(wm.size)}</p>
               <p class="faint" style="font-size:14px">Windows 10 / 11，64 位</p>
             </div>
             {unsigned ? <p class="notice">这个安装包没有代码签名。Windows 安装时会提示“未知发布者”，请先在下方核对 SHA-256，再选择“更多信息 → 仍要运行”。</p> : null}
@@ -61,7 +61,7 @@ const releases = await releaseNotes();
           </>
         ) : (
           <>
-            <p class="muted">{inviteVersion} · {win.label}</p>
+            <p class="muted">{inviteVersion} · <span>{win.label}</span></p>
             <div class="cta">
               <a class="btn btn-primary btn-lg" href={href('/docs/trial/')}><span><Icon name="download" size={17} /></span>了解内测</a>
             </div>
@@ -71,7 +71,7 @@ const releases = await releaseNotes();
       </div>
       <div class="side-col">
         <div class="card plat"><div class="ic"><Icon name="apple" size={18} /></div><div><b>macOS</b><span class="faint">规划中</span></div></div>
-        <div class="card plat"><div class="ic"><Icon name="android" size={18} /></div><div><b>Android</b><span class="faint">{am ? `${am.version} · ${and.label}` : and.label}</span></div>
+        <div class="card plat"><div class="ic"><Icon name="android" size={18} /></div><div><b>Android</b><span class="faint">{am && `${am.version} · `}<span>{and.label}</span></span></div>
           {am ? <a class="btn btn-sm r" href={am.urls[0]}>下载</a> : <a class="btn btn-sm r" href={href('/mobile/')}>了解</a>}</div>
         <div class="card plat"><div class="ic"><Icon name="phone" size={18} /></div><div><b>手机浏览器</b><span class="faint">获准账号可试用</span></div><a class="btn btn-sm r" href={href('/mobile/#platforms')}>了解</a></div>
         <div class="card plat" id="weapp"><div class="ic"><Icon name="wechat" size={18} /></div><div><b>微信小程序</b><span class="faint">规划中</span></div><a class="btn btn-sm r" href={href('/mobile/#weapp')}>了解</a></div>

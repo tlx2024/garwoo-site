@@ -21,8 +21,18 @@ for (const file of walk(dist).filter(file => /\.(html|js|mjs|css|json|xml|txt|sv
 }
 problems.push(...legalProblems(LEGAL).map((problem) => `src/data/legal.mjs: ${problem}`));
 const titles = new Map();
+const knownMistranslations = [
+  [/^legal\/(?:privacy|terms)\//, /mobile phone passwords|only press when/i],
+  [/^egress\//, /placed on the market|not be saved outside these platforms/i],
+  [/^mobile\//, /F-03 is resistant to scrubbing/i],
+  [/^packs\//, /make your body into a package|what is this bag|what['’]s in the bag|starter kit|starting package|starter package/i],
+  [/^pricing\//, /\d\s+points?\b|points refill|deduct points|member points/i],
+  [/^download\//, /invite internal beta|invite closed beta/i],
+  [/^(?:docs|enterprise|pricing)\//, /Garwoo Enterprise(?: Edition)?/i],
+];
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(dist, file), 'utf8');
+  const copy = visibleText(html);
   const sourcePath = file.replace(/^zh\//, '');
   const chinese = file.startsWith('zh/');
   const alternate = chinese ? sourcePath : `zh/${file}`;
@@ -34,11 +44,17 @@ for (const file of htmlFiles) {
     problems.push(`${file}: missing language switch to ${alternateUrl}`);
   // 出网清单的正文按契约原文照搬，术语不查；其余规则照常。
   // Starlight 文档页自带界面文字（搜索、目录），只查口吻与过期说法。
-  for (const problem of toneProblems(visibleText(html), { terms: !/^egress\//.test(sourcePath) && !/^docs\/./.test(sourcePath) }))
+  for (const problem of toneProblems(copy, { terms: !/^egress\//.test(sourcePath) && !/^docs\/./.test(sourcePath) }))
     problems.push(`${file}: ${problem}`);
+  if (!chinese) {
+    for (const [route, phrase] of knownMistranslations) {
+      const match = route.test(sourcePath) && copy.match(phrase);
+      if (match) problems.push(`${file}: mistranslation: ${match[0]}`);
+    }
+  }
   for (const problem of typographyProblems(html)) problems.push(`${file}: ${problem}`);
   if (chinese && /^legal\//.test(sourcePath))
-    for (const problem of legalPagePlaceholders(LEGAL, visibleText(html))) problems.push(`${file}: ${problem}`);
+    for (const problem of legalPagePlaceholders(LEGAL, copy)) problems.push(`${file}: ${problem}`);
   {
     const title = html.match(/<title>([^<]*)<\/title>/)?.[1];
     const description = html.match(/<meta name="description" content="([^"]*)"/)?.[1];

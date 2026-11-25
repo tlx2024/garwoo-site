@@ -17,4 +17,4 @@ The free client can use your own model for agents and scheduled tasks.
 
 ## Enterprise
 
-[Garwoo Enterprise](/enterprise/) can connect to models your organization runs with vLLM, Ollama, or a comparable local serving platform.
+The [IAI Smart Factory Hub](/enterprise/) can connect to models your organization runs with vLLM, Ollama, or a comparable local serving platform.

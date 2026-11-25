@@ -59,7 +59,7 @@ const cta = await windowsCta();
 .cnt span{font-size:14px;color:var(--muted)}
 .facts{width:100%;border-collapse:collapse;font-size:15px}
 .facts td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}
-.facts td:first-child{color:var(--muted);width:40%}
+.facts td:first-child{color:var(--muted);width:40%;padding-inline-end:12px}
 .perm{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .perm code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;padding:2px 8px;border:1px solid var(--line);border-radius:4px;color:var(--ink-soft);background:var(--bg-2)}
 #counts{grid-template-columns:repeat(3,1fr)}
@@ -81,7 +81,7 @@ const cta = await windowsCta();
           {p.tags.map((t) => <span class="tag">{t}</span>)}
         </div>
       </div>
-      <div class="pk-cta"><a class="btn btn-primary btn-lg" href={href('/docs/quickstart/#定领域')}>查看安装步骤</a></div>
+      <div class="pk-cta"><a class="btn btn-primary btn-lg" href={href('/docs/quickstart/#setup-domain')}>查看安装步骤</a></div>
     </div>
   </div>
 
