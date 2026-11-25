@@ -109,6 +109,7 @@ button{font:inherit;color:inherit}
 .mega a:hover{background:var(--panel-2);color:var(--ink)}
 .mega .mi{width:32px;height:32px;border-radius:6px;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);flex:none}
 .nav .right{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px}
+.lang-switch{font-size:13px;color:var(--muted);padding:5px 7px;border-radius:5px}.lang-switch:hover{color:var(--ink);background:var(--panel-2)}
 .nav .login{color:var(--muted);padding:0 8px}
 .nav .login:hover{color:var(--ink)}
 .icon-btn .for-light{display:flex}

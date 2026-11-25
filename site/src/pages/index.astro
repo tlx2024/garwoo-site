@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import HomeStory from '../components/HomeStory.astro';
 import { ENDPOINTS } from '../lib/target';
 import { href } from '../lib/url';
+import { getLocale } from '../lib/i18n';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -10,12 +11,12 @@ const jsonLd = {
   name: '格物 Garwoo',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Windows 10, Windows 11',
-  description: '本体驱动的决策系统。用专业包组织领域知识、智能体与工作流程，从目标走到任务执行。',
+  description: 'An ontology-driven decision system for organizing domain knowledge, agents, and workflows from goals to execution.',
   url: ENDPOINTS.site + '/',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'CNY', description: '客户端免费，官方 AI 按积分计费' },
 };
 ---
-<Base og="og-home" jsonLd={jsonLd} description="跟着嘎呜走一遍公司、实验室或工厂的任务，从设定目标到回填结果。" page="home">
+<Base og="og-home" jsonLd={jsonLd} description="Follow a task from goal to recorded result." page="home">
   <script define:vars={{ examplesPage: href('/how/') }}>
     function forwardExampleLink() {
       if (/^#examples$|^#example-[a-z0-9-]+$/.test(location.hash)) {
@@ -26,6 +27,6 @@ const jsonLd = {
     addEventListener('hashchange', forwardExampleLink);
   </script>
   <main id="main">
-    <HomeStory />
+    <HomeStory locale={getLocale(Astro.url)} />
   </main>
 </Base>

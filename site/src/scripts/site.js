@@ -3,6 +3,24 @@
   'use strict';
   // 主题
   var root = document.documentElement;
+  document.querySelectorAll('[data-language-switch]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      var locale = link.getAttribute('data-language-switch');
+      try { localStorage.setItem('garwoo-locale', locale || 'en'); } catch (e) {}
+      var url = new URL(location.href);
+      url.searchParams.set('lang', locale || 'en');
+      location.href = url.toString();
+    });
+  });
+  try {
+    var savedLocale = localStorage.getItem('garwoo-locale');
+    if (savedLocale && !new URLSearchParams(location.search).has('lang')) {
+      var savedUrl = new URL(location.href);
+      savedUrl.searchParams.set('lang', savedLocale);
+      location.replace(savedUrl.toString());
+    }
+  } catch (e) {}
   try { var t = localStorage.getItem('garwoo-theme'); if (t) root.dataset.theme = t; } catch (e) {}
   document.getElementById('theme').addEventListener('click', function () {
     var dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
