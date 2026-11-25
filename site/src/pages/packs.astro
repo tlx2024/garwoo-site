@@ -236,11 +236,11 @@ a.mk-row:hover .mk-act{border-color:var(--primary);background:var(--primary);col
   var hero = document.getElementById('featured-hero');
   var empty = document.getElementById('empty');
   function apply() {
-    var t = q.value.trim(), n = 0;
+    var t = q.value.trim().toLocaleLowerCase(), n = 0;
     packs.forEach(function (p) {
       var hay = p.dataset.k + ' ' + p.textContent;
       var kindOk = view === 'all' || p.dataset.kind === view;
-      var ok = kindOk && (!key || hay.indexOf(key) >= 0) && (!t || hay.indexOf(t) >= 0);
+      var ok = kindOk && (!key || hay.includes(key)) && (!t || hay.toLocaleLowerCase().includes(t));
       p.hidden = !ok; if (ok) n++;
     });
     shelves.forEach(function (s) {

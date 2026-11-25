@@ -165,6 +165,7 @@ const android = await platformStatus('android');
   </div>
 </main>
 <script>
+  const english = document.documentElement.lang === 'en';
   const previews = document.querySelector<HTMLElement>('#phone-previews')!;
   const picker = document.querySelector<HTMLElement>('.preview-picker')!;
   const scene = picker.querySelector('select')!;
@@ -174,34 +175,42 @@ const android = await platformStatus('android');
   picker.hidden = false;
   const upload = previews.querySelector<HTMLButtonElement>('[data-upload]')!;
   const uploadStatus = previews.querySelector<HTMLElement>('[data-upload-status]')!;
+  const uploadLabel = upload.textContent;
   upload.hidden = false;
   upload.addEventListener('click', () => {
     const sent = !uploadStatus.textContent;
-    uploadStatus.textContent = sent ? '示例照片已加入项目。' : '';
-    upload.textContent = sent ? '重置示例' : '模拟发送';
+    uploadStatus.textContent = sent ? (english ? 'The sample photo was added to the project.' : '示例照片已加入项目。') : '';
+    upload.textContent = sent ? (english ? 'Reset example' : '重置示例') : uploadLabel;
   });
   const demo = document.querySelector<HTMLElement>('#decision-demo')!;
   const choices = demo.querySelector<HTMLElement>('[data-choices]')!;
   const retry = demo.querySelector<HTMLElement>('[data-retry]')!;
   const title = demo.querySelector<HTMLElement>('[data-title]')!;
+  const draftTitle = title.textContent;
   const message = demo.querySelector<HTMLElement>('[data-message]')!;
   const original = message.textContent;
   const confirm = demo.querySelector<HTMLButtonElement>('[data-confirm]')!;
   const again = retry.querySelector('button')!;
   choices.hidden = false;
   function decide(accepted: boolean) {
-    title.textContent = accepted ? '示例已采纳' : '已留待确认';
-    message.textContent = accepted ? '两条结论已列入示例对比文件，保留各自的实验出处。' : '这次先保留草稿，等耐擦洗结果回来再决定。';
+    if (english) {
+      title.textContent = accepted ? 'Example accepted' : 'Waiting for confirmation';
+      message.textContent = accepted ? 'Both conclusions were added to the sample comparison with their sources.' : 'The draft stays pending until the scrub resistance result is available.';
+      again.textContent = accepted ? 'Try again' : 'Return to draft';
+    } else {
+      title.textContent = accepted ? '示例已采纳' : '已留待确认';
+      message.textContent = accepted ? '两条结论已列入示例对比文件，保留各自的实验出处。' : '这次先保留草稿，等耐擦洗结果回来再决定。';
+      again.textContent = accepted ? '再试一次' : '回到草稿';
+    }
     title.parentElement!.setAttribute('data-done', '');
     choices.hidden = true;
     retry.hidden = false;
-    again.textContent = accepted ? '再试一次' : '回到草稿';
     again.focus({ preventScroll: true });
   }
   confirm.addEventListener('click', () => decide(true));
   demo.querySelector('[data-later]')!.addEventListener('click', () => decide(false));
   again.addEventListener('click', () => {
-    title.textContent = '待你确认';
+    title.textContent = draftTitle;
     message.textContent = original;
     title.parentElement!.removeAttribute('data-done');
     retry.hidden = true;

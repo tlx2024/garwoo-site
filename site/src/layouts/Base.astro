@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import { BRAND } from '../data/site';
 import { href } from '../lib/url';
 import { ENDPOINTS } from '../lib/target';
-import { getLocale, localizedTitle, type Locale } from '../lib/i18n';
 
 interface Props {
   /** 页面名；首页不传。显示为“<页面名> · 格物 Garwoo”。 */
@@ -19,15 +18,13 @@ interface Props {
   /** 页面级结构化数据。 */
   jsonLd?: Record<string, unknown>;
 }
-const locale: Locale = getLocale(Astro.url);
-const { title, description = locale === 'en' ? 'Start with an ontology and turn a domain problem into a workable plan.' : '从本体出发，把一个领域的问题做成方案。', page = '', og = 'og-default', jsonLd } = Astro.props;
-const translatedTitle = localizedTitle(title, locale);
-const pageTitle = translatedTitle ? `${translatedTitle} · ${BRAND.full}` : BRAND.full;
+const { title, description = '从本体出发，把一个领域的问题做成方案。', page = '', og = 'og-default', jsonLd } = Astro.props;
+const pageTitle = title ? `${title} · ${BRAND.full}` : BRAND.full;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const ogImage = new URL(href(`/og/${og}.png`), Astro.site).toString();
 ---
 <!doctype html>
-<html lang={locale === 'en' ? 'en' : 'zh-CN'}>
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,7 +34,7 @@ const ogImage = new URL(href(`/og/${og}.png`), Astro.site).toString();
     {ENDPOINTS.mode === 'pages' && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={BRAND.full} />
-    <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'zh_CN'} />
+    <meta property="og:locale" content="zh_CN" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -59,10 +56,10 @@ const ogImage = new URL(href(`/og/${og}.png`), Astro.site).toString();
     </script>
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
-  <body data-page={page}>
-    <Header page={page} locale={locale} />
+  <body data-page={page} data-localize-site>
+    <Header page={page} />
     <slot />
-    <Footer locale={locale} />
+    <Footer />
     <script>
       import '../scripts/site.js';
       import '../scripts/bg.js';

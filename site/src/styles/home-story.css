@@ -177,8 +177,9 @@ body[data-page="home"] .site-footer {
     .story-hero { min-height:0; grid-template-columns:1fr; padding-block:36px 16px; gap:10px; }
     .hero-text .actions { margin-top:17px; }
     .hero-art { width:100%; }
+    .network-status { bottom:2cqw; }
     .stage-rail { padding-top:34px; padding-bottom:4px; }
-    .stage-rail a { font-size:.75rem; white-space:nowrap; padding-right:2px; }
+    .stage-rail a { font-size:.75rem; overflow-wrap:anywhere; padding-right:6px; }
     .journey-note { font-size:.69rem; padding:2px 4px; }
     .chapter-variant { grid-template-columns:1fr; }
     .chapter:not(.finish) .chapter-variant { grid-template-areas:"copy" "illustration" "detail"; }

@@ -1,88 +1,9 @@
-import { translations } from '../data/translations';
-
 // 格物官网交互：主题、页头、吉祥物、分段 Tab、横向轮播、黏性分步、进场动画。页头页脚由 Astro 渲染。
 (function () {
   'use strict';
   // 主题
   var root = document.documentElement;
-  var locale = new URLSearchParams(location.search).get('lang') || 'en';
-  document.querySelectorAll('[data-language-switch]').forEach(function (link) {
-    link.textContent = locale === 'zh' ? 'English' : '中文';
-    link.setAttribute('aria-label', locale === 'zh' ? 'Switch to English' : '切换到中文');
-  });
-  var reverseTranslations = Object.fromEntries(Object.entries(translations).map(function (entry) { return [entry[1], entry[0]]; }));
-  Object.assign(reverseTranslations, {
-    Products: '产品', Desktop: '桌面端', 'Mobile companion': '手机伴侣', 'WeChat mini program': '微信小程序', 'Pack market': '本体市场',
-    Enterprise: '企业版', Pricing: '价格', 'How it works': '工作方式', Docs: '文档', Account: '账号', Menu: '菜单',
-    'Learn about the beta': '了解内测', 'One bark, and Garwoo gets to work.': '嘎呜一声，格物开工。', Product: '产品', Resources: '资源', Legal: '法律',
-    Personal: '个人', Credits: '积分', Changelog: '更新日志', About: '关于', Brand: '品牌', 'Privacy policy': '隐私政策', 'Terms of use': '用户协议',
-    'Data & network access': '资料与出网', 'Deployment & consulting': '部署与咨询',
-    Garwoo: '格物', 'Build your own professional domain': '构建你自己的专业领域',
-    'PERSONAL PROJECT / 01': '个人项目 / 01', 'Example project: formulation R&D': '示例项目：配方研发',
-    'Organizing project evidence by ontology': '正在按本体整理项目资料',
-    'Turn evidence into ontologies and objects, then map goals to actions with traceable sources.': '把资料整理成本体与对象，再按目标排出能核对出处的行动。',
-    'Choose a domain': '选择领域', 'See an example': '看案例', 'What do you want to work on first?': '你想先做哪件事？',
-    'View the task': '查看任务', 'Close the loop': '完成闭环', 'Start your own task': '开始自己的任务', 'See your first project': '看第一个项目',
-    'Set a goal': '设定目标', 'Organize evidence': '整理资料', 'Review results': '核对结果', 'Close the loop': '完成闭环',
-  });
-  function translateEnglish() {
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    var node;
-    while ((node = walker.nextNode())) {
-      if (node.parentElement && /^(SCRIPT|STYLE|NOSCRIPT|CODE|PRE)$/.test(node.parentElement.tagName)) continue;
-      if (node.parentElement && node.parentElement.closest('[data-language-switch]')) continue;
-      var value = node.nodeValue || '';
-      var trimmed = value.trim();
-      if (!trimmed || !translations[trimmed]) continue;
-      node.nodeValue = value.replace(trimmed, translations[trimmed]);
-    }
-    document.querySelectorAll('[alt], [aria-label], [title], [placeholder], [content]').forEach(function (element) {
-      if (element.closest('[data-language-switch]')) return;
-      ['alt', 'aria-label', 'title', 'placeholder', 'content'].forEach(function (name) {
-        var value = element.getAttribute(name);
-        if (value && translations[value.trim()]) element.setAttribute(name, translations[value.trim()]);
-      });
-    });
-  }
-  function translateChinese() {
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    var node;
-    while ((node = walker.nextNode())) {
-      if (node.parentElement && /^(SCRIPT|STYLE|NOSCRIPT|CODE|PRE)$/.test(node.parentElement.tagName)) continue;
-      if (node.parentElement && node.parentElement.closest('[data-language-switch]')) continue;
-      var value = node.nodeValue || '';
-      var trimmed = value.trim();
-      if (!trimmed || !reverseTranslations[trimmed]) continue;
-      node.nodeValue = value.replace(trimmed, reverseTranslations[trimmed]);
-    }
-    document.querySelectorAll('[alt], [aria-label], [title], [placeholder], [content]').forEach(function (element) {
-      if (element.closest('[data-language-switch]')) return;
-      ['alt', 'aria-label', 'title', 'placeholder', 'content'].forEach(function (name) {
-        var value = element.getAttribute(name);
-        if (value && reverseTranslations[value.trim()]) element.setAttribute(name, reverseTranslations[value.trim()]);
-      });
-    });
-    document.documentElement.lang = 'zh-CN';
-  }
-  if (locale === 'en') translateEnglish(); else translateChinese();
-  document.querySelectorAll('[data-language-switch]').forEach(function (link) {
-    link.addEventListener('click', function (event) {
-      event.preventDefault();
-      var locale = link.getAttribute('data-language-switch');
-      try { localStorage.setItem('garwoo-locale', locale || 'en'); } catch (e) {}
-      var url = new URL(location.href);
-      url.searchParams.set('lang', locale || 'en');
-      location.href = url.toString();
-    });
-  });
-  try {
-    var savedLocale = localStorage.getItem('garwoo-locale');
-    if (savedLocale && !new URLSearchParams(location.search).has('lang')) {
-      var savedUrl = new URL(location.href);
-      savedUrl.searchParams.set('lang', savedLocale);
-      location.replace(savedUrl.toString());
-    }
-  } catch (e) {}
+  var english = root.lang === 'en';
   try { var t = localStorage.getItem('garwoo-theme'); if (t) root.dataset.theme = t; } catch (e) {}
   document.getElementById('theme').addEventListener('click', function () {
     var dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
@@ -147,7 +68,7 @@ import { translations } from '../data/translations';
   function roar(el) {
     el.classList.remove('roar'); void el.getBoundingClientRect(); el.classList.add('roar');
     var r = el.getBoundingClientRect(), b = document.createElement('div');
-    b.className = 'roar-bubble'; b.textContent = '嘎呜！';
+    b.className = 'roar-bubble'; b.textContent = english ? 'Garwoo!' : '嘎呜！';
     b.style.left = Math.min(r.right - 10, innerWidth - 110) + 'px'; b.style.top = Math.max(r.top - 30, 8) + 'px';
     document.body.appendChild(b); setTimeout(function () { b.remove(); }, 1100);
     try {
@@ -161,7 +82,7 @@ import { translations } from '../data/translations';
     } catch (e) {}
   }
   document.querySelectorAll('.mascot').forEach(function (m) {
-    m.setAttribute('role', 'button'); m.setAttribute('tabindex', '0'); m.setAttribute('aria-label', '嘎呜');
+    m.setAttribute('role', 'button'); m.setAttribute('tabindex', '0'); m.setAttribute('aria-label', english ? 'Garwoo' : '嘎呜');
     m.addEventListener('click', function () { roar(m); });
     m.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); roar(m); } });
   });

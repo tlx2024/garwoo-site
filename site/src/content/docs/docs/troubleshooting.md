@@ -1,31 +1,28 @@
 ---
-title: 使用中的问题
-description: 回答说没查到、官方 AI 暂停、下载与安装前后的常见情况。
+title: Troubleshooting
+description: What to check when evidence is missing, official AI pauses, or downloads are unavailable.
 ---
 
-## 回答说“没查到”
+## An answer says it found no evidence
 
-这是预期行为：资料里没有依据，就不补答案。先检查两件事：
+Check that the material belongs to the current project and appears as added to the library on the Files page. Garwoo reports missing evidence when the material does not support an answer.
 
-1. 资料是否放进了当前项目。
-2. 文件页里这份资料是否显示“已入库”。
+## Official AI has paused
 
-## 官方 AI 暂停了
+The official AI service can pause when credits run out, account status changes, or the cloud is unavailable. If you configured a local model, Garwoo switches to local inference. You can still browse, edit, search, back up, and export local data. See [model configuration](/docs/models/) to connect your own model.
 
-积分不足、账号状态变化或云端不可用时，官方 AI 会暂停。如果配置了本地模型，会改用本地推理。本机的浏览、编辑、检索、备份和导出不受影响。接自己的模型见[模型配置](/docs/models/)。
+## There is no download link
 
-## 没有看到下载链接
+The [download page](/download/) shows the current version, access instructions, SHA-256, and signing status. Check its access instructions when a public link is unavailable.
 
-[下载页](/download/)列出当前版本、获取方式、SHA-256，以及安装包有没有签名。没有公开下载链接时，页面会写明如何申请。
+## Check what leaves your device
 
-## 想知道哪些内容会发出去
+The official AI service, cloud OCR, messaging integrations, and confirmed diagnostic uploads each send specific data. See [data and network access](/egress/) for the full list.
 
-使用官方 AI、云端识别、聊天通道，或点击确认后上传诊断包时，会发出对应的数据。逐条清单见[出网清单](/egress/)。
+## Connect a production line or business system
 
-## 需要接入产线或业务系统
+MES, SCADA, and ERP integrations, along with permissions, approvals, and audit controls, are available through private deployment of [Garwoo Enterprise](/enterprise/).
 
-个人版不接。接入 MES、SCADA、ERP，以及权限、审批、审计，通过[格物企业版](/enterprise/)私有化交付。
+## Find further help
 
-## 仍然解决不了
-
-版本变化和已知调整见[更新日志](/changelog/)。企业版问题请通过[预约演示](/enterprise/#contact)留言。
+See the [changelog](/changelog/) for release changes. For enterprise questions, use the [enterprise contact section](/enterprise/#contact).

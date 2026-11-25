@@ -1,20 +1,20 @@
 ---
-title: 模型配置
-description: 官方 AI，或接 OpenAI 兼容地址、本机 Ollama。
+title: Model configuration
+description: Use Garwoo’s official AI service, an OpenAI-compatible endpoint, or local Ollama.
 ---
 
-## 官方 AI
+## Official AI
 
-用官方 AI 需要账号与积分。第一次使用时确认一次额度，默认 30 积分，期间的问答与起草共用，按实际用量扣减。空闲 15 分钟或手动结束后，退回没用完的部分。
+Garwoo’s official AI service requires an account and credits. On first use, confirm an allowance of 30 credits by default. Questions and drafting share that allowance, with credits deducted based on actual usage. Unused credits are returned after 15 minutes of inactivity or when you end the session.
 
-问答按实际 Token 计费，AI 引导起草本体约 3–8 积分每次，云端扫描页识别约 0.5 积分每页。页面上的金额和积分是示例，见[价格](/pricing/)；注册与购买尚未开放。
+Questions are billed by token usage. AI-guided ontology drafting uses about 3–8 credits per draft. Cloud OCR uses about 0.5 credits per scanned page. The figures on the [pricing page](/pricing/) are examples. Registration and purchases are currently closed.
 
-## 自带模型
+## Use your own model
 
-接 OpenAI 兼容地址或本机 Ollama 后，请求直接发到你配置的地址，不经格物网关，不扣积分。能力取决于你选的模型。
+Requests to an OpenAI-compatible endpoint or local Ollama go directly to the configured address. They bypass the Garwoo gateway and use no Garwoo credits. Available capabilities depend on your model.
 
-免费客户端可以用自己的模型跑智能体与日程。
+The free client can use your own model for agents and scheduled tasks.
 
-## 企业版
+## Enterprise
 
-企业版可以连接企业自己部署的 vLLM、Ollama 等本机模型，见[格物企业版](/enterprise/)。
+[Garwoo Enterprise](/enterprise/) can connect to models your organization runs with vLLM, Ollama, or a comparable local serving platform.

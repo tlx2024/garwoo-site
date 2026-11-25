@@ -1,21 +1,21 @@
 ---
-title: 快速开始
-description: 装好之后第一天怎么用：建项目、放文件、提问、采纳。
+title: Quickstart
+description: Create a project, organize your files, ask a question, and review the result.
 ---
 
-格物个人版是 Windows 桌面应用，当前版本与获取方式见[下载页](/download/)。下面是第一天的用法。
+Garwoo Personal is a Windows desktop application. Check the [download page](/download/) for the current version and how to get it.
 
-1. **新建项目。** 关联一个放资料的本机文件夹。在「文件」查看原件。新版桌面可将选中的文件收进「资料库」，按目录管理已入库的版本。
-2. **选模型。** 可以用官方 AI，也可以接 OpenAI 兼容地址或本机 Ollama，见[模型配置](/docs/models/)。
+1. **Create a project.** Connect a local folder that contains your materials. Open Files to see the originals. Newer desktop builds let you add selected files to the library and manage their saved versions in folders.
+2. **Choose a model.** Use Garwoo’s official AI service, connect an OpenAI-compatible endpoint, or run Ollama locally. See [model configuration](/docs/models/).
 
-## 定领域
+## Set up your domain
 
-在客户端打开「本体工坊 → 本体市场」，选一个[起步包](/packs/)，核对版本和权限再安装。也可让 AI 起草本体，逐条采纳。在支持内置示例的版本里，可从新建项目入口选择示例导入。
+In the app, open Ontology Workshop, then Pack Market. Choose a [starter pack](/packs/) and review its version and permissions before installing. You can also have AI draft an ontology and approve its entries one by one. In builds that include sample projects, you can import one when creating a project.
 
-## 在项目里完成第一件事
+## Complete your first task
 
-1. 在项目对话里提问，从回答打开出处。新版桌面可以进一步核对引用的资料版本。
-2. 把工作交给对口的智能体。涉及受控写入时先看依据，确认后再执行。
-3. 在项目里回看结果。新版桌面可在「历史」查看回写和纪要。见[第一个项目](/docs/first-project/)。
+1. Ask a question in the project conversation. Open the citations in the answer to check the source. Newer desktop builds also show which version was cited.
+2. Assign the work to the agent responsible for it. Review the evidence and confirm before the agent performs a controlled write.
+3. Review the result in the project. Newer desktop builds show updates and conversation notes under History. See [your first project](/docs/first-project/).
 
-本机的浏览、编辑、检索、备份和导出不依赖账号与积分。哪些内容会发出去，见[出网清单](/egress/)。
+You can browse, edit, search, back up, and export local data without an account or credits. See [data and network access](/egress/) for what leaves your device.

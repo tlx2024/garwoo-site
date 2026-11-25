@@ -1,0 +1,15 @@
+---
+import { href } from '../lib/url';
+
+const chinese = Astro.locals.starlightRoute.lang === 'zh-CN';
+const base = href('/').slice(0, -1);
+const pathname = Astro.url.pathname.slice(base.length);
+const other = chinese ? pathname.slice('/zh'.length) : `/zh${pathname}`;
+---
+<a href={href(other)} data-language-switch hreflang={chinese ? 'en' : 'zh-CN'}
+  lang={chinese ? 'en' : 'zh-CN'} aria-label={chinese ? 'Switch to English' : '切换到中文'}>
+  {chinese ? 'English' : '中文'}
+</a>
+<style>
+  a { color: var(--sl-color-gray-2); white-space: nowrap; }
+</style>

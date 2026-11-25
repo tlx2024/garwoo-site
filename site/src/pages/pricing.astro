@@ -168,7 +168,8 @@ const cta = await windowsCta();
 <script is:inline>
 (function () {
   var n = 1, qty = document.getElementById('qty'), total = document.getElementById('total');
-  function show() { qty.textContent = (n * 800).toLocaleString() + ' 积分'; total.textContent = '¥' + n * 20; }
+  const language = document.documentElement.lang;
+  function show() { qty.textContent = (n * 800).toLocaleString(language) + (language === 'en' ? ' credits' : ' 积分'); total.textContent = '¥' + n * 20; }
   document.getElementById('minus').onclick = function () { if (n > 1) { n--; show(); } };
   document.getElementById('plus').onclick = function () { if (n < 50) { n++; show(); } };
 })();

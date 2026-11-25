@@ -23,21 +23,30 @@ problems.push(...legalProblems(LEGAL).map((problem) => `src/data/legal.mjs: ${pr
 const titles = new Map();
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(dist, file), 'utf8');
+  const sourcePath = file.replace(/^zh\//, '');
+  const chinese = file.startsWith('zh/');
+  const alternate = chinese ? sourcePath : `zh/${file}`;
+  const language = chinese ? 'zh-CN' : 'en';
+  if (!html.includes(`<html lang="${language}"`)) problems.push(`${file}: wrong document language`);
+  if (!fs.existsSync(path.join(dist, alternate))) problems.push(`${file}: missing alternate language page`);
+  const alternateUrl = `${target.base}/${alternate.replace(/index\.html$/, '')}`;
+  if (!html.match(/<a\b[^>]+data-language-switch[^>]*>/g)?.some(link => link.includes(`href="${alternateUrl}"`)))
+    problems.push(`${file}: missing language switch to ${alternateUrl}`);
   // 出网清单的正文按契约原文照搬，术语不查；其余规则照常。
   // Starlight 文档页自带界面文字（搜索、目录），只查口吻与过期说法。
-  for (const problem of toneProblems(visibleText(html), { terms: !/^egress\//.test(file) && !/^docs\/./.test(file) }))
+  for (const problem of toneProblems(visibleText(html), { terms: !/^egress\//.test(sourcePath) && !/^docs\/./.test(sourcePath) }))
     problems.push(`${file}: ${problem}`);
   for (const problem of typographyProblems(html)) problems.push(`${file}: ${problem}`);
-  if (/^legal\//.test(file))
+  if (chinese && /^legal\//.test(sourcePath))
     for (const problem of legalPagePlaceholders(LEGAL, visibleText(html))) problems.push(`${file}: ${problem}`);
   {
     const title = html.match(/<title>([^<]*)<\/title>/)?.[1];
     const description = html.match(/<meta name="description" content="([^"]*)"/)?.[1];
     if (!title) problems.push(`${file}: missing <title>`);
-    else if (titles.has(title)) problems.push(`${file}: duplicate <title> (${titles.get(title)})`);
-    else titles.set(title, file);
+    else if (titles.has(`${language}:${title}`)) problems.push(`${file}: duplicate <title> (${titles.get(`${language}:${title}`)})`);
+    else titles.set(`${language}:${title}`, file);
     if (!description) problems.push(`${file}: missing meta description`);
-    else if ([...description].length > 80) problems.push(`${file}: description over 80 characters`);
+    else if ([...description].length > (chinese ? 80 : 160)) problems.push(`${file}: description is too long`);
     if (!/<link rel="canonical" href="https?:\/\//.test(html)) problems.push(`${file}: missing canonical`);
     for (const prop of ['og:title', 'og:description', 'og:image', 'og:locale']) {
       if (!html.includes(`property="${prop}"`)) problems.push(`${file}: missing ${prop}`);
@@ -72,7 +81,7 @@ else {
 // Windows release exists nothing may still say the beta is invitation-only, and an unsigned build must say so.
 const releasesDir = path.join(dist, 'releases');
 const published = fs.existsSync(releasesDir) ? fs.readdirSync(releasesDir).filter((f) => f.endsWith('.json')) : [];
-const downloadPage = fs.readFileSync(path.join(dist, 'download', 'index.html'), 'utf8');
+const downloadPage = fs.readFileSync(path.join(dist, 'zh', 'download', 'index.html'), 'utf8');
 const changelogPage = fs.readFileSync(path.join(dist, 'changelog', 'index.html'), 'utf8');
 const manifests = {};
 for (const file of published) {
@@ -92,14 +101,14 @@ if (manifests.windows) {
   }
   if (!downloadPage.includes(manifests.windows.sha256)) problems.push('download: the Windows SHA-256 is not shown');
   if (manifests.windows.signature.status === 'NotSigned' && !visibleText(downloadPage).includes('没有代码签名')) problems.push('download: an unsigned build must say it has no code signature');
-} else if (!downloadPage.includes(`href="${target.base}/docs/trial/"`)) {
+} else if (!downloadPage.includes(`href="${target.base}/zh/docs/trial/"`)) {
   problems.push('download: the invitation fallback must link to the trial instructions');
 }
 if (manifests.android && !downloadPage.includes(manifests.android.cert_sha256))
   problems.push('download: the Android signing certificate fingerprint is not shown');
 const packCatalog = JSON.parse(fs.readFileSync(path.join(root, 'src', 'data', 'pack-catalog.json'), 'utf8'));
 for (const [slug, { version }] of Object.entries(packCatalog.packs)) {
-  const page = path.join(dist, 'packs', slug, 'index.html');
+  const page = path.join(dist, 'zh', 'packs', slug, 'index.html');
   if (!fs.existsSync(page) || !visibleText(fs.readFileSync(page, 'utf8')).includes(`官方精选 · ${version}`))
     problems.push(`packs/${slug}: the page does not show catalog version ${version}`);
 }

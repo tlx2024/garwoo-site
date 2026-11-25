@@ -1,43 +1,42 @@
 ---
-title: 核心概念
-description: 项目、本体、起步包、智能体、出处，以及它们怎样配合。
+title: Core concepts
+description: How projects, ontologies, starter packs, agents, and citations fit together.
 ---
 
-格物里常见的几个词，放在一起看更容易懂。
+## Projects
 
-## 项目
+A project is a folder on your computer. Its materials, conversations, agents, and schedules support a particular task, such as reviewing a patent, running a batch of formulation experiments, or preparing a weekly report.
 
-项目就是电脑上的一个文件夹。资料、对话、智能体和日程都围绕它展开。一个项目对应一件具体的事，比如一次专利审查、一批配方实验或一份周报。
-## 本体
+## Ontologies
 
-本体回答三个问题：这一行有哪些对象，它们怎么关联，要守哪些规矩。
+An ontology describes the objects in a domain, how they relate, and which rules apply.
 
-比如配方研发里，有“配方”“实验批次”“实测记录”这几类对象。配方 F-03 对应批次 B-1024，批次下有粘度、对比率等记录。结构清楚以后，提问和核对才有依据。
+Formulation R&D, for example, has formulations, experiment batches, and measurement records. Formulation F-03 is associated with batch B-1024, which contains viscosity and contrast ratio measurements. These relationships give you a basis for asking questions and checking answers.
 
-本体可以从起步包带入，也可以让 AI 起草。AI 起草的条目要逐条采纳，采纳之前不会生效。
+You can start with a pack or have AI draft an ontology. Review and approve AI-drafted entries individually to make them active.
 
-## 起步包
+## Starter packs
 
-起步包是一个领域的现成结构：对象类型、示例对象、出处文章、能力问题、智能体和驾驶舱。装进项目后，你可以增删，也可以只留用得上的部分。
+A starter pack provides a structure for a domain, including object types, sample objects, source articles, competency questions, agents, and a dashboard. After adding a pack to a project, you can keep or change its contents.
 
-当前有一人公司、配方研发组和隐形眼镜工厂三个起步包，见[本体市场](/packs/)。
+The [pack market](/packs/) lists starter packs for solo companies, formulation R&D teams, and contact lens factories.
 
-## 出处
+## Citations
 
-出处指回答所依据的原文片段。回答会带出处，项目对话里还能看到这一轮读了哪些资料、读的是哪个版本。没查到就说没查到，不会补一个看起来合理的答案。
+A citation points to the passage an answer relies on. The project conversation shows which materials and versions were read. If Garwoo finds no supporting evidence, it says so.
 
-## 智能体与日程
+## Agents and schedules
 
-智能体是有明确职责的协作者，每个都有可用资料和技能。你把事情委派给对口的智能体，它按职责开展工作，把结果和待确认事项带回项目。
+An agent has a defined responsibility, access to relevant material, and skills. When you delegate a task, the agent returns results and identifies decisions that need your confirmation.
 
-日程让智能体按时间重复开展任务。会改动文件或对象的操作，先等你确认。
+Schedules let agents repeat tasks. Operations that change files or objects wait for your confirmation.
 
-## 它们怎样配合
+## How they fit together
 
-1. 起步包或本体定下领域结构。
-2. 资料放进项目，按结构整理，带上出处。
-3. 智能体按职责读取资料，对照目标和规范。
-4. 需要你判断的事项单独列出，你确认后再执行。
-5. 结果写回项目，下一次接着用。
+1. A starter pack or ontology defines the domain structure.
+2. Add material to a project and organize it with that structure, keeping sources attached.
+3. An agent reviews the material against your goal and applicable rules.
+4. Review decisions that require your judgment and confirm them before execution.
+5. Save the result in the project for next time.
 
-想看具体任务，见[工作方式](/how/)和[第一个项目](/docs/first-project/)。
+See [how it works](/how/) or follow [your first project](/docs/first-project/) for a worked example.

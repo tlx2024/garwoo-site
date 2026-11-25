@@ -1,53 +1,53 @@
 ---
-title: 第一个项目
-description: 以配方研发为例，从建项目到补测回填，走一遍完整的任务。
+title: Your first project
+description: Walk through a formulation R&D task from setup to recording a follow-up test.
 ---
 
-下面用一份合成的配方研发资料，走一遍从建项目到回填结果的过程。示例说明任务的开展方式，不是实时运行结果。装好格物之后的第一天用法，见[快速开始](/docs/quickstart/)。
+This example uses synthetic formulation R&D data and demonstrates the workflow. For day-one setup, see [Quickstart](/docs/quickstart/).
 
-## 准备资料
+## Prepare the materials
 
-关联一个项目文件夹，放进四份资料。下文以新版桌面演示，当前可获取的版本见[下载页](/download/)。
+Connect a project folder and put these four files in it. The example uses a newer desktop build. See the [download page](/download/) for the current version.
 
-| 文件 | 用途 |
+| File | Purpose |
 |---|---|
-| 目标.md | 三项指标及范围：粘度 95–105 KU，对比率不低于 0.93，耐擦洗不低于 5,000 次 |
-| 配比表.csv | 配方 F-03 对应的样品配比 |
-| 物料规格.md | 各物料的规格说明 |
-| 实验记录 / 批次记录.csv | 批次 B-1024 的粘度和对比率 |
+| Goal.md | Targets for viscosity (95–105 KU), contrast ratio (at least 0.93), and scrub resistance (at least 5,000 cycles) |
+| Formula ratios.csv | Sample proportions for formulation F-03 |
+| Material specifications.md | Specifications for each material |
+| Experiment records / Batch records.csv | Viscosity and contrast ratio for batch B-1024 |
 
-在「文件」里找到原件，将需要引用的文档收进「资料库」。编辑入库条目时会保存新版本。
+Find the originals under Files and add any documents you want to cite to the library. Edits to a library entry create a new version.
 
-## 选领域
+## Choose a domain
 
-装配方研发组起步包，或让 AI 起草本体后逐条采纳。这一步确定“配方”“实验批次”“实测记录”之间的关联。
+Install the formulation R&D starter pack or have AI draft an ontology and approve its entries. This establishes the relationships between formulations, experiment batches, and measurement records.
 
-## 提问
+## Ask a question
 
-在项目里问：下一轮实验，先补测什么？
+Ask in the project which follow-up test should happen first in the next round.
 
-回答会把配方与批次对应起来，按目标逐项比较：
+The answer matches the formulation to its batch and checks each measurement against the target:
 
-- 粘度 103 KU，达到目标。
-- 对比率 0.95，达到目标。
-- 耐擦洗缺实测记录，待补测。
+- Viscosity reached 103 KU.
+- Contrast ratio reached 0.95.
+- Scrub resistance still needs a measurement.
 
-每一项都带出处，指向目标.md 和批次记录.csv。点开出处可核对这轮使用的内容和版本。缺测的项目保留待补测状态。
+Each item cites Goal.md or Batch records.csv. Open the citations to see the passages and versions used. Missing measurements stay marked for follow-up.
 
-## 委派
+## Delegate the follow-up
 
-把补测的整理工作交给配方实验记录员。它整理配方对比与待补实验清单，把需要你判断的事项列在最前面。在新版桌面也可从个人助理交办，选择这个项目作为去向。
+Assign the preparation work to the formulation experiment recorder. The agent prepares the comparison and list of outstanding tests, with decisions that need your review at the top. In a newer desktop build, you can also assign the task from the personal assistant and select this project.
 
-## 确认与回填
+## Confirm and record the result
 
-研发人员确认补测安排。补测完成后，把耐擦洗 5,100 次的结果写回批次 B-1024，并保存补测报告。受控写入前先等你确认。完成后在项目历史查看回写及对话纪要。
+The researcher confirms the follow-up test. When it is complete, record the result of 5,100 scrub cycles in batch B-1024 and save the test report. The update waits for your confirmation. You can then find the update and conversation notes in the project history.
 
-![配方研发示例的项目历史展开一则对话纪要，并提供打开原对话入口](/screens/desktop-project-history.webp)
+![The formulation project history shows conversation notes and a link to the original conversation](/screens/desktop-project-history.webp)
 
-新版桌面候选界面，使用配方研发演示项目采集于 2026-11-22。
+Screenshot from the desktop release candidate, captured on November 22, 2026, using the formulation R&D demo project.
 
-## 下一轮
+## Start the next round
 
-三项标准和 B-1024 的实测、报告都留在项目里。下一次开展同类任务，直接沿用。
+The project keeps the three targets, the B-1024 measurements, and the report so you can reuse them for the next experiment.
 
-其他六个行当的示例，见[工作方式](/how/#examples)。
+See [how it works](/how/#examples) for examples from six other fields.

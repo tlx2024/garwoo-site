@@ -1,29 +1,29 @@
 ---
-title: 内测说明
-description: 本机资料、账号与积分、出网同意，以及当前的发布状态。
+title: Beta access
+description: Release status, local data, accounts, credits, and network access during the beta.
 ---
 
-## 发布状态
+## Release status
 
-| 项目 | 状态 |
+| Item | Status |
 |---|---|
-| Windows 桌面端 | 当前版本、获取方式与签名状态见[下载页](/download/) |
-| 手机浏览器 | 获准账号可试用。先确认桌面已安装，见[手机伴侣](/mobile/#platforms) |
-| Android、微信小程序、iOS | 见[手机伴侣](/mobile/#platforms)的分端状态 |
-| macOS | 规划中 |
-| 购买 | 官网价格为示例，见[价格页](/pricing/) |
+| Windows desktop | See [downloads](/download/) for the current version, access instructions, and signing status |
+| Mobile web | Available to approved accounts. Install the desktop app first. See the [mobile companion](/mobile/#platforms). |
+| Android, WeChat mini program, and iOS | See platform availability on the [mobile companion page](/mobile/#platforms) |
+| macOS | Planned |
+| Purchases | Website prices are examples. See [pricing](/pricing/). |
 
-获取方式以[下载页](/download/)为准。版本变化见[更新日志](/changelog/)。
+Check [downloads](/download/) for access instructions and the [changelog](/changelog/) for release history.
 
-## 怎么开始
+## Getting started
 
-1. 已收到邀请时，使用邀请方提供的安装方式和获准账号，再按[快速开始](/docs/quickstart/)建第一个项目。
-2. 尚未收到邀请时，当前没有公开申请表。可以先看[第一个项目](/docs/first-project/)，再到下载页查看开放进度。
+1. If you have an invitation, follow the installation instructions you received, sign in with the approved account, and use [Quickstart](/docs/quickstart/) to create a project.
+2. If you have yet to receive an invitation, there is currently no public application form. Walk through [your first project](/docs/first-project/) and check downloads for availability.
 
-## 本机资料
+## Local data
 
-知识库、原件、本体与本地向量索引在你的电脑上，不会主动上传。云服务不可用，或积分用完、会员到期时，本机的浏览、编辑、检索、版本管理、备份和导出照常可用。
+Your knowledge library, original files, ontology, and local vector index stay on your computer. Local browsing, editing, search, version management, backup, and export remain available when the cloud is offline, credits run out, or a membership expires.
 
-## 什么会发出去
+## What leaves your device
 
-用官方 AI 时，问答只发送提问和命中的原文片段，识别只发送选定的页图。接入聊天通道、手机中继，或点击确认后上传诊断包，也会发出数据。逐条清单见[出网清单](/egress/)。
+Questions sent to the official AI service include your prompt and matching source excerpts. OCR sends selected page images. Messaging integrations and the mobile relay also send data, as does a diagnostic upload you explicitly confirm. See [data and network access](/egress/) for the full list.

@@ -3,20 +3,15 @@ import '../styles/home-story.css';
 import { homeCases } from '../data/home-cases';
 import { windowsCta } from '../data/status';
 import { href } from '../lib/url';
-import type { Locale } from '../lib/i18n';
-
-interface Props { locale?: Locale }
-const { locale = 'en' } = Astro.props;
-const en = locale === 'en';
 
 const { label: downloadLabel } = await windowsCta();
 const art = (file: string) => href(`/home/${file}`);
 const stages = [
-  ['domains', en ? 'Choose a domain' : '选择领域'],
-  ['goal', en ? 'Set a goal' : '设定目标'],
-  ['organize', en ? 'Organize evidence' : '整理资料'],
-  ['review', en ? 'Review results' : '核对结果'],
-  ['finish', en ? 'Close the loop' : '完成闭环'],
+  ['domains', '选择领域'],
+  ['goal', '设定目标'],
+  ['organize', '整理资料'],
+  ['review', '核对结果'],
+  ['finish', '完成闭环'],
 ] as const;
 
 const nodes = [
@@ -38,17 +33,17 @@ const chapters = [
   <div class="hero-stage">
   <section class="story-hero wrap brand-hero" aria-labelledby="headline">
     <div class="hero-text">
-      <h1 id="headline">Garwoo <span>{en ? 'Build your own professional domain' : '构建你自己的专业领域'}</span></h1>
-      <p class="lede">{en ? 'Turn evidence into ontologies and objects, then map goals to actions with traceable sources.' : '把资料整理成本体与对象，再按目标排出能核对出处的行动。'}</p>
+      <h1 id="headline">格物 <span>构建你自己的专业领域</span></h1>
+      <p class="lede">把资料整理成本体与对象，再按目标排出能核对出处的行动。</p>
       <div class="actions">
-        <a class="btn btn-primary btn-lg" href="#domains">{en ? 'Choose a domain' : '选择领域'}</a>
-        <a class="btn btn-lg" href="#goal">{en ? 'See an example' : '看案例'}</a>
+        <a class="btn btn-primary btn-lg" href="#domains">选择领域</a>
+        <a class="btn btn-lg" href="#goal">看案例</a>
       </div>
     </div>
     <figure class="hero-art" role="img" aria-label="资料经本体整理成对象关系，再落到目标、行动与结果的示意">
       <div class="hero-network" aria-hidden="true">
-        <div class="network-kicker">PERSONAL PROJECT / 01</div>
-        <div class="network-title">{en ? 'Example project: formulation R&D' : '示例项目：配方研发'}</div>
+        <div class="network-kicker">个人项目 / 01</div>
+        <div class="network-title">示例项目：配方研发</div>
         <svg class="network-lines" viewBox="0 0 620 440" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle class="network-orbit orbit-a" cx="330" cy="235" r="78" />
           <circle class="network-orbit orbit-b" cx="330" cy="235" r="112" />
@@ -66,7 +61,7 @@ const chapters = [
         ))}
         <div class="network-core"><span>格物</span><small>本体</small></div>
         <div class="network-mascot"><img src={art('guide-brand-hero.webp?v=2')} width="768" height="768" alt="" fetchpriority="high" /></div>
-        <div class="network-status"><i></i>{en ? 'Organizing project evidence by ontology' : '正在按本体整理项目资料'}</div>
+        <div class="network-status"><i></i>正在按本体整理项目资料</div>
       </div>
     </figure>
   </section>
@@ -80,7 +75,7 @@ const chapters = [
     </nav>
 
     <section class="choice-section wrap" id="domains" aria-labelledby="domains-heading">
-      <h2 id="domains-heading">{en ? 'What do you want to work on first?' : '你想先做哪件事？'}</h2>
+      <h2 id="domains-heading">你想先做哪件事？</h2>
       <fieldset class="choices">
         <legend class="sr-only">选择一个领域查看完整任务</legend>
         {homeCases.map((item) => (
@@ -105,7 +100,7 @@ const chapters = [
               </div>
               <h3>{item.question}</h3>
             </div>
-            <a class="plain-link" href="#goal">{en ? 'View the task' : '查看任务'}</a>
+            <a class="plain-link" href="#goal">查看任务</a>
           </div>
         ))}
       </div>
@@ -167,7 +162,7 @@ const chapters = [
         {homeCases.map((item) => (
           <article class="chapter-variant" data-case={item.key}>
             <div class="chapter-copy">
-              <div class="chapter-heading"><span>{en ? 'Close the loop' : '完成闭环'}</span><span class="case-number">{item.id}</span></div>
+              <div class="chapter-heading"><span>完成闭环</span><span class="case-number">{item.id}</span></div>
               <h2>{item.finish}</h2>
             </div>
             <ol class="return-flow">
@@ -186,10 +181,10 @@ const chapters = [
   <div class="site-tail">
     <section class="wrap start" id="arrival" aria-labelledby="start-heading">
       <div>
-        <h2 id="start-heading">{en ? 'Start your own task' : '开始自己的任务'}</h2>
+        <h2 id="start-heading">开始自己的任务</h2>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href={href('/download/')}>{downloadLabel}</a>
-          <a class="btn btn-lg" href={href('/docs/first-project/')}>{en ? 'See your first project' : '看第一个项目'}</a>
+          <a class="btn btn-lg" href={href('/docs/first-project/')}>看第一个项目</a>
         </div>
         <nav class="start-links" aria-label="了解格物">
           <a href={href('/desktop/')}>桌面端</a>

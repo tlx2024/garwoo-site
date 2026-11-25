@@ -248,7 +248,8 @@ if (story) {
 
     if (!note.hidden) {
       const domain = domains.find(option => option.checked) ?? domains[0]
-      const text = ['已选领域', '目标', domain.dataset.record, domain.dataset.pending, '已回填'][current]
+      const english = document.documentElement.lang === 'en'
+      const text = [english ? 'Domain selected' : '已选领域', english ? 'Goal' : '目标', domain.dataset.record, domain.dataset.pending, english ? 'Result recorded' : '已回填'][current]
       if (note.textContent !== text) note.textContent = text
       const middle = (first.x + last.x) * .5
       const onRight = middle < 79

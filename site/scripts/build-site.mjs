@@ -13,6 +13,7 @@ siteTarget(env); // Reject malformed origins before producing any artifact.
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 for (const args of [
   ['node_modules/astro/bin/astro.mjs', 'build'],
+  ['scripts/localize-site.mjs'],
   ['scripts/subset-fonts.mjs'],
   ['scripts/check-sensitive.mjs'],
   ['scripts/check-site.mjs'],

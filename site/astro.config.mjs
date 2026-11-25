@@ -55,8 +55,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     starlight({
-      title: '格物 Garwoo',
-      description: '格物 Garwoo 的使用指南与常见问题。',
+      title: { en: 'Garwoo', 'zh-CN': '格物 Garwoo' },
       logo: {
         light: './src/assets/logo-light.png',
         dark: './src/assets/logo-dark.png',
@@ -65,7 +64,8 @@ export default defineConfig({
       },
       favicon: '/favicon-32.png?v=2',
       defaultLocale: 'root',
-      locales: { root: { label: '简体中文', lang: 'zh-CN' } },
+      locales: { root: { label: 'English', lang: 'en' }, zh: { label: '简体中文', lang: 'zh-CN' } },
+      components: { LanguageSelect: './src/components/DocsLanguageSwitch.astro' },
       customCss: ['./src/styles/docs.css'],
       head: [
         { tag: 'link', attrs: { rel: 'stylesheet', href: `${BASE}/fonts/fonts.css` } },
@@ -78,16 +78,16 @@ export default defineConfig({
       lastUpdated: false,
       sidebar: [
         {
-          label: '文档',
-          items: [{ label: '文档首页', link: '/docs/' }, 'docs/quickstart', 'docs/concepts', 'docs/first-project', 'docs/models', 'docs/trial', 'docs/troubleshooting', 'docs/faq', 'docs/glossary'],
+          label: 'Documentation', translations: { 'zh-CN': '文档' },
+          items: [{ label: 'Docs home', translations: { 'zh-CN': '文档首页' }, link: '/docs/' }, 'docs/quickstart', 'docs/concepts', 'docs/first-project', 'docs/models', 'docs/trial', 'docs/troubleshooting', 'docs/faq', 'docs/glossary'],
         },
         {
-          label: '官网',
+          label: 'Website', translations: { 'zh-CN': '官网' },
           items: [
-            { label: '返回首页', link: '/' },
-            { label: '工作方式', link: '/how/' },
-            { label: '出网清单', link: '/egress/' },
-            { label: '更新日志', link: '/changelog/' },
+            { label: 'Back to homepage', translations: { 'zh-CN': '返回首页' }, link: '/' },
+            { label: 'How it works', translations: { 'zh-CN': '工作方式' }, link: '/how/' },
+            { label: 'Data & network access', translations: { 'zh-CN': '出网清单' }, link: '/egress/' },
+            { label: 'Changelog', translations: { 'zh-CN': '更新日志' }, link: '/changelog/' },
           ],
         },
       ],

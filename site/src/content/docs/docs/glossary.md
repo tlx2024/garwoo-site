@@ -1,20 +1,20 @@
 ---
-title: 术语表
-description: 格物里常用词的含义。
+title: Glossary
+description: Common terms used in Garwoo.
 ---
 
-| 词 | 含义 |
+| Term | Meaning |
 |---|---|
-| 项目 | 电脑上的一个文件夹，资料、对话、智能体和日程都围绕它 |
-| 本体 | 一个领域有哪些对象、怎么关联、守哪些规矩 |
-| 对象 | 本体里的一个具体条目，例如配方 F-03、实验批次 B-1024 |
-| 起步包 | 一个领域的现成结构，含类型、示例对象、出处文章、能力问题、智能体和驾驶舱 |
-| 智能体 | 有明确职责、可用资料和技能的协作者 |
-| 日程 | 让智能体按时间重复开展任务 |
-| 委派 | 把一件事交给对口的智能体 |
-| 出处 | 回答所依据的原文片段及其版本 |
-| 采纳 | 确认 AI 起草的条目，采纳后才生效 |
-| 积分 | 使用官方 AI 的计量单位，页面上的金额是示例 |
-| 出网清单 | 逐条列出哪些内容会发出本机 |
+| Project | A folder on your computer that holds materials and gives conversations, agents, and schedules a shared context |
+| Ontology | The objects in a domain, their relationships, and the rules that apply |
+| Object | An individual item defined by an ontology, such as formulation F-03 or experiment batch B-1024 |
+| Starter pack | A domain structure with object types, sample objects, source articles, competency questions, agents, and a dashboard |
+| Agent | A collaborator with a defined responsibility, access to material, and skills |
+| Schedule | A way to have an agent repeat a task at set times |
+| Delegation | Assigning a task to the agent responsible for it |
+| Citation | The original passage and version an answer relies on |
+| Approval | Confirmation that makes an AI-drafted entry active |
+| Credits | Units for using the official AI service. Published prices are examples. |
+| Data and network access | An itemized list of what can leave your device |
 
-更完整的说明见[核心概念](/docs/concepts/)。
+See [core concepts](/docs/concepts/) for how these terms fit together.

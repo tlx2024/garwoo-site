@@ -22,8 +22,9 @@
     "sharp": "^0.35.5"
   },
   "devDependencies": {
-    "satteri": "0.10.5",
     "@astrojs/check": "^0.9.10",
+    "parse5": "8.1.1",
+    "satteri": "0.10.5",
     "subset-font": "^2.9.0",
     "typescript": "^6.0.3"
   }

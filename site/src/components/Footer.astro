@@ -2,11 +2,10 @@
 import { href } from '../lib/url';
 import { accountHref } from '../lib/target';
 import NextStep from './NextStep.astro';
-import { getLocale, t, type Locale } from '../lib/i18n';
+import { t } from '../lib/i18n';
 
 const isHome = Astro.url.pathname === href('/');
-const { locale = getLocale(Astro.url) } = Astro.props as { locale?: Locale };
-const copy = t(locale);
+const copy = t('zh');
 const legalLinks = [[copy.privacy, '/legal/privacy/'], [copy.terms, '/legal/terms/']];
 const groups = [
   { title: copy.product, items: [[copy.desktop, '/desktop/'], [copy.mobile, '/mobile/'], [copy.wechat, '/mobile/#weapp'], [copy.packs, '/packs/']] },

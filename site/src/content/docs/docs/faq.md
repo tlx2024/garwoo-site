@@ -1,32 +1,32 @@
 ---
-title: 常见问题
-description: 费用、联网、数据放在哪里。
+title: Frequently asked questions
+description: Costs, network access, and where Garwoo stores your data.
 ---
 
-## 格物收费吗？
+## Does Garwoo cost money?
 
-客户端免费。用官方 AI 需要账号与积分，价格见[价格](/pricing/)。页面上的金额是示例，注册与购买尚未开放。
+The client is free. The official AI service requires an account and credits. The [pricing page](/pricing/) lists example rates. Registration and purchases are currently closed.
 
-## 不买会员还能用吗？
+## Can I use Garwoo without a membership?
 
-能。本机的浏览、编辑、检索、备份和导出都不依赖会员，也可以接自己的模型，用它跑智能体与日程。
+Yes. You can browse, edit, search, back up, and export local data. You can also connect your own model to run agents and scheduled tasks.
 
-## 资料保存在什么地方？
+## Where is my data stored?
 
-在你的电脑上。云端不存本地知识库、原文档和本体结构。哪些内容会发出去，见[出网清单](/egress/)。
+Your knowledge library, original files, and ontologies are stored on your computer. See [data and network access](/egress/) for what leaves your device.
 
-## 积分不足或云端不可用怎么办？
+## What if I run out of credits or the cloud is unavailable?
 
-暂停官方 AI。如果配置了本地模型，会改用本地推理；本机资料不受影响。
+The official AI service pauses. Garwoo switches to local inference if you configured a local model. Your local materials remain available.
 
-## 可以用自己的模型吗？
+## Can I use my own model?
 
-可以。接 OpenAI 兼容地址或本机 Ollama，请求直接发到你配置的地址，不经格物网关，不扣积分。
+Yes. Connect an OpenAI-compatible endpoint or local Ollama. Requests go directly to the configured endpoint and use no Garwoo credits.
 
-## 从哪里下载？
+## Where can I download Garwoo?
 
-见[下载页](/download/)：那里列出当前版本、下载方式、SHA-256，以及安装包有没有签名。没有公开下载链接时，页面会写明如何申请。
+The [download page](/download/) lists the current version, access instructions, SHA-256, and whether the installer is signed.
 
-## 能接入产线和业务系统吗？
+## Can Garwoo connect to production lines and business systems?
 
-个人版不接。接入 MES、SCADA、ERP，以及权限、审批、审计，通过[格物企业版](/enterprise/)私有化交付。
+MES, SCADA, and ERP integrations, along with permissions, approvals, and audit controls, are available through private deployment of [Garwoo Enterprise](/enterprise/).

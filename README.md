@@ -15,6 +15,8 @@ Node 22，进入 `site/` 后执行 `npm ci`、`npm test`、`npm run check`。Win
 
 `ACCOUNT_ORIGIN`、`DOWNLOAD_ORIGIN` 只接受 HTTPS 源地址，尚未开放时留空。所有站内链接用部署无关的根路径：Astro 里调用 `href()`，Markdown 链接由构建插件补当前 base。
 
+正式构建默认生成英文页面，简体中文使用 `/zh/` 前缀。官网 Astro 页面维护中文原文，英文用 `site/src/data/translations.ts` 的词条在构建时生成。Starlight 指南分别维护在 `site/src/content/docs/docs/` 和 `site/src/content/docs/zh/docs/`，两份文档使用相同文件名。修改文案后用 `build:www` 和 `build:pages` 检查双语产物。
+
 ## 门禁
 
 `npm run build:*` 依次执行：Astro 构建 → 字体子集（按站内实际用字）→ 去敏与链接检查（`check-sensitive`）→ 产物检查（`check-site`：过期宣称、死链、本地端点、`robots.txt` 策略）。`npm test` 覆盖站点目标与产物策略的反例。
