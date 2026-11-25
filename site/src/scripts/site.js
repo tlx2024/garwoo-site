@@ -14,6 +14,8 @@ import { translations } from '../data/translations';
     Personal: '个人', Credits: '积分', Changelog: '更新日志', About: '关于', Brand: '品牌', 'Privacy policy': '隐私政策', 'Terms of use': '用户协议',
     'Data & network access': '资料与出网', 'Deployment & consulting': '部署与咨询',
     Garwoo: '格物', 'Build your own professional domain': '构建你自己的专业领域',
+    'PERSONAL PROJECT / 01': '个人项目 / 01', 'Example project: formulation R&D': '示例项目：配方研发',
+    'Organizing project evidence by ontology': '正在按本体整理项目资料',
     'Turn evidence into ontologies and objects, then map goals to actions with traceable sources.': '把资料整理成本体与对象，再按目标排出能核对出处的行动。',
     'Choose a domain': '选择领域', 'See an example': '看案例', 'What do you want to work on first?': '你想先做哪件事？',
     'View the task': '查看任务', 'Close the loop': '完成闭环', 'Start your own task': '开始自己的任务', 'See your first project': '看第一个项目',
@@ -24,12 +26,14 @@ import { translations } from '../data/translations';
     var node;
     while ((node = walker.nextNode())) {
       if (node.parentElement && /^(SCRIPT|STYLE|NOSCRIPT|CODE|PRE)$/.test(node.parentElement.tagName)) continue;
+      if (node.parentElement && node.parentElement.closest('[data-language-switch]')) continue;
       var value = node.nodeValue || '';
       var trimmed = value.trim();
       if (!trimmed || !translations[trimmed]) continue;
       node.nodeValue = value.replace(trimmed, translations[trimmed]);
     }
     document.querySelectorAll('[alt], [aria-label], [title], [placeholder], [content]').forEach(function (element) {
+      if (element.closest('[data-language-switch]')) return;
       ['alt', 'aria-label', 'title', 'placeholder', 'content'].forEach(function (name) {
         var value = element.getAttribute(name);
         if (value && translations[value.trim()]) element.setAttribute(name, translations[value.trim()]);
@@ -41,12 +45,14 @@ import { translations } from '../data/translations';
     var node;
     while ((node = walker.nextNode())) {
       if (node.parentElement && /^(SCRIPT|STYLE|NOSCRIPT|CODE|PRE)$/.test(node.parentElement.tagName)) continue;
+      if (node.parentElement && node.parentElement.closest('[data-language-switch]')) continue;
       var value = node.nodeValue || '';
       var trimmed = value.trim();
       if (!trimmed || !reverseTranslations[trimmed]) continue;
       node.nodeValue = value.replace(trimmed, reverseTranslations[trimmed]);
     }
     document.querySelectorAll('[alt], [aria-label], [title], [placeholder], [content]').forEach(function (element) {
+      if (element.closest('[data-language-switch]')) return;
       ['alt', 'aria-label', 'title', 'placeholder', 'content'].forEach(function (name) {
         var value = element.getAttribute(name);
         if (value && reverseTranslations[value.trim()]) element.setAttribute(name, reverseTranslations[value.trim()]);
